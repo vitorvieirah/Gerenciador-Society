@@ -1,9 +1,6 @@
 package gerenciadorsociety.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.xml.parsers.SAXParser;
 
@@ -11,6 +8,7 @@ import javax.xml.parsers.SAXParser;
 @Getter
 @ToString
 @EqualsAndHashCode
+@Builder
 public class Dono {
     private String nome;
     private String cpf;

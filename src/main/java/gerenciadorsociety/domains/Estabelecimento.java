@@ -1,9 +1,6 @@
 package gerenciadorsociety.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.List;
 @Getter
 @ToString
 @EqualsAndHashCode
+@Builder
 public class Estabelecimento {
     private String nome;
     private String cnpj;

@@ -1,14 +1,12 @@
 package gerenciadorsociety.domains;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
+@Builder
 public class Campo {
     private Long id;
     private Integer numero;
