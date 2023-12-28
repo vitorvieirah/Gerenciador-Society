@@ -1,4 +1,4 @@
-package gerenciadorsociety.entitys;
+package gerenciadorsociety.infra.entitys;
 
 import gerenciadorsociety.domains.Campo;
 import gerenciadorsociety.domains.Churrasqueira;

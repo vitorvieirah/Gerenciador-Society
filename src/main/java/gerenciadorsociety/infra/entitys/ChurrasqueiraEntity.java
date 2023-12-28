@@ -1,4 +1,4 @@
-package gerenciadorsociety.entitys;
+package gerenciadorsociety.infra.entitys;
 
 import jakarta.persistence.*;
 import lombok.*;

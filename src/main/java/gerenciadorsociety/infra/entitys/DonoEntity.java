@@ -1,4 +1,4 @@
-package gerenciadorsociety.entitys;
+package gerenciadorsociety.infra.entitys;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,9 +10,9 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @Builder
-@Entity(name = "Administrador")
-@Table(name = "admnistradores")
-public class AdministradorEntity {
+@Entity(name = "Dono")
+@Table(name = "donos")
+public class DonoEntity {
     @Id
     private String cpf;
     private String nome;
