@@ -20,12 +20,12 @@ public class EstabelecimentoEntity {
     @Id
     private String cnpj;
     private String nome;
-    private Dono dono;
+    private DonoEntity dono;
     @ManyToOne
     @JoinColumn(name = "numero_campo", nullable = false)
-    private List<Campo> campos;
+    private List<CampoEntity> campos;
     @ManyToOne
     @JoinColumn(name = "numero_churrasqueira", nullable = false)
-    private List<Churrasqueira> churrasqueiras;
+    private List<ChurrasqueiraEntity> churrasqueiras;
     private BigDecimal valorHora;
 }
