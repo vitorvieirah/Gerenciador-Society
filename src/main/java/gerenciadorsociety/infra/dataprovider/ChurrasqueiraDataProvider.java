@@ -1,26 +1,38 @@
 package gerenciadorsociety.infra.dataprovider;
 
 import gerenciadorsociety.domains.Churrasqueira;
+import gerenciadorsociety.infra.entitys.ChurrasqueiraEntity;
+import gerenciadorsociety.infra.mappers.ChurrasqueiraMapper;
+import gerenciadorsociety.infra.repositorys.ChurrasqueiraRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
+@AllArgsConstructor
 public class ChurrasqueiraDataProvider {
 
+    private final ChurrasqueiraRepository repository;
+
     public Churrasqueira salvar (Churrasqueira churrasqueira){
-        return null;
+        ChurrasqueiraEntity churEntity = ChurrasqueiraMapper.paraEntityDeDomain(churrasqueira);
+        churEntity = repository.save(churEntity);
+        return ChurrasqueiraMapper.paraDomainDeEntity(churEntity);
     }
 
     public List<Churrasqueira> consultarTodos (){
-        return null;
+        return ChurrasqueiraMapper.paraDomainsDeEntitys(repository.findAll());
     }
 
     public Churrasqueira consultarPorId (Long id){
-        return null;
+        ChurrasqueiraEntity churEntity = repository.getReferenceById(id);
+        return ChurrasqueiraMapper.paraDomainDeEntity(churEntity);
     }
 
-    public void deletar (Long id){}
-
-    public Churrasqueira alterar (Churrasqueira churrasqueira){
-        return null;
+    public void deletar (Long id){
+        repository.deleteById(id);
     }
+
+
 }
