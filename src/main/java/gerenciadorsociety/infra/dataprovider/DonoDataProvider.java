@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @AllArgsConstructor
 @Slf4j
@@ -28,15 +30,15 @@ public class DonoDataProvider {
         return DonoMapper.paraDomainDeEntity(donoEntity);
     }
 
-    public Dono consultarPorCpf (String cpf){
-        DonoEntity donoEntity = null;
+    public Optional<Dono> consultarPorCpf (String cpf){
+        Optional<DonoEntity> donoEntity;
         try{
-            donoEntity = repository.getReferenceByCpf(cpf);
+            donoEntity = repository.findByCpf(cpf);
         }catch (Exception ex){
             log.error("Erro ao consultar Dono por Cpf", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
-        return DonoMapper.paraDomainDeEntity(donoEntity);
+        return donoEntity.isEmpty() ? Optional.empty() : Optional.of(DonoMapper.paraDomainDeEntity(donoEntity.get()));
     }
 
     public void deletar (String cpf){

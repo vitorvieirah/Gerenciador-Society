@@ -4,7 +4,9 @@ import gerenciadorsociety.infra.entitys.AdministradorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AdministradorRepository extends JpaRepository<AdministradorEntity, String> {
-    AdministradorEntity getReferenceByCpf(String cpf);
+    Optional<AdministradorEntity> findByCpf(String cpf);
 }

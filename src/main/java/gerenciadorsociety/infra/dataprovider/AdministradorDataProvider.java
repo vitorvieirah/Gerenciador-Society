@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @AllArgsConstructor
 @Slf4j
@@ -27,15 +29,15 @@ public class AdministradorDataProvider {
         return AdministradorMapper.paraDomainDeEntiy(admEntity);
     }
 
-    public Administrador consultar(String cpf){
-        AdministradorEntity admEntity = null;
+    public Optional<Administrador> consultar(String cpf){
+        Optional<AdministradorEntity> admEntity;
         try {
-             admEntity = repository.getReferenceByCpf(cpf);
+             admEntity = repository.findByCpf(cpf);
         }catch (Exception ex){
             log.error("Erro ao consultar Administrador", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
-        return AdministradorMapper.paraDomainDeEntiy(admEntity);
+        return admEntity.isEmpty() ? Optional.empty() : Optional.of(AdministradorMapper.paraDomainDeEntiy(admEntity.get()));
     }
 
     public void deletar(String cpf){

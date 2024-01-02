@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @Component
@@ -40,15 +41,15 @@ public class EstabelecimentoDataProvider {
         }
     }
 
-    public Estabelecimento consultarPorCnpj (String cnpj){
-        EstabelecimentoEntity estabEntity = null;
+    public Optional<Estabelecimento> consultarPorCnpj (String cnpj){
+        Optional<EstabelecimentoEntity> estabEntity;
         try{
-            estabEntity = repository.getReferenceByCnpj(cnpj);
+            estabEntity = repository.findByCnpj(cnpj);
         }catch (Exception ex){
             log.error("Erro ao consultar Estabelecimento", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
-        return EstabelecimentoMapper.paraDomainDeEntity(estabEntity);
+        return estabEntity.isEmpty() ? Optional.empty() : Optional.of(EstabelecimentoMapper.paraDomainDeEntity(estabEntity.get()));
     }
 
     public void deletar (String cnpj){
