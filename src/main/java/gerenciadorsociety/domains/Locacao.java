@@ -2,14 +2,19 @@ package gerenciadorsociety.domains;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
+
 @AllArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
-@Builder
-public class Campo {
+public abstract class Locacao {
+
     private Long id;
-    private Integer numero;
-    private Boolean reservado;
     private Estabelecimento estabelecimento;
+    private Administrador administrador;
+    private LocalDate dataLocacao;
+    private Boolean ativo;
+
 }
