@@ -1,14 +1,21 @@
 package gerenciadorsociety.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
+import java.time.LocalDate;
 
+@NoArgsConstructor
 @Getter
 @ToString
-@Builder
 public class LocacaoCampoDto extends LocacaoDto {
-    private CampoDto campoDto;
+    private CampoDto campo;
+
+    public LocacaoCampoDto(Long id, EstabelecimentoDto estab, AdministradorDto adm, LocalDate dataLocacao, Boolean ativo, CampoDto campo){
+        this.id = id;
+        this.estabelecimento = estab;
+        this.administrador = adm;
+        this.dataLocacao = dataLocacao;
+        this.ativo = ativo;
+        this.campo = campo;
+    }
 }

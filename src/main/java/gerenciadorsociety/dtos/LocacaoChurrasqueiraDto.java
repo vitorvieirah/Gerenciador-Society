@@ -1,12 +1,25 @@
 package gerenciadorsociety.dtos;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import gerenciadorsociety.domains.LocacaoChurrasqueira;
+import gerenciadorsociety.infra.entitys.AdministradorEntity;
+import gerenciadorsociety.infra.entitys.CampoEntity;
+import gerenciadorsociety.infra.entitys.EstabelecimentoEntity;
+import lombok.*;
 
+import java.time.LocalDate;
+
+@NoArgsConstructor
 @Getter
 @ToString
-@Builder
 public class LocacaoChurrasqueiraDto extends LocacaoDto{
-    private ChurrasqueiraDto churrasqueiraDto;
+    private ChurrasqueiraDto churrasqueira;
+
+    public LocacaoChurrasqueiraDto(Long id, EstabelecimentoDto estab, AdministradorDto adm, LocalDate dataLocacao, Boolean ativo, ChurrasqueiraDto churrasqueira){
+        this.id = id;
+        this.estabelecimento = estab;
+        this.administrador = adm;
+        this.dataLocacao = dataLocacao;
+        this.ativo = ativo;
+        this.churrasqueira = churrasqueira;
+    }
 }

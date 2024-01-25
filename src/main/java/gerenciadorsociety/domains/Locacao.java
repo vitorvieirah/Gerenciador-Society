@@ -5,16 +5,17 @@ import lombok.*;
 import java.time.LocalDate;
 
 
-@AllArgsConstructor
+
+@NoArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
 public abstract class Locacao {
 
-    private Long id;
-    private Estabelecimento estabelecimento;
-    private Administrador administrador;
-    private LocalDate dataLocacao;
-    private Boolean ativo;
+    protected Long id;
+    protected Estabelecimento estabelecimento;
+    protected Administrador administrador;
+    protected LocalDate dataLocacao;
+    protected Boolean ativo;
 
 }
