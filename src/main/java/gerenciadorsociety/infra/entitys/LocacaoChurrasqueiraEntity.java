@@ -4,6 +4,8 @@ import gerenciadorsociety.domains.Churrasqueira;
 import jakarta.persistence.*;
 import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @ToString
 @Builder

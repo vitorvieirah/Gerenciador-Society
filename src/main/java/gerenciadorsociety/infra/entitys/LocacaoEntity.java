@@ -7,11 +7,10 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
-@Builder
 @Entity(name = "Locacao")
 @Table(name = "locacaoes")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -20,12 +19,15 @@ public abstract class LocacaoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Estabelecimento estabelecimento;
-    private Administrador administrador;
-    private LocalDate dataLocacao;
-    private Boolean ativo;
-
+    protected Long id;
+    @ManyToOne
+    @JoinColumn(name = "id_estabelecimento", nullable = false)
+    protected EstabelecimentoEntity estabelecimento;
+    @ManyToOne
+    @JoinColumn(name = "id_administrador", nullable = false)
+    protected AdministradorEntity administrador;
+    protected LocalDate dataLocacao;
+    protected Boolean ativo;
 }
 
 
