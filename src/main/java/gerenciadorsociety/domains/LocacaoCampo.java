@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
-@ToString
 public class LocacaoCampo extends Locacao{
     private Campo campo;
 

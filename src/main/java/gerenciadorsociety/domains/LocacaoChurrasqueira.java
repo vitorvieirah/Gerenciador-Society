@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
-@ToString
 public class LocacaoChurrasqueira extends Locacao{
     private Churrasqueira churrasqueira;
 

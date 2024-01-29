@@ -2,6 +2,7 @@ package gerenciadorsociety.controllers;
 
 import gerenciadorsociety.domains.Jogador;
 import gerenciadorsociety.dtos.JogadorDto;
+import gerenciadorsociety.services.JogadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,7 +17,8 @@ public class JogadorController {
     private final JogadorService jogadorService;
 
     @PutMapping
-    public ResponseEntity entrarEmUmaLista(JogadorDto dto){
-        return ResponseEntity.ok(jogadorService.entrarNaLista(dto));
+    public ResponseEntity<Void> entrarEmUmaLista(JogadorDto dto){
+        jogadorService.entrarNaLista(dto);
+        return ResponseEntity.ok().build();
     }
 }

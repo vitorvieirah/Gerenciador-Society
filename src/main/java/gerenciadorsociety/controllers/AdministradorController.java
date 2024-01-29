@@ -1,9 +1,15 @@
 package gerenciadorsociety.controllers;
 
 
-import gerenciadorsociety.domains.Administrador;
+import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.dtos.AdministradorDto;
+import gerenciadorsociety.dtos.LocacaoCampoDto;
+import gerenciadorsociety.dtos.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.dtos.LocacaoDto;
+import gerenciadorsociety.services.AdministradorService;
+import gerenciadorsociety.services.LocacaoCampoService;
+import gerenciadorsociety.services.LocacaoChurrasqueiraService;
+import gerenciadorsociety.services.LocacaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +21,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class AdministradorController {
 
     private final AdministradorService admService;
+    private final LocacaoCampoService locacaoCampoService;
+    private final LocacaoChurrasqueiraService locacaoChurrasqueiraService;
     private final LocacaoService locacaoService;
+
     @PostMapping
     public ResponseEntity<AdministradorDto> cadastrar (@RequestBody AdministradorDto dto, UriComponentsBuilder uriBuilder){
         AdministradorDto admBody = admService.cadastrar(dto);
@@ -24,8 +33,15 @@ public class AdministradorController {
     }
 
     @PostMapping
-    public ResponseEntity<LocacaoDto> locarCampo (@RequestBody LocacaoDto dto, UriComponentsBuilder uriBuilder){
-        LocacaoDto locacaoBody = locacaoService.locar(dto);
+    public ResponseEntity<LocacaoDto> locarCampo (@RequestBody LocacaoCampoDto dto, UriComponentsBuilder uriBuilder){
+        LocacaoDto locacaoBody = locacaoCampoService.locar(dto);
+        var uri = uriBuilder.path("/administrador/{id}").buildAndExpand(locacaoBody.getId()).toUri();
+        return ResponseEntity.created(uri).body(locacaoBody);
+    }
+
+    @PostMapping
+    public ResponseEntity<LocacaoDto> locarChurrasqueira (@RequestBody LocacaoChurrasqueiraDto dto, UriComponentsBuilder uriBuilder){
+        LocacaoDto locacaoBody = locacaoChurrasqueiraService.locar(dto);
         var uri = uriBuilder.path("/administrador/{id}").buildAndExpand(locacaoBody.getId()).toUri();
         return ResponseEntity.created(uri).body(locacaoBody);
     }

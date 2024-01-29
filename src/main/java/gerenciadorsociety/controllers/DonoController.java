@@ -2,6 +2,7 @@ package gerenciadorsociety.controllers;
 
 import gerenciadorsociety.domains.Locacao;
 import gerenciadorsociety.dtos.*;
+import gerenciadorsociety.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ public class DonoController {
     private final DonoService donoService;
     private final EstabelecimentoService estabService;
     private final CampoService campoService;
+    private final ChurrasqueiraService churrasqueiraService;
     private final LocacaoService locacaoService;
 
     @PostMapping
@@ -41,8 +43,8 @@ public class DonoController {
     }
 
     @PostMapping
-    public ResponseEntity <ChurrasqueiraDto> cadastrarEstabelecimento (@RequestBody ChurrasqueiraDto dto, UriComponentsBuilder uriBuilder){
-        ChurrasqueiraDto churraBody = churrasService.cadastrar(dto);
+    public ResponseEntity <ChurrasqueiraDto> cadastrarChurrasqueira (@RequestBody ChurrasqueiraDto dto, UriComponentsBuilder uriBuilder){
+        ChurrasqueiraDto churraBody = churrasqueiraService.cadastrar(dto);
         var uri = uriBuilder.path("/dono/churrasqueira/{id}").buildAndExpand(churraBody.id()).toUri();
         return ResponseEntity.created(uri).body(churraBody);
     }
