@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @NoArgsConstructor
 @Getter
@@ -27,6 +28,8 @@ public abstract class LocacaoEntity {
     @JoinColumn(name = "id_administrador", nullable = false)
     protected AdministradorEntity administrador;
     protected LocalDate dataLocacao;
+    protected LocalDate data;
+    protected LocalTime horaLocacao;
     protected Boolean ativo;
 }
 

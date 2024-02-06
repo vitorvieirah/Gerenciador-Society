@@ -1,10 +1,7 @@
 package gerenciadorsociety.infra.mappers;
 
-import gerenciadorsociety.domains.Churrasqueira;
-import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.domains.LocacaoChurrasqueira;
 import gerenciadorsociety.dtos.LocacaoChurrasqueiraDto;
-import gerenciadorsociety.infra.entitys.EstabelecimentoEntity;
 import gerenciadorsociety.infra.entitys.LocacaoChurrasqueiraEntity;
 
 import java.util.List;
@@ -17,6 +14,8 @@ public abstract class LocacaoChurrasqueiraMapper {
                 EstabelecimentoMapper.paraEntityDeDomain(locacaoChurrasqueira.getEstabelecimento()),
                 AdministradorMapper.paraEntityDeDomain(locacaoChurrasqueira.getAdministrador()),
                 locacaoChurrasqueira.getDataLocacao(),
+                locacaoChurrasqueira.getData(),
+                locacaoChurrasqueira.getHoraLocacao(),
                 locacaoChurrasqueira.getAtivo(),
                 ChurrasqueiraMapper.paraEntityDeDomain(locacaoChurrasqueira.getChurrasqueira())
         );
@@ -28,6 +27,8 @@ public abstract class LocacaoChurrasqueiraMapper {
                 EstabelecimentoMapper.paraDomainDeEntity(locacaoChurrasqueiraEntity.getEstabelecimento()),
                 AdministradorMapper.paraDomainDeEntiy(locacaoChurrasqueiraEntity.getAdministrador()),
                 locacaoChurrasqueiraEntity.getDataLocacao(),
+                locacaoChurrasqueiraEntity.getData(),
+                locacaoChurrasqueiraEntity.getHoraLocacao(),
                 locacaoChurrasqueiraEntity.getAtivo(),
                 ChurrasqueiraMapper.paraDomainDeEntity(locacaoChurrasqueiraEntity.getChurrasqueira())
         );
@@ -39,6 +40,8 @@ public abstract class LocacaoChurrasqueiraMapper {
                 EstabelecimentoMapper.paraDtoDeDomain(locacaoChurrasqueira.getEstabelecimento()),
                 AdministradorMapper.paraDtoDeDomain(locacaoChurrasqueira.getAdministrador()),
                 locacaoChurrasqueira.getDataLocacao(),
+                locacaoChurrasqueira.getData(),
+                locacaoChurrasqueira.getHoraLocacao(),
                 locacaoChurrasqueira.getAtivo(),
                 ChurrasqueiraMapper.paraDtoDeDomain(locacaoChurrasqueira.getChurrasqueira())
         );
@@ -50,6 +53,8 @@ public abstract class LocacaoChurrasqueiraMapper {
                 EstabelecimentoMapper.paraDomainDeDto(locacaoChurrasqueiraDto.getEstabelecimento()),
                 AdministradorMapper.paraDomainDeDto(locacaoChurrasqueiraDto.getAdministrador()),
                 locacaoChurrasqueiraDto.getDataLocacao(),
+                locacaoChurrasqueiraDto.getData(),
+                locacaoChurrasqueiraDto.getHoraLocacao(),
                 locacaoChurrasqueiraDto.getAtivo(),
                 ChurrasqueiraMapper.paraDomainDeDto(locacaoChurrasqueiraDto.getChurrasqueira())
         );

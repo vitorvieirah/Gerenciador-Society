@@ -16,8 +16,11 @@ public abstract class LocacaoCampoMapper {
                 EstabelecimentoMapper.paraEntityDeDomain(locacaoCampo.getEstabelecimento()),
                 AdministradorMapper.paraEntityDeDomain(locacaoCampo.getAdministrador()),
                 locacaoCampo.getDataLocacao(),
+                locacaoCampo.getData(),
+                locacaoCampo.getHoraLocacao(),
                 locacaoCampo.getAtivo(),
-                CampoMapper.paraEntityDeDomain(locacaoCampo.getCampo())
+                CampoMapper.paraEntityDeDomain(locacaoCampo.getCampo()),
+                locacaoCampo.getListaDeJogadores()
         );
     }
 
@@ -27,8 +30,11 @@ public abstract class LocacaoCampoMapper {
                 EstabelecimentoMapper.paraDomainDeEntity(locacaoCampoEntity.getEstabelecimento()),
                 AdministradorMapper.paraDomainDeEntiy(locacaoCampoEntity.getAdministrador()),
                 locacaoCampoEntity.getDataLocacao(),
+                locacaoCampoEntity.getData(),
+                locacaoCampoEntity.getHoraLocacao(),
                 locacaoCampoEntity.getAtivo(),
-                CampoMapper.paraDomainDeEntity(locacaoCampoEntity.getCampo())
+                CampoMapper.paraDomainDeEntity(locacaoCampoEntity.getCampo()),
+                locacaoCampoEntity.getListaDeJogadores()
         );
     }
 
@@ -38,8 +44,11 @@ public abstract class LocacaoCampoMapper {
                 EstabelecimentoMapper.paraDtoDeDomain(locacaoCampo.getEstabelecimento()),
                 AdministradorMapper.paraDtoDeDomain(locacaoCampo.getAdministrador()),
                 locacaoCampo.getDataLocacao(),
+                locacaoCampo.getData(),
+                locacaoCampo.getHoraLocacao(),
                 locacaoCampo.getAtivo(),
-                CampoMapper.paraDtoDeDomain(locacaoCampo.getCampo())
+                CampoMapper.paraDtoDeDomain(locacaoCampo.getCampo()),
+                locacaoCampo.getListaDeJogadores()
         );
     }
 
@@ -49,8 +58,11 @@ public abstract class LocacaoCampoMapper {
                 EstabelecimentoMapper.paraDomainDeDto(locacaoCampoDto.getEstabelecimento()),
                 AdministradorMapper.paraDomainDeDto(locacaoCampoDto.getAdministrador()),
                 locacaoCampoDto.getDataLocacao(),
+                locacaoCampoDto.getData(),
+                locacaoCampoDto.getHoraLocacao(),
                 locacaoCampoDto.getAtivo(),
-                CampoMapper.paraDomainDeDto(locacaoCampoDto.getCampo())
+                CampoMapper.paraDomainDeDto(locacaoCampoDto.getCampo()),
+                locacaoCampoDto.getListaDeJogadores()
         );
     }
 

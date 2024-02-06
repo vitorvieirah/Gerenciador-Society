@@ -1,5 +1,6 @@
 package gerenciadorsociety.infra.dataprovider;
 
+import gerenciadorsociety.domains.Campo;
 import gerenciadorsociety.domains.Churrasqueira;
 import gerenciadorsociety.infra.entitys.ChurrasqueiraEntity;
 import gerenciadorsociety.infra.execptions.DataBaseExecption;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
@@ -56,6 +58,17 @@ public class ChurrasqueiraDataProvider {
             log.error("Erro ao deletar Churrasqueira", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
+    }
+
+    public Optional<Churrasqueira> buscarPorNumero (Integer numero){
+        Optional<ChurrasqueiraEntity> churrasqueiraEntity;
+        try{
+            churrasqueiraEntity = repository.findByNumero(numero);
+        }catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+            throw new DataBaseExecption(ex.getMessage());
+        }
+        return churrasqueiraEntity.map(ChurrasqueiraMapper::paraDomainDeEntity);
     }
 
 

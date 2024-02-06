@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @Component
@@ -57,5 +58,17 @@ public class CampoDataProvider {
             log.error("Erro ao deletar campo", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
+    }
+
+    public Optional<Campo> buscarPorNumero (Integer numero){
+        Optional<CampoEntity> campoEntity;
+        try {
+            campoEntity = repository.findByNumero(numero);
+        }catch (Exception ex){
+            log.error(ex.getMessage(), ex);
+            throw new DataBaseExecption(ex.getMessage());
+        }
+
+        return campoEntity.map(CampoMapper::paraDomainDeEntity);
     }
 }

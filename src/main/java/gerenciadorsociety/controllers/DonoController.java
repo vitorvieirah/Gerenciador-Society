@@ -1,6 +1,5 @@
 package gerenciadorsociety.controllers;
 
-import gerenciadorsociety.domains.Locacao;
 import gerenciadorsociety.dtos.*;
 import gerenciadorsociety.services.*;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,8 @@ public class DonoController {
     private final EstabelecimentoService estabService;
     private final CampoService campoService;
     private final ChurrasqueiraService churrasqueiraService;
-    private final LocacaoService locacaoService;
+    private final LocacaoChurrasqueiraService locacaoChurrasqueiraService;
+    private final LocacaoCampoService locacaoCampoService;
 
     @PostMapping
     public ResponseEntity<DonoDto> cadastro (@RequestBody DonoDto dto, UriComponentsBuilder uriBuilder){
@@ -50,7 +50,12 @@ public class DonoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LocacaoDto>> vizualizarLocacoes (){
-        return ResponseEntity.ok(locacaoService.getLocacoes());
+    public ResponseEntity<List<LocacaoChurrasqueiraDto>> vizualizarLocacoesChurrasqueiras (){
+        return ResponseEntity.ok(locacaoChurrasqueiraService.buscarPorTodos());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LocacaoCampoDto>> vizualizarLocacaoesCampo (){
+        return ResponseEntity.ok(locacaoCampoService.buscarPorTodos());
     }
 }
