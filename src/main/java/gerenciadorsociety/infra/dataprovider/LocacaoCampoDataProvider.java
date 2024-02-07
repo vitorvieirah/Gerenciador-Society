@@ -34,7 +34,7 @@ public class LocacaoCampoDataProvider {
         return LocacaoCampoMapper.paraDomainDeEntity(entity);
     }
 
-    public Optional<Locacao> buscarPorId(Long id) {
+    public Optional<LocacaoCampo> buscarPorId(Long id) {
         Optional<LocacaoCampoEntity> locacaoCampoEntity;
         try{
             locacaoCampoEntity = repository.findById(id);

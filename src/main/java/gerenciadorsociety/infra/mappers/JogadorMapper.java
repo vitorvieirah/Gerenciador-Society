@@ -1,8 +1,5 @@
 package gerenciadorsociety.infra.mappers;
 
-import gerenciadorsociety.domains.Jogador;
-import gerenciadorsociety.dtos.JogadorDto;
-
 public abstract class JogadorMapper {
 
     public static Jogador paraDomainDeDto(JogadorDto jogadorDto){

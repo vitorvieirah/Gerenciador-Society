@@ -21,7 +21,7 @@ public class LocacaoService {
 
 
     public void cancelar(Long id) {
-         Optional<Locacao> locacaoCampo = locacaoCampoDataProvider.buscarPorId(id);
+         Optional<LocacaoCampo> locacaoCampo = locacaoCampoDataProvider.buscarPorId(id);
          if (locacaoCampo.isPresent()){
              locacaoCampoDataProvider.deletar(id);
          }else {
