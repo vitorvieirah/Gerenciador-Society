@@ -58,4 +58,10 @@ public class DonoController {
     public ResponseEntity<List<LocacaoCampoDto>> vizualizarLocacaoesCampo (){
         return ResponseEntity.ok(locacaoCampoService.buscarPorTodos());
     }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<Void> deletarEstabelecimento (@PathVariable String cnpj){
+        estabService.deletar(cnpj);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -28,4 +28,8 @@ public class EstabelecimentoService {
     public List<EstabelecimentoDto> getEstabelecimentos() {
         return EstabelecimentoMapper.paraDtosDeDomains(dataProvider.consultarTodos());
     }
+
+    public void deletar (String cnpj){
+        dataProvider.deletar(cnpj);
+    }
 }
