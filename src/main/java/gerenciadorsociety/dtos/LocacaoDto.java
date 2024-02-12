@@ -10,12 +10,13 @@ import java.time.LocalTime;
 @Getter
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
 public abstract class LocacaoDto {
-    protected Long id;
-    protected EstabelecimentoDto estabelecimento;
-    protected AdministradorDto administrador;
-    protected LocalDate dataLocacao;
-    protected LocalDate data;
-    protected LocalTime horaLocacao;
-    protected Boolean ativo;
+    private Long id;
+    private EstabelecimentoDto estabelecimento;
+    private AdministradorDto administrador;
+    private LocalDate dataLocacao;
+    private LocalDate data;
+    private LocalTime horaLocacao;
+    private Boolean ativo;
 }

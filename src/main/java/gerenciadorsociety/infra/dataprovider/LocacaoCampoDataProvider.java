@@ -1,6 +1,5 @@
 package gerenciadorsociety.infra.dataprovider;
 
-import gerenciadorsociety.domains.Locacao;
 import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.infra.entitys.LocacaoCampoEntity;
 import gerenciadorsociety.infra.execptions.DataBaseExecption;
@@ -49,7 +48,7 @@ public class LocacaoCampoDataProvider {
     public Optional<LocacaoCampo> buscarPorHoraLocacao (LocalTime hora, LocalDate data, Integer numeroCampo){
         Optional<LocacaoCampoEntity> locacaoCampoEntity;
         try{
-            locacaoCampoEntity = repository.findByLocacaoValidacao(hora, data, numeroCampo);
+            locacaoCampoEntity = repository.findLocacaoValidacao(hora, data, numeroCampo);
         }catch (Exception ex){
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());

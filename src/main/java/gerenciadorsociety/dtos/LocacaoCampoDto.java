@@ -15,13 +15,7 @@ public class LocacaoCampoDto extends LocacaoDto {
     private List<String> listaDeJogadores;
 
     public LocacaoCampoDto(Long id, EstabelecimentoDto estab, AdministradorDto adm, LocalDate dataLocacao, LocalDate data, LocalTime horaLocacao, Boolean ativo, CampoDto campo, List<String> list){
-        this.id = id;
-        this.estabelecimento = estab;
-        this.administrador = adm;
-        this.dataLocacao = dataLocacao;
-        this.data = data;
-        this.horaLocacao = horaLocacao;
-        this.ativo = ativo;
+        super(id, estab, adm, dataLocacao, data, horaLocacao, ativo);
         this.campo = campo;
         this.listaDeJogadores = list;
     }
