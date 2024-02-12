@@ -16,13 +16,7 @@ public class LocacaoChurrasqueiraDto extends LocacaoDto{
     private ChurrasqueiraDto churrasqueira;
 
     public LocacaoChurrasqueiraDto(Long id, EstabelecimentoDto estab, AdministradorDto adm, LocalDate dataLocacao, LocalDate data, LocalTime horaLocacao, Boolean ativo, ChurrasqueiraDto churrasqueira){
-        this.id = id;
-        this.estabelecimento = estab;
-        this.administrador = adm;
-        this.dataLocacao = dataLocacao;
-        this.data = data;
-        this.horaLocacao = horaLocacao;
-        this.ativo = ativo;
+        super(id, estab, adm, dataLocacao, data, horaLocacao, ativo);
         this.churrasqueira = churrasqueira;
     }
 }

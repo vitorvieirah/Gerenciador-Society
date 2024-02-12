@@ -1,8 +1,5 @@
 package gerenciadorsociety.infra.entitys;
 
-import gerenciadorsociety.domains.Campo;
-import gerenciadorsociety.domains.Churrasqueira;
-import gerenciadorsociety.domains.Dono;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,17 +11,20 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Builder
+@NoArgsConstructor
 @Entity(name = "Estabelecimento")
 @Table(name = "estabelecimentos")
 public class EstabelecimentoEntity {
+
     @Id
     private String cnpj;
     private String nome;
+    @OneToOne
     private DonoEntity dono;
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "numero_campo", nullable = false)
     private List<CampoEntity> campos;
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "numero_churrasqueira", nullable = false)
     private List<ChurrasqueiraEntity> churrasqueiras;
     private BigDecimal valorHora;

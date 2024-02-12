@@ -32,14 +32,14 @@ public class AdministradorController {
         return ResponseEntity.created(uri).body(admBody);
     }
 
-    @PostMapping
+    @PostMapping("/administrador/locarcampo")
     public ResponseEntity<LocacaoDto> locarCampo (@RequestBody LocacaoCampoDto dto, UriComponentsBuilder uriBuilder){
         LocacaoDto locacaoBody = locacaoCampoService.locar(dto);
         var uri = uriBuilder.path("/administrador/{id}").buildAndExpand(locacaoBody.getId()).toUri();
         return ResponseEntity.created(uri).body(locacaoBody);
     }
 
-    @PostMapping
+    @PostMapping("/administrador/locarchurrasqueira")
     public ResponseEntity<LocacaoDto> locarChurrasqueira (@RequestBody LocacaoChurrasqueiraDto dto, UriComponentsBuilder uriBuilder){
         LocacaoDto locacaoBody = locacaoChurrasqueiraService.locar(dto);
         var uri = uriBuilder.path("/administrador/{id}").buildAndExpand(locacaoBody.getId()).toUri();
