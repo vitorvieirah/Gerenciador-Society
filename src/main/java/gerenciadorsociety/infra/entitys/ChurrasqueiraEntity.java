@@ -1,5 +1,6 @@
 package gerenciadorsociety.infra.entitys;
 
+import gerenciadorsociety.domains.Estabelecimento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,4 +18,6 @@ public class ChurrasqueiraEntity {
     private Long id;
     private Integer numero;
     private Boolean reservada;
+    @ManyToOne
+    private EstabelecimentoEntity estabelecimento;
 }

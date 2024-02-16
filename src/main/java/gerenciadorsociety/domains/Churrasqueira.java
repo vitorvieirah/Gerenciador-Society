@@ -11,4 +11,5 @@ public class Churrasqueira {
     private Long id;
     private Integer numero;
     private Boolean reservada;
+    private Estabelecimento estabelecimento;
 }

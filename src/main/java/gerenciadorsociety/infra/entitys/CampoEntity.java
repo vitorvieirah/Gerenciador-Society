@@ -1,6 +1,7 @@
 package gerenciadorsociety.infra.entitys;
 
 
+import gerenciadorsociety.domains.Estabelecimento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,4 +19,6 @@ public class CampoEntity {
     private Long id;
     private Integer numero;
     private Boolean reservado;
+    @ManyToOne
+    private EstabelecimentoEntity estabelecimento;
 }
