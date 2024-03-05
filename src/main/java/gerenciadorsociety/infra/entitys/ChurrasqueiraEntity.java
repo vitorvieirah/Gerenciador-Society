@@ -16,6 +16,7 @@ public class ChurrasqueiraEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "numero_churrasqueira")
     private Integer numero;
     private Boolean reservada;
     @ManyToOne

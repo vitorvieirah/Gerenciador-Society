@@ -1,7 +1,5 @@
 package gerenciadorsociety.controllers;
 
-
-import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.dtos.AdministradorDto;
 import gerenciadorsociety.dtos.LocacaoCampoDto;
 import gerenciadorsociety.dtos.LocacaoChurrasqueiraDto;
@@ -10,6 +8,7 @@ import gerenciadorsociety.services.AdministradorService;
 import gerenciadorsociety.services.LocacaoCampoService;
 import gerenciadorsociety.services.LocacaoChurrasqueiraService;
 import gerenciadorsociety.services.LocacaoService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/administrador")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AdministradorController {
 
     private final AdministradorService admService;

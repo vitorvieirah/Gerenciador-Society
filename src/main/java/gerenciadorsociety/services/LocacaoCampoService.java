@@ -1,8 +1,10 @@
 package gerenciadorsociety.services;
 
+import gerenciadorsociety.domains.Campo;
 import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.dtos.LocacaoCampoDto;
 import gerenciadorsociety.dtos.LocacaoDto;
+import gerenciadorsociety.infra.dataprovider.CampoDataProvider;
 import gerenciadorsociety.infra.dataprovider.LocacaoCampoDataProvider;
 import gerenciadorsociety.infra.mappers.LocacaoCampoMapper;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class LocacaoCampoService {
 
     private final LocacaoCampoDataProvider locacaoCampoDataProvider;
+    private final CampoDataProvider campoDataProvider;
 
     private static final String MENSAGEM_LOCACAO_JA_LOCADA = "Locação já existe";
 
@@ -23,8 +26,14 @@ public class LocacaoCampoService {
         LocacaoCampo locacao = LocacaoCampoMapper.paraDomainDeDto(dto);
         Optional<LocacaoCampo> locacaoOptional = locacaoCampoDataProvider.buscarPorHoraLocacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getCampo().getNumero());
         locacaoOptional.ifPresent(locacao1 -> {
-            throw new RuntimeException("Locacao ja existe");
+            throw new RuntimeException(MENSAGEM_LOCACAO_JA_LOCADA);
         });
+
+        Optional<Campo> campoOptional = campoDataProvider.buscarPorNumero(locacao.getCampo().getNumero());
+        if(campoOptional.isPresent())
+            locacao.setCampo(campoOptional.get());
+        else
+            throw new RuntimeException("Campo não encontrado");
 
         return LocacaoCampoMapper.paraDtoDeDomain(locacaoCampoDataProvider.salvar(locacao));
     }

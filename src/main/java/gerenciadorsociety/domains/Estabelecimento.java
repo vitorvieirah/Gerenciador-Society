@@ -10,6 +10,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Builder
+@Setter
 public class Estabelecimento {
     private String nome;
     private String cnpj;

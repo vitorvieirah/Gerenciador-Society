@@ -8,6 +8,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@Setter
 public class LocacaoCampo extends Locacao{
     private Campo campo;
     private List<String> listaDeJogadores;

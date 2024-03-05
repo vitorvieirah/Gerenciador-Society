@@ -28,33 +28,33 @@ public class DonoController {
         return ResponseEntity.created(uri).body(donoBody);
     }
 
-    @PostMapping("/dono/cadastroestabelecimento")
+    @PostMapping("/cadastroestabelecimento")
     public ResponseEntity <EstabelecimentoDto> cadastrarEstabelecimento (@RequestBody EstabelecimentoDto dto, UriComponentsBuilder uriBuilder){
         EstabelecimentoDto estabBody = estabService.cadastrar(dto);
         var uri = uriBuilder.path("/dono/estabelecimento/{id}").buildAndExpand(estabBody.cnpj()).toUri();
         return ResponseEntity.created(uri).body(estabBody);
     }
 
-    @PostMapping("/dono/cadastrocampo")
+    @PostMapping("/cadastrarcampo")
     public ResponseEntity <CampoDto> cadastrarCampos (@RequestBody CampoDto dto, UriComponentsBuilder uriBuilder){
         CampoDto campoBody = campoService.cadastrar(dto);
         var uri = uriBuilder.path("/dono/campo/{id}").buildAndExpand(campoBody.id()).toUri();
         return ResponseEntity.created(uri).body(campoBody);
     }
 
-    @PostMapping("/dono/cadastrochurrasqueira")
+    @PostMapping("/cadastrochurrasqueira")
     public ResponseEntity <ChurrasqueiraDto> cadastrarChurrasqueira (@RequestBody ChurrasqueiraDto dto, UriComponentsBuilder uriBuilder){
         ChurrasqueiraDto churraBody = churrasqueiraService.cadastrar(dto);
-        var uri = uriBuilder.path("/dono/churrasqueira/{id}").buildAndExpand(churraBody.id()).toUri();
+        var uri = uriBuilder.path("/churrasqueira/{id}").buildAndExpand(churraBody.id()).toUri();
         return ResponseEntity.created(uri).body(churraBody);
     }
 
-    @GetMapping("/dono/vizualizarlocacoeschurrasqueira")
+    @GetMapping("/vizualizarlocacoeschurrasqueira")
     public ResponseEntity<List<LocacaoChurrasqueiraDto>> vizualizarLocacoesChurrasqueiras (){
         return ResponseEntity.ok(locacaoChurrasqueiraService.buscarPorTodos());
     }
 
-    @GetMapping("/dono/vizualizarlocacoescampo")
+    @GetMapping("/vizualizarlocacoescampo")
     public ResponseEntity<List<LocacaoCampoDto>> vizualizarLocacaoesCampo (){
         return ResponseEntity.ok(locacaoCampoService.buscarPorTodos());
     }

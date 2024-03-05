@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @ToString
 @EqualsAndHashCode
 @Entity(name = "Locacao")
-@Table(name = "locacaoes")
+@Table(name = "locacoes")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_locacao", discriminatorType = DiscriminatorType.STRING)
 public abstract class LocacaoEntity {

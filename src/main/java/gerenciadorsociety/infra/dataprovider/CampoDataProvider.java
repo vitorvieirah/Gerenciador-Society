@@ -22,6 +22,7 @@ public class CampoDataProvider {
 
     public Campo salvar(Campo campo){
         CampoEntity campoEntity = CampoMapper.paraEntityDeDomain(campo);
+        System.out.println(campoEntity);
         try {
             campoEntity = repository.save(campoEntity);
         }catch (Exception ex){

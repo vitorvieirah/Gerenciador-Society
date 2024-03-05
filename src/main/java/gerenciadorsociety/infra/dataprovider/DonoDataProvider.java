@@ -26,6 +26,7 @@ public class DonoDataProvider {
         }catch (Exception ex){
             log.error("Erro ao salvar Dono", ex);
             throw new DataBaseExecption(ex.getMessage());
+
         }
         return DonoMapper.paraDomainDeEntity(donoEntity);
     }
