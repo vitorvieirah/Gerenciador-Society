@@ -14,12 +14,14 @@ import lombok.*;
 @Entity(name = "Campo")
 @Table(name = "campos")
 public class CampoEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "numero_campo")
     private Integer numero;
     private Boolean reservado;
     @ManyToOne
+    @JoinColumn(name = "cnpj_estabelecimento")
     private EstabelecimentoEntity estabelecimento;
 }

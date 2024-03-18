@@ -20,5 +20,6 @@ public class ChurrasqueiraEntity {
     private Integer numero;
     private Boolean reservada;
     @ManyToOne
+    @JoinColumn(name = "cnpj_estabelecimento")
     private EstabelecimentoEntity estabelecimento;
 }

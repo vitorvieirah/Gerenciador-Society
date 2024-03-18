@@ -22,10 +22,10 @@ public class EstabelecimentoEntity {
     @OneToOne
     private DonoEntity dono;
     @OneToMany
-    @JoinColumn(name = "numero_do_campo", nullable = false)
+    @JoinColumn(name = "id_campo", nullable = false)
     private List<CampoEntity> campos;
     @OneToMany
-    @JoinColumn(name = "numero_da_churrasqueira", nullable = false)
+    @JoinColumn(name = "id_churrasqueira", nullable = false)
     private List<ChurrasqueiraEntity> churrasqueiras;
     private BigDecimal valorHora;
 }

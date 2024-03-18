@@ -17,7 +17,7 @@ import java.util.List;
 @DiscriminatorValue("CAMPO")
 public class LocacaoCampoEntity extends LocacaoEntity{
     @ManyToOne
-    @JoinColumn(name = "id_campo", nullable = false)
+    @JoinColumn(name = "id_campo")
     private CampoEntity campo;
     private List<String> listaDeJogadores;
 

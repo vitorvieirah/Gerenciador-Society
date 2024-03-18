@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface LocacaoChurrasqueiraRepository extends JpaRepository<LocacaoChurrasqueiraEntity, Long> {
 
-    @Query("SELECT lch FROM LocacaoChurrasqueiraEntity lch WHERE lch.horaLocacao = :horaLocacao AND lch.dataLocacao = :dataLocacao AND lch.churrasqueira.numero = :numero")
+    @Query("SELECT lch FROM LocacaoChurrasqueiraEntity lch WHERE lch.horaLocacao = :horaLocacao AND lch.dataLocacao = :dataLocacao " +
+            "AND lch.churrasqueira.numero = :numero")
     Optional<LocacaoChurrasqueiraEntity> findByLocacaoValidacao (LocalTime horaLocacao, LocalDate dataLocacao, Integer numero);
 }

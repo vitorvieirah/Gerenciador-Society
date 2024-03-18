@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @DiscriminatorValue("CHURRASQUEIRA")
 public class LocacaoChurrasqueiraEntity extends LocacaoEntity{
     @ManyToOne
-    @JoinColumn(name = "id_churrasqueira", nullable = false)
+    @JoinColumn(name = "id_churrasqueira")
     private ChurrasqueiraEntity churrasqueira;
 
     public LocacaoChurrasqueiraEntity(Long id, EstabelecimentoEntity estab, AdministradorEntity adm, LocalDate dataLocacao, LocalDate data, LocalTime horaLocacao, Boolean ativo, ChurrasqueiraEntity churrasqueira){
