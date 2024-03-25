@@ -37,7 +37,7 @@ Agora basta abrir o projeto em sua IDE de preferência, vale ressaltar que é ne
 
 ```bash
 ##Configurando o banco de dados
-Para que o projeto consiga se conectar com o banco de dados é nescessário apenas configurar seu usuário e senha, basta entrar no arquivo "application.properties", nesse sequinte caminho: "\produto-vendas\src\main\resources\application.properties": 
+Para que o projeto consiga se conectar com o banco de dados é nescessário apenas configurar seu usuário e senha, basta entrar no arquivo "application.properties", nesse seguinte caminho: "\gerenciador-society\src\main\resources\application.properties": 
 ````
 ![print application](https://github.com/vitorvieirah/produto-vendas/assets/108897429/f3f05f8a-998a-41a9-a7c0-03fffc4c30e7)
 
