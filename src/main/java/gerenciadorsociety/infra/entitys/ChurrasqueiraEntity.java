@@ -19,7 +19,4 @@ public class ChurrasqueiraEntity {
     @Column(name = "numero_churrasqueira")
     private Integer numero;
     private Boolean reservada;
-    @ManyToOne
-    @JoinColumn(name = "cnpj_estabelecimento")
-    private EstabelecimentoEntity estabelecimento;
 }

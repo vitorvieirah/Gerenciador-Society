@@ -20,7 +20,7 @@ public abstract class CampoMapper {
         return CampoEntity.builder()
                 .id(campo.getId())
                 .numero(campo.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(campo.getEstabelecimento()))
+                //.estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(campo.getEstabelecimento()))
                 .reservado(campo.getReservado())
                 .build();
     }

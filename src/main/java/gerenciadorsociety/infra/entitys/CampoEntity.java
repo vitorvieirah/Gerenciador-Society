@@ -21,7 +21,4 @@ public class CampoEntity {
     @Column(name = "numero_campo")
     private Integer numero;
     private Boolean reservado;
-    @ManyToOne
-    @JoinColumn(name = "cnpj_estabelecimento")
-    private EstabelecimentoEntity estabelecimento;
 }

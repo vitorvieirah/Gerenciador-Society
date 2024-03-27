@@ -28,8 +28,8 @@ public abstract class EstabelecimentoMapper {
 
     public static Estabelecimento paraDomainDeDto(EstabelecimentoDto estabelecimentoDto){
         return Estabelecimento.builder()
-                .cnpj(estabelecimentoDto.cnpj())
                 .nome(estabelecimentoDto.nome())
+                .cnpj(estabelecimentoDto.cnpj())
                 .valorHora(estabelecimentoDto.valorHora())
                 .build();
     }
