@@ -30,6 +30,7 @@ public abstract class EstabelecimentoMapper {
         return Estabelecimento.builder()
                 .nome(estabelecimentoDto.nome())
                 .cnpj(estabelecimentoDto.cnpj())
+                .cpfDono(estabelecimentoDto.cpfDono())
                 .valorHora(estabelecimentoDto.valorHora())
                 .build();
     }

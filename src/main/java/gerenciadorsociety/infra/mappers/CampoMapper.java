@@ -37,6 +37,7 @@ public abstract class CampoMapper {
         return Campo.builder()
                 .id(campoDto.id())
                 .numero(campoDto.numero())
+
                 .reservado(campoDto.reservado())
                 .build();
     }

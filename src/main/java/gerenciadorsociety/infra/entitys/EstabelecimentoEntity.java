@@ -17,13 +17,13 @@ import java.util.List;
 public class EstabelecimentoEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String cnpj;
     private String nome;
-    @OneToOne
+    //@ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
+    @JoinColumn(name = "id_dono", nullable = false)
     private DonoEntity dono;
-    @OneToMany
-    private List<CampoEntity> campos;
-    @OneToMany
-    private List<ChurrasqueiraEntity> churrasqueiras;
     private BigDecimal valorHora;
 }

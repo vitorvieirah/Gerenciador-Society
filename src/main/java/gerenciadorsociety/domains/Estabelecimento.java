@@ -13,8 +13,10 @@ import java.util.List;
 @Builder
 @Setter
 public class Estabelecimento {
+
     private String nome;
     private String cnpj;
+    private String cpfDono;
     private Dono dono;
     private List<Campo> campos;
     private List<Churrasqueira> churrasqueiras;

@@ -20,21 +20,27 @@ public class EstabelecimentoService {
     private final DonoDataProvider donoDataProvider;
 
     public EstabelecimentoDto cadastrar(EstabelecimentoDto dto) {
-        Optional<Estabelecimento> estabelecimento = dataProvider.consultarPorCnpj(dto.cnpj());
+        validaVendaExistente(dto.cnpj());
+        Estabelecimento estab = EstabelecimentoMapper.paraDomainDeDto(dto);
+        defineDonoEstabalecimento(estab);
+        return EstabelecimentoMapper.paraDtoDeDomain(dataProvider.salvar(estab));
+    }
+
+    private void validaVendaExistente(String cnpj){
+        Optional<Estabelecimento> estabelecimento = dataProvider.consultarPorCnpj(cnpj);
         estabelecimento.ifPresent(estb -> {
             throw new RuntimeException("Estabelecimento ja cadastrado");
         });
-        Estabelecimento estab = EstabelecimentoMapper.paraDomainDeDto(dto);
-        Optional<Dono> donoOptional = donoDataProvider.consultarPorCpf(dto.cpfDono());
+    }
+
+    private void defineDonoEstabalecimento(Estabelecimento estabelecimento){
+        Optional<Dono> donoOptional = donoDataProvider.consultarPorCpf(estabelecimento.getCpfDono());
 
         if(donoOptional.isPresent()){
-            estab.setDono(donoOptional.get());
+            estabelecimento.setDono(donoOptional.get());
         }else {
             throw new RuntimeException("Dono não encontrado");
         }
-
-
-        return EstabelecimentoMapper.paraDtoDeDomain(dataProvider.salvar(estab));
     }
 
     public List<EstabelecimentoDto> getEstabelecimentos() {

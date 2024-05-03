@@ -1,8 +1,6 @@
 package gerenciadorsociety.infra.entitys;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -15,6 +13,8 @@ import lombok.*;
 @Table(name = "donos")
 public class DonoEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String cpf;
     private String nome;
     private String email;

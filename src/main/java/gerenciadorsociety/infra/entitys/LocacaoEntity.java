@@ -1,7 +1,5 @@
 package gerenciadorsociety.infra.entitys;
 
-import gerenciadorsociety.domains.Administrador;
-import gerenciadorsociety.domains.Estabelecimento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +26,7 @@ public abstract class LocacaoEntity {
     @JoinColumn(name = "cpf_adm", nullable = false)
     protected AdministradorEntity administrador;
     protected LocalDate dataLocacao;
-    protected LocalDate data;
+    protected LocalDate dataAtual;
     protected LocalTime horaLocacao;
     protected Boolean ativo;
 }

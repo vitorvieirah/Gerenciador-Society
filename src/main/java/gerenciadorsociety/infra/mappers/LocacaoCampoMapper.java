@@ -2,9 +2,7 @@ package gerenciadorsociety.infra.mappers;
 
 import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.dtos.LocacaoCampoDto;
-import gerenciadorsociety.dtos.LocacaoDto;
 import gerenciadorsociety.infra.entitys.LocacaoCampoEntity;
-import gerenciadorsociety.infra.entitys.LocacaoEntity;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ public abstract class LocacaoCampoMapper {
                 EstabelecimentoMapper.paraDomainDeEntity(locacaoCampoEntity.getEstabelecimento()),
                 AdministradorMapper.paraDomainDeEntiy(locacaoCampoEntity.getAdministrador()),
                 locacaoCampoEntity.getDataLocacao(),
-                locacaoCampoEntity.getData(),
+                locacaoCampoEntity.getDataAtual(),
                 locacaoCampoEntity.getHoraLocacao(),
                 locacaoCampoEntity.getAtivo(),
                 CampoMapper.paraDomainDeEntity(locacaoCampoEntity.getCampo()),

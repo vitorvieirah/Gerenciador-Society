@@ -27,7 +27,7 @@ public abstract class LocacaoChurrasqueiraMapper {
                 EstabelecimentoMapper.paraDomainDeEntity(locacaoChurrasqueiraEntity.getEstabelecimento()),
                 AdministradorMapper.paraDomainDeEntiy(locacaoChurrasqueiraEntity.getAdministrador()),
                 locacaoChurrasqueiraEntity.getDataLocacao(),
-                locacaoChurrasqueiraEntity.getData(),
+                locacaoChurrasqueiraEntity.getDataAtual(),
                 locacaoChurrasqueiraEntity.getHoraLocacao(),
                 locacaoChurrasqueiraEntity.getAtivo(),
                 ChurrasqueiraMapper.paraDomainDeEntity(locacaoChurrasqueiraEntity.getChurrasqueira())

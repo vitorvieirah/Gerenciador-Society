@@ -1,7 +1,5 @@
 package gerenciadorsociety.infra.entitys;
 
-import gerenciadorsociety.domains.Churrasqueira;
-import gerenciadorsociety.domains.LocacaoChurrasqueira;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +22,7 @@ public class LocacaoChurrasqueiraEntity extends LocacaoEntity{
         this.estabelecimento = estab;
         this.administrador = adm;
         this.dataLocacao = dataLocacao;
-        this.data = data;
+        this.dataAtual = data;
         this.horaLocacao = horaLocacao;
         this.ativo = ativo;
         this.churrasqueira = churrasqueira;

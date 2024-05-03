@@ -12,4 +12,5 @@ public class Campo {
     private Long id;
     private Integer numero;
     private Boolean reservado;
+    private Estabelecimento estabelecimento;
 }
