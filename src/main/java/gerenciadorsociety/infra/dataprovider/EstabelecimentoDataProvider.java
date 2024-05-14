@@ -49,7 +49,7 @@ public class EstabelecimentoDataProvider {
             log.error("Erro ao consultar Estabelecimento", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
-        return estabEntity.isEmpty() ? Optional.empty() : Optional.of(EstabelecimentoMapper.paraDomainDeEntity(estabEntity.get()));
+        return estabEntity.map(EstabelecimentoMapper::paraDomainDeEntity);
     }
 
     public void deletar (String cnpj){

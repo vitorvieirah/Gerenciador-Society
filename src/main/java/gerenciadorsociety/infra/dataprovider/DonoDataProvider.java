@@ -39,12 +39,12 @@ public class DonoDataProvider {
             log.error("Erro ao consultar Dono por Cpf", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
-        return donoEntity.isEmpty() ? Optional.empty() : Optional.of(DonoMapper.paraDomainDeEntity(donoEntity.get()));
+        return donoEntity.map(DonoMapper::paraDomainDeEntity);
     }
 
-    public void deletar (String cpf){
+    public void deletar (Long id){
         try{
-            repository.deleteById(cpf);
+            repository.deleteById(id);
         }catch (Exception ex){
             log.error("Erro ao deletar Dono", ex);
             throw new DataBaseExecption(ex.getMessage());

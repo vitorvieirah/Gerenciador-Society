@@ -2,12 +2,14 @@ package gerenciadorsociety.infra.entitys;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 @EqualsAndHashCode
 @Builder

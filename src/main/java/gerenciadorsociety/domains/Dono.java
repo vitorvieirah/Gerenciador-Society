@@ -10,6 +10,7 @@ import javax.xml.parsers.SAXParser;
 @EqualsAndHashCode
 @Builder
 public class Dono {
+    private Long id;
     private String nome;
     private String cpf;
     private String email;

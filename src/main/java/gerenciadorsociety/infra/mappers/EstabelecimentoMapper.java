@@ -10,6 +10,7 @@ public abstract class EstabelecimentoMapper {
 
     public static Estabelecimento paraDomainDeEntity(EstabelecimentoEntity estabEntity){
         return Estabelecimento.builder()
+                .id(estabEntity.getId())
                 .cnpj(estabEntity.getCnpj())
                 .nome(estabEntity.getNome())
                 .dono(DonoMapper.paraDomainDeEntity(estabEntity.getDono()))
@@ -19,6 +20,7 @@ public abstract class EstabelecimentoMapper {
 
     public static EstabelecimentoEntity paraEntityDeDomain(Estabelecimento estabelecimento){
         return EstabelecimentoEntity.builder()
+                .id(estabelecimento.getId())
                 .cnpj(estabelecimento.getCnpj())
                 .nome(estabelecimento.getNome())
                 .dono(DonoMapper.paraEntityDeDomain(estabelecimento.getDono()))
@@ -28,15 +30,17 @@ public abstract class EstabelecimentoMapper {
 
     public static Estabelecimento paraDomainDeDto(EstabelecimentoDto estabelecimentoDto){
         return Estabelecimento.builder()
+                .id(estabelecimentoDto.id())
                 .nome(estabelecimentoDto.nome())
                 .cnpj(estabelecimentoDto.cnpj())
-                .cpfDono(estabelecimentoDto.cpfDono())
+                .dono(DonoMapper.paraDomainDeDto(estabelecimentoDto.dono()))
                 .valorHora(estabelecimentoDto.valorHora())
                 .build();
     }
 
     public static EstabelecimentoDto paraDtoDeDomain(Estabelecimento estabelecimento){
         return EstabelecimentoDto.builder()
+                .id(estabelecimento.getId())
                 .cnpj(estabelecimento.getCnpj())
                 .nome(estabelecimento.getNome())
                 .dono(DonoMapper.paraDtoDeDomain(estabelecimento.getDono()))

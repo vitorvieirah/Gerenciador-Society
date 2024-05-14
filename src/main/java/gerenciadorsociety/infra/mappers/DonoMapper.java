@@ -10,6 +10,7 @@ public abstract class DonoMapper {
 
     public static Dono paraDomainDeEntity(DonoEntity donoEntity){
         return Dono.builder()
+                .id(donoEntity.getId())
                 .cpf(donoEntity.getCpf())
                 .nome(donoEntity.getNome())
                 .email(donoEntity.getEmail())
@@ -19,6 +20,7 @@ public abstract class DonoMapper {
 
     public static DonoEntity paraEntityDeDomain(Dono dono){
         return DonoEntity.builder()
+                .id(dono.getId())
                 .cpf(dono.getCpf())
                 .nome(dono.getNome())
                 .email(dono.getEmail())
@@ -28,6 +30,7 @@ public abstract class DonoMapper {
 
     public static Dono paraDomainDeDto(DonoDto donoDto){
         return Dono.builder()
+                .id(donoDto.id())
                 .cpf(donoDto.cpf())
                 .nome(donoDto.nome())
                 .email(donoDto.email())
@@ -37,6 +40,7 @@ public abstract class DonoMapper {
 
     public static DonoDto paraDtoDeDomain(Dono dono){
         return DonoDto.builder()
+                .id(dono.getId())
                 .cpf(dono.getCpf())
                 .nome(dono.getNome())
                 .email(dono.getEmail())

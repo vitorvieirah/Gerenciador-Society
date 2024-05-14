@@ -37,12 +37,12 @@ public class AdministradorDataProvider {
             log.error("Erro ao consultar Administrador", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
-        return admEntity.isEmpty() ? Optional.empty() : Optional.of(AdministradorMapper.paraDomainDeEntiy(admEntity.get()));
+        return admEntity.map(AdministradorMapper::paraDomainDeEntiy);
     }
 
-    public void deletar(String cpf){
+    public void deletar(Long id){
         try {
-            repository.deleteById(cpf);
+            repository.deleteById(id);
         }catch (Exception ex){
             log.error("Erro ao deletar Administrador", ex);
             throw new DataBaseExecption(ex.getMessage());

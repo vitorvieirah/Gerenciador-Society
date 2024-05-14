@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface DonoRepository extends JpaRepository<DonoEntity, String> {
+public interface DonoRepository extends JpaRepository<DonoEntity, Long> {
     Optional<DonoEntity> findByCpf(String cpf);
 }

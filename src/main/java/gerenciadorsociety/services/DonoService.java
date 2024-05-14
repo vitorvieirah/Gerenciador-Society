@@ -21,4 +21,8 @@ public class DonoService {
         });
         return DonoMapper.paraDtoDeDomain(dataProvider.salvar(DonoMapper.paraDomainDeDto(dto)));
     }
+
+    public Dono buscarPorCpf(String cpf) {
+         return dataProvider.consultarPorCpf(cpf).orElseThrow(() -> new RuntimeException("Dono não encontrado"));
+    }
 }

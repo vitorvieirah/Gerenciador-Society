@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdministradorRepository extends JpaRepository<AdministradorEntity, String> {
+public interface AdministradorRepository extends JpaRepository<AdministradorEntity, Long> {
     Optional<AdministradorEntity> findByCpf(String cpf);
 }

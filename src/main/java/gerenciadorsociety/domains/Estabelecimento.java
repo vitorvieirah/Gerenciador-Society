@@ -14,9 +14,9 @@ import java.util.List;
 @Setter
 public class Estabelecimento {
 
+    private Long id;
     private String nome;
     private String cnpj;
-    private String cpfDono;
     private Dono dono;
     private List<Campo> campos;
     private List<Churrasqueira> churrasqueiras;

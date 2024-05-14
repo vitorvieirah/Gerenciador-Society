@@ -5,7 +5,10 @@ import gerenciadorsociety.domains.Estabelecimento;
 import gerenciadorsociety.dtos.EstabelecimentoDto;
 import gerenciadorsociety.infra.dataprovider.DonoDataProvider;
 import gerenciadorsociety.infra.dataprovider.EstabelecimentoDataProvider;
+import gerenciadorsociety.infra.entitys.DonoEntity;
+import gerenciadorsociety.infra.entitys.EstabelecimentoEntity;
 import gerenciadorsociety.infra.mappers.EstabelecimentoMapper;
+import gerenciadorsociety.infra.repositorys.DonoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,29 +21,34 @@ public class EstabelecimentoService {
 
     private final EstabelecimentoDataProvider dataProvider;
     private final DonoDataProvider donoDataProvider;
+    private final DonoService donoService;
+    private final DonoRepository repository;
+
+    /*public Venda criar(Venda venda) {
+        Cliente cliente = clienteUseCase.consultarPorId(venda.getCliente().getId());
+        venda.setCliente(cliente);
+
+        List<Produto> produtos = venda.getProdutos().stream().map(produto -> produtoUseCase.consultarPorId(produto.getId())).toList();
+        venda.setProdutos(produtos);
+
+        calculaValorTotalEFinal(venda);
+
+        return vendaGateway.salvar(venda);
+    }*/
 
     public EstabelecimentoDto cadastrar(EstabelecimentoDto dto) {
-        validaVendaExistente(dto.cnpj());
+        validaEstabelecimentoExistente(dto.cnpj());
         Estabelecimento estab = EstabelecimentoMapper.paraDomainDeDto(dto);
-        defineDonoEstabalecimento(estab);
+        Dono dono = donoService.buscarPorCpf(estab.getDono().getCpf());
+        estab.setDono(dono);
         return EstabelecimentoMapper.paraDtoDeDomain(dataProvider.salvar(estab));
     }
 
-    private void validaVendaExistente(String cnpj){
+    private void validaEstabelecimentoExistente(String cnpj){
         Optional<Estabelecimento> estabelecimento = dataProvider.consultarPorCnpj(cnpj);
         estabelecimento.ifPresent(estb -> {
             throw new RuntimeException("Estabelecimento ja cadastrado");
         });
-    }
-
-    private void defineDonoEstabalecimento(Estabelecimento estabelecimento){
-        Optional<Dono> donoOptional = donoDataProvider.consultarPorCpf(estabelecimento.getCpfDono());
-
-        if(donoOptional.isPresent()){
-            estabelecimento.setDono(donoOptional.get());
-        }else {
-            throw new RuntimeException("Dono não encontrado");
-        }
     }
 
     public List<EstabelecimentoDto> getEstabelecimentos() {
