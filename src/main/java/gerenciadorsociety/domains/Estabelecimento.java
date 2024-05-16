@@ -18,12 +18,5 @@ public class Estabelecimento {
     private String nome;
     private String cnpj;
     private Dono dono;
-    private List<Campo> campos;
-    private List<Churrasqueira> churrasqueiras;
     private BigDecimal valorHora;
-
-    public void addCampo (Campo campo){
-        this.campos = new ArrayList<>();
-        this.campos.add(campo);
-    }
 }

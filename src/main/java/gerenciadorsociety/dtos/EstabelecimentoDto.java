@@ -10,5 +10,5 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Builder
-public record EstabelecimentoDto(Long id, String nome, String cnpj, DonoDto dono, List<CampoDto> campos, List<ChurrasqueiraDto> churrasqueiras, BigDecimal valorHora) {
+public record EstabelecimentoDto(Long id, String nome, String cnpj, DonoDto dono, BigDecimal valorHora) {
 }

@@ -27,13 +27,12 @@ public class CampoService {
             throw new RuntimeException("Campo ja esta cadastrado");
         });
         Campo campo = CampoMapper.paraDomainDeDto(dto);
-        Optional<Estabelecimento> estabelecimento = estabelecimentoDataProvider.consultarPorCnpj(dto.cnpj());
+        Optional<Estabelecimento> estabelecimento = estabelecimentoDataProvider.consultarPorCnpj(dto.estabelecimento().cnpj());
 
-        if(estabelecimento.isPresent()){
-            estabelecimento.get().addCampo(campo);
-            estabelecimentoDataProvider.salvar(estabelecimento.get());
-        } else
+        if(estabelecimento.isEmpty())
             throw new RuntimeException("Estabelecimento não encotrado");
+
+        campo.setEstabelecimento(estabelecimento.get());
 
         return CampoMapper.paraDtoDeDomain(dataProvider.salvar(campo));
     }

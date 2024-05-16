@@ -23,7 +23,6 @@ public class EstabelecimentoEntity {
     private Long id;
     private String cnpj;
     private String nome;
-    //@ManyToOne(cascade = CascadeType.PERSIST)
     @ManyToOne
     @JoinColumn(name = "id_dono", nullable = false)
     private DonoEntity dono;

@@ -12,6 +12,7 @@ public abstract class CampoMapper {
         return Campo.builder()
                 .id(campoEntity.getId())
                 .numero(campoEntity.getNumero())
+                .estabelecimento(EstabelecimentoMapper.paraDomainDeEntity(campoEntity.getEstabelecimento()))
                 .reservado(campoEntity.getReservado())
                 .build();
     }
@@ -20,7 +21,7 @@ public abstract class CampoMapper {
         return CampoEntity.builder()
                 .id(campo.getId())
                 .numero(campo.getNumero())
-                //.estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(campo.getEstabelecimento()))
+                .estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(campo.getEstabelecimento()))
                 .reservado(campo.getReservado())
                 .build();
     }
@@ -29,6 +30,7 @@ public abstract class CampoMapper {
         return CampoDto.builder()
                 .id(campo.getId())
                 .numero(campo.getNumero())
+                .estabelecimento(EstabelecimentoMapper.paraDtoDeDomain(campo.getEstabelecimento()))
                 .reservado(campo.getReservado())
                 .build();
     }
@@ -37,6 +39,7 @@ public abstract class CampoMapper {
         return Campo.builder()
                 .id(campoDto.id())
                 .numero(campoDto.numero())
+                .estabelecimento(EstabelecimentoMapper.paraDomainDeDto(campoDto.estabelecimento()))
                 .reservado(campoDto.reservado())
                 .build();
     }
