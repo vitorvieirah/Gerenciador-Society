@@ -12,6 +12,7 @@ public abstract class ChurrasqueiraMapper {
         return Churrasqueira.builder()
                 .id(churrasqueiraEntity.getId())
                 .numero(churrasqueiraEntity.getNumero())
+                .estabelecimento(EstabelecimentoMapper.paraDomainDeEntity(churrasqueiraEntity.getEstabelecimento()))
                 .reservada(churrasqueiraEntity.getReservada())
                 .build();
     }
@@ -20,6 +21,7 @@ public abstract class ChurrasqueiraMapper {
         return ChurrasqueiraEntity.builder()
                 .id(churrasqueira.getId())
                 .numero(churrasqueira.getNumero())
+                .estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(churrasqueira.getEstabelecimento()))
                 .reservada(churrasqueira.getReservada())
                 .build();
     }
@@ -28,6 +30,7 @@ public abstract class ChurrasqueiraMapper {
         return Churrasqueira.builder()
                 .id(churrasqueiraDto.id())
                 .numero(churrasqueiraDto.numero())
+                .estabelecimento(EstabelecimentoMapper.paraDomainDeDto(churrasqueiraDto.estabelecimento()))
                 .reservada(churrasqueiraDto.reservado())
                 .build();
     }
@@ -36,6 +39,7 @@ public abstract class ChurrasqueiraMapper {
         return ChurrasqueiraDto.builder()
                 .id(churrasqueira.getId())
                 .numero(churrasqueira.getNumero())
+                .estabelecimento(EstabelecimentoMapper.paraDtoDeDomain(churrasqueira.getEstabelecimento()))
                 .reservado(churrasqueira.getReservada())
                 .build();
     }

@@ -3,7 +3,7 @@ package gerenciadorsociety.domains;
 import lombok.*;
 
 @AllArgsConstructor
-@Getter
+@Data
 @ToString
 @EqualsAndHashCode
 @Builder
