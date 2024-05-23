@@ -52,6 +52,7 @@ public class LocacaoCampoService {
             throw new RuntimeException("Administrador não encontrado");
 
         locacao.setAdministrador(administrador.get());
+        locacao.setAtivo(true);
         locacao.setData(LocalDate.now());
 
         return LocacaoCampoMapper.paraDtoDeDomain(locacaoCampoDataProvider.salvar(locacao));
