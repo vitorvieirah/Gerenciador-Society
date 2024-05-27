@@ -18,7 +18,6 @@ public class ChurrasqueiraEntity {
     private Long id;
     @Column(name = "numero_churrasqueira")
     private Integer numero;
-    private Boolean reservada;
     @ManyToOne
     private EstabelecimentoEntity estabelecimento;
 }

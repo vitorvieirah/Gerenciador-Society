@@ -1,15 +1,21 @@
 package gerenciadorsociety.services;
 
+import gerenciadorsociety.domains.Administrador;
 import gerenciadorsociety.domains.Churrasqueira;
+import gerenciadorsociety.domains.Estabelecimento;
 import gerenciadorsociety.domains.LocacaoChurrasqueira;
+import gerenciadorsociety.dtos.AdministradorDto;
 import gerenciadorsociety.dtos.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.dtos.LocacaoDto;
+import gerenciadorsociety.infra.dataprovider.AdministradorDataProvider;
 import gerenciadorsociety.infra.dataprovider.ChurrasqueiraDataProvider;
+import gerenciadorsociety.infra.dataprovider.EstabelecimentoDataProvider;
 import gerenciadorsociety.infra.dataprovider.LocacaoChurrasqueiraDataProvider;
 import gerenciadorsociety.infra.mappers.LocacaoChurrasqueiraMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +25,7 @@ public class LocacaoChurrasqueiraService {
 
     private final LocacaoChurrasqueiraDataProvider dataProvider;
     private final ChurrasqueiraDataProvider churrasqueiraDataProvider;
+    private final AdministradorDataProvider administradorDataProvider;
 
     public LocacaoDto locar(LocacaoChurrasqueiraDto dto) {
         LocacaoChurrasqueira locacao = LocacaoChurrasqueiraMapper.paraDomainDeDto(dto);
@@ -33,6 +40,17 @@ public class LocacaoChurrasqueiraService {
             locacao.setChurrasqueira(churrasqueiraOptional.get());
         else
             throw new RuntimeException("Churrasqueira não encontrada");
+
+        locacao.setEstabelecimento(locacao.getChurrasqueira().getEstabelecimento());
+
+        Optional<Administrador> administrador = administradorDataProvider.consultar(locacao.getAdministrador().getCpf());
+
+        if(administrador.isPresent())
+            locacao.setAdministrador(administrador.get());
+        else
+            throw new RuntimeException("Administrador não encontrado");
+
+        locacao.setData(LocalDate.now());
 
         return LocacaoChurrasqueiraMapper.paraDtoDeDomain(dataProvider.salvar(locacao));
     }
