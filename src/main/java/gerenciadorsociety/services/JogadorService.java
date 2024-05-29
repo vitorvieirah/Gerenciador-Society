@@ -5,6 +5,7 @@ import gerenciadorsociety.infra.dataprovider.LocacaoCampoDataProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -16,22 +17,29 @@ public class JogadorService {
 
 
     public void entrarNaLista(Long id, String dto) {
-        Optional<LocacaoCampo> locacao = validacaoOptional(id);
+        LocacaoCampo locacao = validacaoOptional(id);
 
-        locacao.get().getListaDeJogadores().forEach(jogador -> {
-            if (jogador.equals(dto))
-                throw new RuntimeException("Jogador ja está na lista");
-        });
+        if(locacao.getListaDeJogadores() == null){
+            locacao = criarListaJogadores(locacao);
+        }else{
+            locacao.getListaDeJogadores().forEach(jogador -> {
+                if (jogador.equals(dto))
+                    throw new RuntimeException("Jogador ja está na lista");
+            });
+        }
 
-        locacao.get().adicionarJogador(dto);
+
+        locacao.adicionarJogador(dto);
+        dataProvider.salvar(locacao);
     }
 
     public void sairDeUmaLista(Long id, String dto) {
-        Optional<LocacaoCampo> locacao = validacaoOptional(id);
-        locacao.get().removeJogador(dto);
+        LocacaoCampo locacao = validacaoOptional(id);
+        locacao.removeJogador(dto);
+        dataProvider.salvar(locacao);
     }
 
-    private Optional<LocacaoCampo> validacaoOptional(Long id){
+    private LocacaoCampo validacaoOptional(Long id){
 
         Optional<LocacaoCampo> locacao = dataProvider.buscarPorId(id);
 
@@ -39,6 +47,12 @@ public class JogadorService {
             throw new RuntimeException("Locacao não existe");
         }
 
-        return locacao;
+        return locacao.get();
+    }
+
+    private LocacaoCampo criarListaJogadores(LocacaoCampo locacao) {
+        return new LocacaoCampo(locacao.getId(), locacao.getEstabelecimento(), locacao.getAdministrador(), locacao.getDataLocacao(),
+                locacao.getData(), locacao.getHoraLocacao(), locacao.getAtivo(), locacao.getCampo(), new ArrayList<>()
+        );
     }
 }

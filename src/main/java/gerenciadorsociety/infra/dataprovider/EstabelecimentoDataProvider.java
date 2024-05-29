@@ -52,9 +52,9 @@ public class EstabelecimentoDataProvider {
         return estabEntity.map(EstabelecimentoMapper::paraDomainDeEntity);
     }
 
-    public void deletar (String cnpj){
+    public void deletar (Long id){
         try{
-            repository.deleteById(cnpj);
+            repository.deleteById(id);
         }catch (Exception ex){
             log.error("Erro ao deletar Estabelecimento", ex);
             throw new DataBaseExecption(ex.getMessage());

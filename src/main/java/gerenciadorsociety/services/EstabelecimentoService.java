@@ -55,8 +55,8 @@ public class EstabelecimentoService {
         return EstabelecimentoMapper.paraDtosDeDomains(dataProvider.consultarTodos());
     }
 
-    public void deletar (String cnpj){
-        dataProvider.deletar(cnpj);
+    public void deletar (Long id){
+        dataProvider.deletar(id);
     }
 
 }

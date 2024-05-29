@@ -60,8 +60,8 @@ public class DonoController {
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Void> deletarEstabelecimento (@PathVariable String cnpj){
-        estabService.deletar(cnpj);
+    public ResponseEntity<Void> deletarEstabelecimento (@PathVariable Long id){
+        estabService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
