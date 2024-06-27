@@ -17,10 +17,11 @@ import java.util.concurrent.ExecutionException;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class EstabelecimentoDataProvider {
+public class EstabelecimentoDataProvider implements DataProvider<Estabelecimento>{
 
     private final EstabelecimentoRepository repository;
 
+    @Override
     public Estabelecimento salvar (Estabelecimento estab){
         EstabelecimentoEntity estabEntity = EstabelecimentoMapper.paraEntityDeDomain(estab);
         try {
@@ -52,6 +53,7 @@ public class EstabelecimentoDataProvider {
         return estabEntity.map(EstabelecimentoMapper::paraDomainDeEntity);
     }
 
+    @Override
     public void deletar (Long id){
         try{
             repository.deleteById(id);

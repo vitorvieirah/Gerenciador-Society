@@ -18,13 +18,7 @@ public class LocacaoChurrasqueiraEntity extends LocacaoEntity{
     private ChurrasqueiraEntity churrasqueira;
 
     public LocacaoChurrasqueiraEntity(Long id, EstabelecimentoEntity estab, AdministradorEntity adm, LocalDate dataLocacao, LocalDate data, LocalTime horaLocacao, Boolean ativo, ChurrasqueiraEntity churrasqueira){
-        this.id = id;
-        this.estabelecimento = estab;
-        this.administrador = adm;
-        this.dataLocacao = dataLocacao;
-        this.dataAtual = data;
-        this.horaLocacao = horaLocacao;
-        this.ativo = ativo;
+        super(id, estab, adm, dataLocacao, data, horaLocacao, ativo);
         this.churrasqueira = churrasqueira;
     }
 }

@@ -15,10 +15,11 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class DonoDataProvider {
+public class DonoDataProvider implements DataProvider<Dono>{
 
     private final DonoRepository repository;
 
+    @Override
     public Dono salvar (Dono dono){
         DonoEntity donoEntity = DonoMapper.paraEntityDeDomain(dono);
         try {
@@ -42,6 +43,7 @@ public class DonoDataProvider {
         return donoEntity.map(DonoMapper::paraDomainDeEntity);
     }
 
+    @Override
     public void deletar (Long id){
         try{
             repository.deleteById(id);

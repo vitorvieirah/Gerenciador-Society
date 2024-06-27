@@ -6,18 +6,21 @@ import gerenciadorsociety.infra.execptions.DataBaseExecption;
 import gerenciadorsociety.infra.mappers.AdministradorMapper;
 import gerenciadorsociety.infra.repositorys.AdministradorRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
 @AllArgsConstructor
 @Slf4j
-public class AdministradorDataProvider {
+public class AdministradorDataProvider implements DataProvider<Administrador> {
 
     private final AdministradorRepository repository;
 
+    @Override
     public Administrador salvar(Administrador adm){
         AdministradorEntity admEntity = AdministradorMapper.paraEntityDeDomain(adm);
         try {
@@ -40,6 +43,7 @@ public class AdministradorDataProvider {
         return admEntity.map(AdministradorMapper::paraDomainDeEntiy);
     }
 
+    @Override
     public void deletar(Long id){
         try {
             repository.deleteById(id);

@@ -16,10 +16,11 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class ChurrasqueiraDataProvider {
+public class ChurrasqueiraDataProvider implements DataProvider<Churrasqueira>{
 
     private final ChurrasqueiraRepository repository;
 
+    @Override
     public Churrasqueira salvar (Churrasqueira churrasqueira){
         ChurrasqueiraEntity churEntity = ChurrasqueiraMapper.paraEntityDeDomain(churrasqueira);
         try {
@@ -31,26 +32,7 @@ public class ChurrasqueiraDataProvider {
         return ChurrasqueiraMapper.paraDomainDeEntity(churEntity);
     }
 
-    public List<Churrasqueira> consultarTodos (){
-        try {
-            return ChurrasqueiraMapper.paraDomainsDeEntitys(repository.findAll());
-        }catch (Exception ex){
-            log.error("Erro ao consultar todas as Churrasqueiras", ex);
-            throw new DataBaseExecption(ex.getMessage());
-        }
-    }
-
-    public Churrasqueira consultarPorId (Long id){
-        ChurrasqueiraEntity churEntity = null;
-        try {
-            churEntity = repository.getReferenceById(id);
-        }catch (Exception ex){
-            log.error("Erro ao consultar Churrasqueira por id", ex);
-            throw new DataBaseExecption(ex.getMessage());
-        }
-        return ChurrasqueiraMapper.paraDomainDeEntity(churEntity);
-    }
-
+    @Override
     public void deletar (Long id){
         try{
             repository.deleteById(id);

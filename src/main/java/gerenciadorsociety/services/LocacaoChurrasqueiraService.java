@@ -2,14 +2,9 @@ package gerenciadorsociety.services;
 
 import gerenciadorsociety.domains.Administrador;
 import gerenciadorsociety.domains.Churrasqueira;
-import gerenciadorsociety.domains.Estabelecimento;
 import gerenciadorsociety.domains.LocacaoChurrasqueira;
-import gerenciadorsociety.dtos.AdministradorDto;
 import gerenciadorsociety.dtos.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.dtos.LocacaoDto;
-import gerenciadorsociety.infra.dataprovider.AdministradorDataProvider;
-import gerenciadorsociety.infra.dataprovider.ChurrasqueiraDataProvider;
-import gerenciadorsociety.infra.dataprovider.EstabelecimentoDataProvider;
 import gerenciadorsociety.infra.dataprovider.LocacaoChurrasqueiraDataProvider;
 import gerenciadorsociety.infra.mappers.LocacaoChurrasqueiraMapper;
 import lombok.AllArgsConstructor;
@@ -56,7 +51,7 @@ public class LocacaoChurrasqueiraService {
     }
 
     public List<LocacaoChurrasqueiraDto> buscarPorTodos() {
-        return LocacaoChurrasqueiraMapper.paraDtosDeDomains(dataProvider.getAll());
+        return LocacaoChurrasqueiraMapper.paraDtosDeDomains(dataProvider.consultarTodos());
     }
 
     public void deletar(Long id) {

@@ -20,13 +20,7 @@ public class LocacaoCampoEntity extends LocacaoEntity{
     private List<String> listaDeJogadores;
 
     public LocacaoCampoEntity(Long id, EstabelecimentoEntity estab, AdministradorEntity adm, LocalDate dataLocacao, LocalDate data, LocalTime horaLocacao, Boolean ativo, CampoEntity campo, List<String> list){
-        this.id = id;
-        this.estabelecimento = estab;
-        this.administrador = adm;
-        this.dataLocacao = dataLocacao;
-        this.dataAtual = data;
-        this.horaLocacao = horaLocacao;
-        this.ativo = ativo;
+        super(id, estab, adm, dataLocacao, data, horaLocacao, ativo);
         this.campo = campo;
         this.listaDeJogadores = list;
     }

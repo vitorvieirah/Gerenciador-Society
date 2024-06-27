@@ -3,9 +3,6 @@ package gerenciadorsociety.services;
 import gerenciadorsociety.domains.*;
 import gerenciadorsociety.dtos.LocacaoCampoDto;
 import gerenciadorsociety.dtos.LocacaoDto;
-import gerenciadorsociety.infra.dataprovider.AdministradorDataProvider;
-import gerenciadorsociety.infra.dataprovider.CampoDataProvider;
-import gerenciadorsociety.infra.dataprovider.EstabelecimentoDataProvider;
 import gerenciadorsociety.infra.dataprovider.LocacaoCampoDataProvider;
 import gerenciadorsociety.infra.mappers.LocacaoCampoMapper;
 import lombok.AllArgsConstructor;
@@ -59,6 +56,6 @@ public class LocacaoCampoService {
     }
 
     public List<LocacaoCampoDto> buscarPorTodos() {
-        return LocacaoCampoMapper.paraDtosDeDomains(locacaoCampoDataProvider.getAll());
+        return LocacaoCampoMapper.paraDtosDeDomains(locacaoCampoDataProvider.consultarTodos());
     }
 }

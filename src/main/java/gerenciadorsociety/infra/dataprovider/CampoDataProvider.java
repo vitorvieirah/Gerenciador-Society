@@ -16,15 +16,15 @@ import java.util.concurrent.ExecutionException;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class CampoDataProvider {
+public class CampoDataProvider implements DataProvider<Campo>{
 
     private final CampoRepository repository;
 
+    @Override
     public Campo salvar(Campo campo){
         CampoEntity campoEntity = CampoMapper.paraEntityDeDomain(campo);
-        CampoEntity campoEntity1;
         try {
-            campoEntity1 = repository.save(campoEntity);
+            campoEntity = repository.save(campoEntity);
         }catch (Exception ex){
             log.error("Erro ao salvar Campo", ex);
             throw new DataBaseExecption(ex.getMessage());
@@ -32,26 +32,7 @@ public class CampoDataProvider {
         return CampoMapper.paraDomainDeEntity(campoEntity);
     }
 
-    public List<Campo> consultarTodos(){
-        try {
-            return CampoMapper.paraDomainsDeEntitys(repository.findAll());
-        }catch (Exception ex){
-            log.error("Erro ao consultar todos os campos", ex);
-            throw new DataBaseExecption(ex.getMessage());
-        }
-    }
-
-    public Campo consultarPorId(Long id){
-        CampoEntity campoEntity = null;
-        try {
-            campoEntity = repository.getReferenceById(id);
-        }catch (Exception ex){
-            log.error("Erro ao consultar campo por id", ex);
-            throw new DataBaseExecption(ex.getMessage());
-        }
-        return CampoMapper.paraDomainDeEntity(campoEntity);
-    }
-
+    @Override
     public void deletar(Long id){
         try {
             repository.deleteById(id);

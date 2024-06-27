@@ -3,10 +3,10 @@ package gerenciadorsociety.infra.dataprovider;
 import gerenciadorsociety.domains.LocacaoChurrasqueira;
 import gerenciadorsociety.infra.entitys.LocacaoChurrasqueiraEntity;
 import gerenciadorsociety.infra.execptions.DataBaseExecption;
-import gerenciadorsociety.infra.mappers.LocacaoCampoMapper;
 import gerenciadorsociety.infra.mappers.LocacaoChurrasqueiraMapper;
 import gerenciadorsociety.infra.repositorys.LocacaoChurrasqueiraRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,16 +14,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Component
 @AllArgsConstructor
 @Slf4j
-public class LocacaoChurrasqueiraDataProvider {
+public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChurrasqueira> {
 
     private final LocacaoChurrasqueiraRepository repository;
 
-
+    @Override
     public LocacaoChurrasqueira salvar(LocacaoChurrasqueira locacaoChurrasqueira) {
         LocacaoChurrasqueiraEntity entity = LocacaoChurrasqueiraMapper.paraEntityDeDomain(locacaoChurrasqueira);
         try{
@@ -47,6 +46,7 @@ public class LocacaoChurrasqueiraDataProvider {
         return locacaoChurrasqueiraEntity.map(LocacaoChurrasqueiraMapper::paraDomainDeEntity);
     }
 
+    @Override
     public void deletar(Long id) {
         Optional<LocacaoChurrasqueiraEntity> locacaoChurrasqueiraEntity;
         try {
@@ -60,7 +60,7 @@ public class LocacaoChurrasqueiraDataProvider {
         }
     }
 
-    public List<LocacaoChurrasqueira> getAll() {
+    public List<LocacaoChurrasqueira> consultarTodos() {
         List<LocacaoChurrasqueiraEntity> locacaoList;
         try{
             locacaoList = repository.findAll();

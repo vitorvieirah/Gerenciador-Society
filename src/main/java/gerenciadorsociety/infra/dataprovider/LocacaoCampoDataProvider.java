@@ -6,7 +6,9 @@ import gerenciadorsociety.infra.execptions.DataBaseExecption;
 import gerenciadorsociety.infra.mappers.LocacaoCampoMapper;
 import gerenciadorsociety.infra.repositorys.LocacaoCampoRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -17,11 +19,11 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class LocacaoCampoDataProvider {
+public class LocacaoCampoDataProvider implements DataProvider<LocacaoCampo> {
 
     private final LocacaoCampoRepository repository;
 
-
+    @Override
     public LocacaoCampo salvar(LocacaoCampo locacaoCampo) {
         LocacaoCampoEntity entity = LocacaoCampoMapper.paraEntityDeDomain(locacaoCampo);
         try {
@@ -56,6 +58,7 @@ public class LocacaoCampoDataProvider {
         return locacaoCampoEntity.map(LocacaoCampoMapper::paraDomainDeEntity);
     }
 
+    @Override
     public void deletar(Long id) {
         Optional<LocacaoCampoEntity> locacaoCampoEntity;
         try{
@@ -69,7 +72,7 @@ public class LocacaoCampoDataProvider {
         }
     }
 
-    public List<LocacaoCampo> getAll() {
+    public List<LocacaoCampo> consultarTodos() {
         List<LocacaoCampoEntity> locacaoList;
         try{
             locacaoList = repository.findAll();
