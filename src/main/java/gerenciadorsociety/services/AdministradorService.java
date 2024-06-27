@@ -28,4 +28,8 @@ public class AdministradorService {
 
         return AdministradorMapper.paraDtoDeDomain(dataProvider.salvar(adm));
     }
+
+    public Optional<Administrador> consultar(String cpf) {
+        return dataProvider.consultar(cpf);
+    }
 }

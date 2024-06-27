@@ -20,21 +20,7 @@ import java.util.Optional;
 public class EstabelecimentoService {
 
     private final EstabelecimentoDataProvider dataProvider;
-    private final DonoDataProvider donoDataProvider;
     private final DonoService donoService;
-    private final DonoRepository repository;
-
-    /*public Venda criar(Venda venda) {
-        Cliente cliente = clienteUseCase.consultarPorId(venda.getCliente().getId());
-        venda.setCliente(cliente);
-
-        List<Produto> produtos = venda.getProdutos().stream().map(produto -> produtoUseCase.consultarPorId(produto.getId())).toList();
-        venda.setProdutos(produtos);
-
-        calculaValorTotalEFinal(venda);
-
-        return vendaGateway.salvar(venda);
-    }*/
 
     public EstabelecimentoDto cadastrar(EstabelecimentoDto dto) {
         validaEstabelecimentoExistente(dto.cnpj());
@@ -45,7 +31,7 @@ public class EstabelecimentoService {
     }
 
     private void validaEstabelecimentoExistente(String cnpj){
-        Optional<Estabelecimento> estabelecimento = dataProvider.consultarPorCnpj(cnpj);
+        Optional<Estabelecimento> estabelecimento = consultarPorCnpj(cnpj);
         estabelecimento.ifPresent(estb -> {
             throw new RuntimeException("Estabelecimento ja cadastrado");
         });
@@ -59,4 +45,7 @@ public class EstabelecimentoService {
         dataProvider.deletar(id);
     }
 
+    public Optional<Estabelecimento> consultarPorCnpj(String cnpj) {
+        return dataProvider.consultarPorCnpj(cnpj);
+    }
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
 public class LocacaoService {
 
     private final LocacaoCampoDataProvider locacaoCampoDataProvider;
-    private final LocacaoChurrasqueiraDataProvider locacaoChurrasqueiraDataProvider;
+    private final LocacaoChurrasqueiraService locacaoChurrasqueiraService;
 
 
     public void cancelar(Long id) {
@@ -25,7 +25,7 @@ public class LocacaoService {
          if (locacaoCampo.isPresent()){
              locacaoCampoDataProvider.deletar(id);
          }else {
-             locacaoChurrasqueiraDataProvider.deletar(id);
+             locacaoChurrasqueiraService.deletar(id);
          }
     }
 }

@@ -20,9 +20,9 @@ import java.util.Optional;
 public class LocacaoCampoService {
 
     private final LocacaoCampoDataProvider locacaoCampoDataProvider;
-    private final CampoDataProvider campoDataProvider;
-    private final EstabelecimentoDataProvider estabelecimentoDataProvider;
-    private final AdministradorDataProvider administradorDataProvider;
+    private final CampoService campoService;
+    private final EstabelecimentoService estabelecimentoService;
+    private final AdministradorService administradorService;
 
     private static final String MENSAGEM_LOCACAO_JA_LOCADA = "Locação já existe";
 
@@ -33,20 +33,20 @@ public class LocacaoCampoService {
             throw new RuntimeException(MENSAGEM_LOCACAO_JA_LOCADA);
         });
 
-        Optional<Campo> campoOptional = campoDataProvider.buscarPorNumero(locacao.getCampo().getNumero());
+        Optional<Campo> campoOptional = campoService.buscarPorNumero(locacao.getCampo().getNumero());
         if(campoOptional.isPresent())
             locacao.setCampo(campoOptional.get());
         else
             throw new RuntimeException("Campo não encontrado");
 
-        Optional<Estabelecimento> estabelecimento = estabelecimentoDataProvider.consultarPorCnpj(dto.getEstabelecimento().cnpj());
+        Optional<Estabelecimento> estabelecimento = estabelecimentoService.consultarPorCnpj(dto.getEstabelecimento().cnpj());
 
         if(estabelecimento.isEmpty())
             throw new RuntimeException("Estabelecimento não encontrado");
 
         locacao.setEstabelecimento(estabelecimento.get());
 
-        Optional<Administrador> administrador = administradorDataProvider.consultar(dto.getAdministrador().cpf());
+        Optional<Administrador> administrador = administradorService.consultar(dto.getAdministrador().cpf());
 
         if(administrador.isEmpty())
             throw new RuntimeException("Administrador não encontrado");

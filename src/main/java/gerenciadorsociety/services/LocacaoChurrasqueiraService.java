@@ -24,8 +24,8 @@ import java.util.Optional;
 public class LocacaoChurrasqueiraService {
 
     private final LocacaoChurrasqueiraDataProvider dataProvider;
-    private final ChurrasqueiraDataProvider churrasqueiraDataProvider;
-    private final AdministradorDataProvider administradorDataProvider;
+    private final ChurrasqueiraService churrasqueiraService;
+    private final AdministradorService administradorService;
 
     public LocacaoDto locar(LocacaoChurrasqueiraDto dto) {
         LocacaoChurrasqueira locacao = LocacaoChurrasqueiraMapper.paraDomainDeDto(dto);
@@ -34,7 +34,7 @@ public class LocacaoChurrasqueiraService {
             throw new RuntimeException("Locacao ja existe");
         });
 
-        Optional<Churrasqueira> churrasqueiraOptional = churrasqueiraDataProvider.buscarPorNumero(locacao.getChurrasqueira().getNumero());
+        Optional<Churrasqueira> churrasqueiraOptional = churrasqueiraService.buscarPorNumero(locacao.getChurrasqueira().getNumero());
 
         if(churrasqueiraOptional.isPresent())
             locacao.setChurrasqueira(churrasqueiraOptional.get());
@@ -43,7 +43,7 @@ public class LocacaoChurrasqueiraService {
 
         locacao.setEstabelecimento(locacao.getChurrasqueira().getEstabelecimento());
 
-        Optional<Administrador> administrador = administradorDataProvider.consultar(locacao.getAdministrador().getCpf());
+        Optional<Administrador> administrador = administradorService.consultar(locacao.getAdministrador().getCpf());
 
         if(administrador.isPresent())
             locacao.setAdministrador(administrador.get());
@@ -57,5 +57,9 @@ public class LocacaoChurrasqueiraService {
 
     public List<LocacaoChurrasqueiraDto> buscarPorTodos() {
         return LocacaoChurrasqueiraMapper.paraDtosDeDomains(dataProvider.getAll());
+    }
+
+    public void deletar(Long id) {
+        dataProvider.deletar(id);
     }
 }

@@ -14,8 +14,6 @@ public class JogadorService {
 
     private final LocacaoCampoDataProvider dataProvider;
 
-
-
     public void entrarNaLista(Long id, String dto) {
         LocacaoCampo locacao = validacaoOptional(id);
 
