@@ -15,7 +15,7 @@ public class CampoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EqualsAndHashCode.Include private Long id;
     @Column(name = "numero_campo")
     private Integer numero;
     @ManyToOne

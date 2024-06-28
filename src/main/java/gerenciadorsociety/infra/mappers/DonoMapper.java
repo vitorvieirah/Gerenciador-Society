@@ -47,12 +47,4 @@ public abstract class DonoMapper {
                 .numeroTelefone(dono.getNumeroTelefone())
                 .build();
     }
-
-    public static List<Dono> paraDomainsDeEntitys(List<DonoEntity> donoEntityList){
-        return donoEntityList.stream().map(DonoMapper::paraDomainDeEntity).toList();
-    }
-
-    public static List<DonoDto> paraDtosDeDomains(List<Dono> donoList){
-        return donoList.stream().map(DonoMapper::paraDtoDeDomain).toList();
-    }
 }

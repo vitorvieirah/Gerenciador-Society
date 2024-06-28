@@ -15,7 +15,7 @@ import lombok.*;
 public class ChurrasqueiraEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EqualsAndHashCode.Include private Long id;
     @Column(name = "numero_churrasqueira")
     private Integer numero;
     @ManyToOne

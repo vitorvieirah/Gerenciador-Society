@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public abstract class Locacao {
 
-    private Long id;
+    @EqualsAndHashCode.Include private Long id;
     private Estabelecimento estabelecimento;
     private Administrador administrador;
     private LocalDate dataLocacao;

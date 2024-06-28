@@ -39,20 +39,4 @@ public abstract class CampoMapper {
                 .estabelecimento(EstabelecimentoMapper.paraDomainDeDto(campoDto.estabelecimento()))
                 .build();
     }
-
-    public static List<Campo> paraDomainsDeEntitys(List<CampoEntity> campoEntityList){
-        return campoEntityList.stream().map(CampoMapper::paraDomainDeEntity).toList();
-    }
-
-    public static List<CampoDto> paraDtosDeDomains(List<Campo> campoList){
-        return campoList.stream().map(CampoMapper::paraDtoDeDomain).toList();
-    }
-
-    public static List<CampoEntity> paraEntitysDeDomains(List<Campo> campoList){
-        return campoList.stream().map(CampoMapper::paraEntityDeDomain).toList();
-    }
-
-    public static List<Campo> paraDomainsDeDtos(List<CampoDto> campoDtoList){
-        return campoDtoList.stream().map(CampoMapper::paraDomainDeDto).toList();
-    }
 }

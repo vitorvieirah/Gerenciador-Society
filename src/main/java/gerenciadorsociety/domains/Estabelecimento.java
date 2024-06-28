@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 public class Estabelecimento {
 
-    private Long id;
+    @EqualsAndHashCode.Include private Long id;
     private String nome;
     private String cnpj;
     private Dono dono;

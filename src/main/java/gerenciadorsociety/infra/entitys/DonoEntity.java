@@ -14,7 +14,7 @@ import lombok.*;
 public class DonoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EqualsAndHashCode.Include private Long id;
     private String cpf;
     private String nome;
     private String email;

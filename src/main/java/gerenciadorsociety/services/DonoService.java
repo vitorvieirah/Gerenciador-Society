@@ -4,6 +4,7 @@ import gerenciadorsociety.domains.Dono;
 import gerenciadorsociety.dtos.DonoDto;
 import gerenciadorsociety.infra.dataprovider.DonoDataProvider;
 import gerenciadorsociety.infra.mappers.DonoMapper;
+import gerenciadorsociety.services.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,18 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DonoService {
     private final DonoDataProvider dataProvider;
+    private final Validacoes<Dono> validacoes;
 
     public DonoDto cadastrar(DonoDto dto) {
         Optional<Dono> dono = dataProvider.consultarPorCpf(dto.cpf());
-        dono.ifPresent(dn -> {
-            throw new RuntimeException("Dono ja cadastrado");
-        });
+        validacoes.validacaoCadastro(dono, "Dono ja cadastrado");
+
         return DonoMapper.paraDtoDeDomain(dataProvider.salvar(DonoMapper.paraDomainDeDto(dto)));
     }
 
     public Dono buscarPorCpf(String cpf) {
-         return dataProvider.consultarPorCpf(cpf).orElseThrow(() -> new RuntimeException("Dono não encontrado"));
+         Optional<Dono> donoOptional = dataProvider.consultarPorCpf(cpf);
+         validacoes.validacaoObjetoNaoEncontrado(donoOptional, "Dono não encontrado");
+         return donoOptional.get();
     }
 }

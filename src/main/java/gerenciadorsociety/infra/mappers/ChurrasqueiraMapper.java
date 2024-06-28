@@ -39,20 +39,4 @@ public abstract class ChurrasqueiraMapper {
                 .estabelecimento(EstabelecimentoMapper.paraDtoDeDomain(churrasqueira.getEstabelecimento()))
                 .build();
     }
-
-    public static List<Churrasqueira> paraDomainsDeEntitys(List<ChurrasqueiraEntity> churrasqueiraEntityList){
-        return churrasqueiraEntityList.stream().map(ChurrasqueiraMapper::paraDomainDeEntity).toList();
-    }
-
-    public static List<ChurrasqueiraDto> paraDtosDeDomains(List<Churrasqueira> churrasqueiraList){
-        return churrasqueiraList.stream().map(ChurrasqueiraMapper::paraDtoDeDomain).toList();
-    }
-
-    public static List<ChurrasqueiraEntity> paraEntitysDeDomains(List<Churrasqueira> churrasqueiraList){
-        return churrasqueiraList.stream().map(ChurrasqueiraMapper::paraEntityDeDomain).toList();
-    }
-
-    public static List<Churrasqueira> paraDomainsDeDtos(List<ChurrasqueiraDto> churrasqueiraDtoList){
-        return churrasqueiraDtoList.stream().map(ChurrasqueiraMapper::paraDomainDeDto).toList();
-    }
 }

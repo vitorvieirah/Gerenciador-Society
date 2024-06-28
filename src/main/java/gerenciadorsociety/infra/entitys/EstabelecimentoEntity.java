@@ -20,7 +20,7 @@ public class EstabelecimentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EqualsAndHashCode.Include private Long id;
     private String cnpj;
     private String nome;
     @ManyToOne

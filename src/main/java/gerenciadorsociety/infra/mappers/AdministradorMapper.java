@@ -47,16 +47,4 @@ public abstract class AdministradorMapper {
                 .numeroTelefone(adm.getNumeroTelefone())
                 .build();
     }
-
-    public static List<Administrador> paraDomainsDeEntitys(List<AdministradorEntity> admEntityList){
-        return admEntityList.stream().map(AdministradorMapper::paraDomainDeEntiy).toList();
-    }
-
-    public static List<AdministradorDto> paraDtosDeDomains(List<Administrador> admList){
-        return admList.stream().map(AdministradorMapper::paraDtoDeDomain).toList();
-    }
-
-    public static List<Administrador> paraDomainsDeDtos(List<AdministradorDto> admDtoList){
-        return admDtoList.stream().map(AdministradorMapper::paraDomainDeDto).toList();
-    }
 }

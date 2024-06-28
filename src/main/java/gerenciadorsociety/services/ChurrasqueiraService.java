@@ -6,6 +6,7 @@ import gerenciadorsociety.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infra.dataprovider.ChurrasqueiraDataProvider;
 import gerenciadorsociety.infra.dataprovider.EstabelecimentoDataProvider;
 import gerenciadorsociety.infra.mappers.ChurrasqueiraMapper;
+import gerenciadorsociety.services.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +18,22 @@ public class ChurrasqueiraService {
 
     private final ChurrasqueiraDataProvider dataProvider;
     private final EstabelecimentoService estabelecimentoService;
+    private final Validacoes<Churrasqueira> validacoesChurrasqueira;
 
     public ChurrasqueiraDto cadastrar(ChurrasqueiraDto dto) {
         Optional<Churrasqueira> churrasqueiraOptional = dataProvider.buscarPorNumero(dto.numero());
-        churrasqueiraOptional.ifPresent(chr -> {
-            throw new RuntimeException("Churrasqueira ja cadastrada");
-        });
+        validacoesChurrasqueira.validacaoCadastro(churrasqueiraOptional, "Churrasqueira ja cadastrada");
+
         Churrasqueira churrasqueira = ChurrasqueiraMapper.paraDomainDeDto(dto);
-        Optional<Estabelecimento> estabelecimento = estabelecimentoService.consultarPorCnpj(dto.estabelecimento().cnpj());
 
-        if(estabelecimento.isEmpty())
-            throw new RuntimeException("Estabelecimento não encontrado");
-
-        churrasqueira.setEstabelecimento(estabelecimento.get());
+        churrasqueira.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.estabelecimento().cnpj()));
 
         return ChurrasqueiraMapper.paraDtoDeDomain(dataProvider.salvar(churrasqueira));
     }
 
-    public Optional<Churrasqueira> buscarPorNumero(Integer numero) {
-        return dataProvider.buscarPorNumero(numero);
+    public Churrasqueira buscarPorNumero(Integer numero) {
+        Optional<Churrasqueira> churrasqueiraOptional = dataProvider.buscarPorNumero(numero);
+        validacoesChurrasqueira.validacaoObjetoNaoEncontrado(churrasqueiraOptional, "Churrasqueira não encontrada");
+        return churrasqueiraOptional.get();
     }
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 @Builder
 public class Campo {
-    private Long id;
+    @EqualsAndHashCode.Include private Long id;
     private Integer numero;
     private Estabelecimento estabelecimento;
 }

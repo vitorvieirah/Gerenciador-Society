@@ -26,7 +26,6 @@ public class JogadorService {
             });
         }
 
-
         locacao.adicionarJogador(dto);
         dataProvider.salvar(locacao);
     }

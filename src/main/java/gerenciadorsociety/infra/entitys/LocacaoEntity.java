@@ -19,7 +19,7 @@ public abstract class LocacaoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    @EqualsAndHashCode.Include protected Long id;
     @ManyToOne
     @JoinColumn(name = "cnpj_estabelecimento", nullable = false)
     protected EstabelecimentoEntity estabelecimento;

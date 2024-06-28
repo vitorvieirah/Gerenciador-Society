@@ -9,6 +9,7 @@ import gerenciadorsociety.infra.entitys.DonoEntity;
 import gerenciadorsociety.infra.entitys.EstabelecimentoEntity;
 import gerenciadorsociety.infra.mappers.EstabelecimentoMapper;
 import gerenciadorsociety.infra.repositorys.DonoRepository;
+import gerenciadorsociety.services.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +22,15 @@ public class EstabelecimentoService {
 
     private final EstabelecimentoDataProvider dataProvider;
     private final DonoService donoService;
+    private final Validacoes<Estabelecimento> validacoes;
 
     public EstabelecimentoDto cadastrar(EstabelecimentoDto dto) {
-        validaEstabelecimentoExistente(dto.cnpj());
+        Optional<Estabelecimento> estabelecimento = dataProvider.consultarPorCnpj(dto.cnpj());
+        validacoes.validacaoCadastro(estabelecimento, "Estabelecimento ja cadastrado");
         Estabelecimento estab = EstabelecimentoMapper.paraDomainDeDto(dto);
         Dono dono = donoService.buscarPorCpf(estab.getDono().getCpf());
         estab.setDono(dono);
         return EstabelecimentoMapper.paraDtoDeDomain(dataProvider.salvar(estab));
-    }
-
-    private void validaEstabelecimentoExistente(String cnpj){
-        Optional<Estabelecimento> estabelecimento = consultarPorCnpj(cnpj);
-        estabelecimento.ifPresent(estb -> {
-            throw new RuntimeException("Estabelecimento ja cadastrado");
-        });
     }
 
     public List<EstabelecimentoDto> getEstabelecimentos() {
@@ -45,7 +41,9 @@ public class EstabelecimentoService {
         dataProvider.deletar(id);
     }
 
-    public Optional<Estabelecimento> consultarPorCnpj(String cnpj) {
-        return dataProvider.consultarPorCnpj(cnpj);
+    public Estabelecimento consultarPorCnpj(String cnpj) {
+        Optional<Estabelecimento> estabelecimentoOptional = dataProvider.consultarPorCnpj(cnpj);
+        validacoes.validacaoObjetoNaoEncontrado(estabelecimentoOptional, "Estabelecimento não encontrado");
+        return estabelecimentoOptional.get();
     }
 }

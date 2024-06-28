@@ -4,6 +4,7 @@ import gerenciadorsociety.domains.Administrador;
 import gerenciadorsociety.dtos.AdministradorDto;
 import gerenciadorsociety.infra.dataprovider.AdministradorDataProvider;
 import gerenciadorsociety.infra.mappers.AdministradorMapper;
+import gerenciadorsociety.services.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,20 +17,20 @@ import java.util.Optional;
 public class AdministradorService {
 
     private final AdministradorDataProvider dataProvider;
+    private final Validacoes<Administrador> validacoes;
 
     private static final String MENSAGEM_ADM_EXISTE = "Admnistrador já está cadastrado";
 
     public AdministradorDto cadastrar(AdministradorDto dto) {
         Administrador adm = AdministradorMapper.paraDomainDeDto(dto);
         Optional<Administrador> admOptional = dataProvider.consultar(adm.getCpf());
-        admOptional.ifPresent(administrador -> {
-            throw new RuntimeException(MENSAGEM_ADM_EXISTE);
-        });
-
+        validacoes.validacaoCadastro(admOptional, MENSAGEM_ADM_EXISTE);
         return AdministradorMapper.paraDtoDeDomain(dataProvider.salvar(adm));
     }
 
-    public Optional<Administrador> consultar(String cpf) {
-        return dataProvider.consultar(cpf);
+    public Administrador consultar(String cpf) {
+        Optional<Administrador> administradorOptional = dataProvider.consultar(cpf);
+        validacoes.validacaoObjetoNaoEncontrado(administradorOptional, "Administrador não encontrado");
+        return administradorOptional.get();
     }
 }
