@@ -60,12 +60,8 @@ public class LocacaoCampoDataProvider implements DataProvider<LocacaoCampo> {
 
     @Override
     public void deletar(Long id) {
-        Optional<LocacaoCampoEntity> locacaoCampoEntity;
         try{
-            locacaoCampoEntity = repository.findById(id);
-            locacaoCampoEntity.ifPresent(loc -> {
-                repository.deleteById(id);
-            });
+            repository.deleteById(id);
         }catch (Exception ex){
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());

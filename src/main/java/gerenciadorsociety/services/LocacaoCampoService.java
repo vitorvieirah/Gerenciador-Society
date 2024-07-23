@@ -26,7 +26,7 @@ public class LocacaoCampoService {
     public LocacaoDto locar(LocacaoCampoDto dto) {
         LocacaoCampo locacao = LocacaoCampoMapper.paraDomainDeDto(dto);
         Optional<LocacaoCampo> locacaoOptional = locacaoCampoDataProvider.buscarPorHoraLocacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getCampo().getNumero());
-        validacoes.validacaoCadastro(locacaoOptional, "Locação já existe");
+        validacoes.validacaoObjetoPresente(locacaoOptional, "Locação já existe");
 
         locacao.setCampo(campoService.buscarPorNumero(locacao.getCampo().getNumero()));
 
@@ -42,5 +42,12 @@ public class LocacaoCampoService {
 
     public List<LocacaoCampoDto> buscarPorTodos() {
         return LocacaoCampoMapper.paraDtosDeDomains(locacaoCampoDataProvider.consultarTodos());
+    }
+
+    public void deletar (Long id){
+        if(locacaoCampoDataProvider.buscarPorId(id).isPresent())
+            locacaoCampoDataProvider.deletar(id);
+        else
+            throw new RuntimeException("Locação de campo não encontrada para deleção");
     }
 }

@@ -18,14 +18,14 @@ public class DonoService {
 
     public DonoDto cadastrar(DonoDto dto) {
         Optional<Dono> dono = dataProvider.consultarPorCpf(dto.cpf());
-        validacoes.validacaoCadastro(dono, "Dono ja cadastrado");
+        validacoes.validacaoObjetoPresente(dono, "Dono ja cadastrado");
 
         return DonoMapper.paraDtoDeDomain(dataProvider.salvar(DonoMapper.paraDomainDeDto(dto)));
     }
 
     public Dono buscarPorCpf(String cpf) {
          Optional<Dono> donoOptional = dataProvider.consultarPorCpf(cpf);
-         validacoes.validacaoObjetoNaoEncontrado(donoOptional, "Dono não encontrado");
+         validacoes.validacaoObjetoVazio(donoOptional, "Dono não encontrado");
          return donoOptional.get();
     }
 }

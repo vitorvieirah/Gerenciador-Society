@@ -48,12 +48,8 @@ public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChu
 
     @Override
     public void deletar(Long id) {
-        Optional<LocacaoChurrasqueiraEntity> locacaoChurrasqueiraEntity;
         try {
-            locacaoChurrasqueiraEntity = repository.findById(id);
-            locacaoChurrasqueiraEntity.ifPresent(loc -> {
-                repository.deleteById(id);
-            });
+            repository.deleteById(id);
         }catch (Exception ex){
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
@@ -70,5 +66,16 @@ public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChu
         }
 
         return LocacaoChurrasqueiraMapper.paraDomainsDeEntitys(locacaoList);
+    }
+
+    public Optional<LocacaoChurrasqueira> buscarPorId(Long id) {
+        Optional<LocacaoChurrasqueiraEntity> locacao;
+        try{
+            locacao = repository.findById(id);
+        }catch (Exception ex){
+            log.error(ex.getMessage(), ex);
+            throw new DataBaseExecption(ex.getMessage());
+        }
+        return locacao.map(LocacaoChurrasqueiraMapper::paraDomainDeEntity);
     }
 }

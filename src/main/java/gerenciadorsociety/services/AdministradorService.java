@@ -6,8 +6,6 @@ import gerenciadorsociety.infra.dataprovider.AdministradorDataProvider;
 import gerenciadorsociety.infra.mappers.AdministradorMapper;
 import gerenciadorsociety.services.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,13 +22,13 @@ public class AdministradorService {
     public AdministradorDto cadastrar(AdministradorDto dto) {
         Administrador adm = AdministradorMapper.paraDomainDeDto(dto);
         Optional<Administrador> admOptional = dataProvider.consultar(adm.getCpf());
-        validacoes.validacaoCadastro(admOptional, MENSAGEM_ADM_EXISTE);
+        validacoes.validacaoObjetoPresente(admOptional, MENSAGEM_ADM_EXISTE);
         return AdministradorMapper.paraDtoDeDomain(dataProvider.salvar(adm));
     }
 
     public Administrador consultar(String cpf) {
         Optional<Administrador> administradorOptional = dataProvider.consultar(cpf);
-        validacoes.validacaoObjetoNaoEncontrado(administradorOptional, "Administrador não encontrado");
+        validacoes.validacaoObjetoVazio(administradorOptional, "Administrador não encontrado");
         return administradorOptional.get();
     }
 }

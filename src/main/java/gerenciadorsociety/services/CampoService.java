@@ -1,7 +1,6 @@
 package gerenciadorsociety.services;
 
 import gerenciadorsociety.domains.Campo;
-import gerenciadorsociety.domains.Estabelecimento;
 import gerenciadorsociety.dtos.CampoDto;
 import gerenciadorsociety.infra.dataprovider.CampoDataProvider;
 import gerenciadorsociety.infra.mappers.CampoMapper;
@@ -23,7 +22,7 @@ public class CampoService {
 
     public CampoDto cadastrar(CampoDto dto) {
         Optional<Campo> campoOptional = dataProvider.buscarPorNumero(dto.numero());
-        validacoesCampo.validacaoCadastro(campoOptional, "Campo ja esta cadastrado");
+        validacoesCampo.validacaoObjetoPresente(campoOptional, "Campo ja esta cadastrado");
 
         Campo campo = CampoMapper.paraDomainDeDto(dto);
 
@@ -34,7 +33,7 @@ public class CampoService {
 
     public Campo buscarPorNumero(Integer numero) {
         Optional<Campo> campoOptional = dataProvider.buscarPorNumero(numero);
-        validacoesCampo.validacaoObjetoNaoEncontrado(campoOptional, "Campo não encontrado");
+        validacoesCampo.validacaoObjetoVazio(campoOptional, "Campo não encontrado");
         return campoOptional.get();
     }
 }

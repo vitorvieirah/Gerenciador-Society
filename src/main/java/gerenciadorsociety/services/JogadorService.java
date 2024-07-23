@@ -2,6 +2,7 @@ package gerenciadorsociety.services;
 
 import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.infra.dataprovider.LocacaoCampoDataProvider;
+import gerenciadorsociety.infra.execptions.DataBaseExecption;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,12 @@ public class JogadorService {
         if(locacao.getListaDeJogadores() == null){
             locacao = criarListaJogadores(locacao);
         }else{
-            locacao.getListaDeJogadores().forEach(jogador -> {
-                if (jogador.equals(dto))
-                    throw new RuntimeException("Jogador ja está na lista");
-            });
+            locacao.getListaDeJogadores().stream()
+                    .filter(jogador -> jogador.equals(dto))
+                    .findFirst()
+                    .ifPresent(jogador -> {
+                        throw new RuntimeException("Jogador já está na lista");
+                    });
         }
 
         locacao.adicionarJogador(dto);

@@ -1,10 +1,8 @@
 package gerenciadorsociety.services;
 
 import gerenciadorsociety.domains.Churrasqueira;
-import gerenciadorsociety.domains.Estabelecimento;
 import gerenciadorsociety.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infra.dataprovider.ChurrasqueiraDataProvider;
-import gerenciadorsociety.infra.dataprovider.EstabelecimentoDataProvider;
 import gerenciadorsociety.infra.mappers.ChurrasqueiraMapper;
 import gerenciadorsociety.services.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
@@ -22,7 +20,7 @@ public class ChurrasqueiraService {
 
     public ChurrasqueiraDto cadastrar(ChurrasqueiraDto dto) {
         Optional<Churrasqueira> churrasqueiraOptional = dataProvider.buscarPorNumero(dto.numero());
-        validacoesChurrasqueira.validacaoCadastro(churrasqueiraOptional, "Churrasqueira ja cadastrada");
+        validacoesChurrasqueira.validacaoObjetoPresente(churrasqueiraOptional, "Churrasqueira ja cadastrada");
 
         Churrasqueira churrasqueira = ChurrasqueiraMapper.paraDomainDeDto(dto);
 
@@ -33,7 +31,7 @@ public class ChurrasqueiraService {
 
     public Churrasqueira buscarPorNumero(Integer numero) {
         Optional<Churrasqueira> churrasqueiraOptional = dataProvider.buscarPorNumero(numero);
-        validacoesChurrasqueira.validacaoObjetoNaoEncontrado(churrasqueiraOptional, "Churrasqueira não encontrada");
+        validacoesChurrasqueira.validacaoObjetoVazio(churrasqueiraOptional, "Churrasqueira não encontrada");
         return churrasqueiraOptional.get();
     }
 }

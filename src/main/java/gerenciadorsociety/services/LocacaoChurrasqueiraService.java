@@ -1,8 +1,5 @@
 package gerenciadorsociety.services;
 
-import gerenciadorsociety.domains.Administrador;
-import gerenciadorsociety.domains.Churrasqueira;
-import gerenciadorsociety.domains.LocacaoCampo;
 import gerenciadorsociety.domains.LocacaoChurrasqueira;
 import gerenciadorsociety.dtos.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.dtos.LocacaoDto;
@@ -28,7 +25,7 @@ public class LocacaoChurrasqueiraService {
     public LocacaoDto locar(LocacaoChurrasqueiraDto dto) {
         LocacaoChurrasqueira locacao = LocacaoChurrasqueiraMapper.paraDomainDeDto(dto);
         Optional<LocacaoChurrasqueira> locacaoChurrasqueira = dataProvider.buscarLocacaoParaValidacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getChurrasqueira().getNumero());
-        validacoes.validacaoCadastro(locacaoChurrasqueira, "Locacao ja existe");
+        validacoes.validacaoObjetoPresente(locacaoChurrasqueira, "Locacao ja existe");
 
         locacao.setChurrasqueira(churrasqueiraService.buscarPorNumero(locacao.getChurrasqueira().getNumero()));
 
@@ -46,6 +43,9 @@ public class LocacaoChurrasqueiraService {
     }
 
     public void deletar(Long id) {
-        dataProvider.deletar(id);
+        if(dataProvider.buscarPorId(id).isPresent())
+            dataProvider.deletar(id);
+        else
+            throw new RuntimeException("Locação churrasqueira não encontrada para deleção");
     }
 }
