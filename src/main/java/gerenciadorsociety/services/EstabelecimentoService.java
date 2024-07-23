@@ -33,7 +33,7 @@ public class EstabelecimentoService {
         return EstabelecimentoMapper.paraDtosDeDomains(dataProvider.consultarTodos());
     }
 
-    public void deletar (Long id){
+    public void deletar(Long id) {
         dataProvider.deletar(id);
     }
 

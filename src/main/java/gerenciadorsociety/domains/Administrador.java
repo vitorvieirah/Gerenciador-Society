@@ -8,7 +8,9 @@ import lombok.*;
 @EqualsAndHashCode
 @Builder
 public class Administrador {
-    @EqualsAndHashCode.Include private Long id;
+
+    @EqualsAndHashCode.Include
+    private Long id;
     private String nome;
     private String email;
     private String cpf;

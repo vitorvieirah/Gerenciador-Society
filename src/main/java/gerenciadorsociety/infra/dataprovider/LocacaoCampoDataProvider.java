@@ -28,7 +28,7 @@ public class LocacaoCampoDataProvider implements DataProvider<LocacaoCampo> {
         LocacaoCampoEntity entity = LocacaoCampoMapper.paraEntityDeDomain(locacaoCampo);
         try {
             entity = repository.save(entity);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -37,9 +37,9 @@ public class LocacaoCampoDataProvider implements DataProvider<LocacaoCampo> {
 
     public Optional<LocacaoCampo> buscarPorId(Long id) {
         Optional<LocacaoCampoEntity> locacaoCampoEntity;
-        try{
+        try {
             locacaoCampoEntity = repository.findById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -47,11 +47,11 @@ public class LocacaoCampoDataProvider implements DataProvider<LocacaoCampo> {
         return locacaoCampoEntity.map(LocacaoCampoMapper::paraDomainDeEntity);
     }
 
-    public Optional<LocacaoCampo> buscarPorHoraLocacao (LocalTime hora, LocalDate data, Integer numeroCampo){
+    public Optional<LocacaoCampo> buscarPorHoraLocacao(LocalTime hora, LocalDate data, Integer numeroCampo) {
         Optional<LocacaoCampoEntity> locacaoCampoEntity;
-        try{
+        try {
             locacaoCampoEntity = repository.findLocacaoValidacao(hora, data, numeroCampo);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -60,9 +60,9 @@ public class LocacaoCampoDataProvider implements DataProvider<LocacaoCampo> {
 
     @Override
     public void deletar(Long id) {
-        try{
+        try {
             repository.deleteById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -70,9 +70,9 @@ public class LocacaoCampoDataProvider implements DataProvider<LocacaoCampo> {
 
     public List<LocacaoCampo> consultarTodos() {
         List<LocacaoCampoEntity> locacaoList;
-        try{
+        try {
             locacaoList = repository.findAll();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }

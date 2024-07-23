@@ -4,11 +4,9 @@ import gerenciadorsociety.domains.Campo;
 import gerenciadorsociety.dtos.CampoDto;
 import gerenciadorsociety.infra.entitys.CampoEntity;
 
-import java.util.List;
-
 public abstract class CampoMapper {
 
-    public static Campo paraDomainDeEntity(CampoEntity campoEntity){
+    public static Campo paraDomainDeEntity(CampoEntity campoEntity) {
         return Campo.builder()
                 .id(campoEntity.getId())
                 .numero(campoEntity.getNumero())
@@ -16,7 +14,7 @@ public abstract class CampoMapper {
                 .build();
     }
 
-    public static CampoEntity paraEntityDeDomain(Campo campo){
+    public static CampoEntity paraEntityDeDomain(Campo campo) {
         return CampoEntity.builder()
                 .id(campo.getId())
                 .numero(campo.getNumero())
@@ -24,7 +22,7 @@ public abstract class CampoMapper {
                 .build();
     }
 
-    public static CampoDto paraDtoDeDomain(Campo campo){
+    public static CampoDto paraDtoDeDomain(Campo campo) {
         return CampoDto.builder()
                 .id(campo.getId())
                 .numero(campo.getNumero())
@@ -32,7 +30,7 @@ public abstract class CampoMapper {
                 .build();
     }
 
-    public static Campo paraDomainDeDto(CampoDto campoDto){
+    public static Campo paraDomainDeDto(CampoDto campoDto) {
         return Campo.builder()
                 .id(campoDto.id())
                 .numero(campoDto.numero())

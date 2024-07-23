@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class EstabelecimentoMapper {
 
-    public static Estabelecimento paraDomainDeEntity(EstabelecimentoEntity estabEntity){
+    public static Estabelecimento paraDomainDeEntity(EstabelecimentoEntity estabEntity) {
         return Estabelecimento.builder()
                 .id(estabEntity.getId())
                 .cnpj(estabEntity.getCnpj())
@@ -18,7 +18,7 @@ public abstract class EstabelecimentoMapper {
                 .build();
     }
 
-    public static EstabelecimentoEntity paraEntityDeDomain(Estabelecimento estabelecimento){
+    public static EstabelecimentoEntity paraEntityDeDomain(Estabelecimento estabelecimento) {
         return EstabelecimentoEntity.builder()
                 .id(estabelecimento.getId())
                 .cnpj(estabelecimento.getCnpj())
@@ -28,7 +28,7 @@ public abstract class EstabelecimentoMapper {
                 .build();
     }
 
-    public static Estabelecimento paraDomainDeDto(EstabelecimentoDto estabelecimentoDto){
+    public static Estabelecimento paraDomainDeDto(EstabelecimentoDto estabelecimentoDto) {
         return Estabelecimento.builder()
                 .id(estabelecimentoDto.id())
                 .nome(estabelecimentoDto.nome())
@@ -38,7 +38,7 @@ public abstract class EstabelecimentoMapper {
                 .build();
     }
 
-    public static EstabelecimentoDto paraDtoDeDomain(Estabelecimento estabelecimento){
+    public static EstabelecimentoDto paraDtoDeDomain(Estabelecimento estabelecimento) {
         return EstabelecimentoDto.builder()
                 .id(estabelecimento.getId())
                 .cnpj(estabelecimento.getCnpj())
@@ -48,11 +48,11 @@ public abstract class EstabelecimentoMapper {
                 .build();
     }
 
-    public static List<Estabelecimento> paraDomainsDeEntitys(List<EstabelecimentoEntity> estabEntityList){
+    public static List<Estabelecimento> paraDomainsDeEntitys(List<EstabelecimentoEntity> estabEntityList) {
         return estabEntityList.stream().map(EstabelecimentoMapper::paraDomainDeEntity).toList();
     }
 
-    public static List<EstabelecimentoDto> paraDtosDeDomains(List<Estabelecimento> estabelecimentoList){
+    public static List<EstabelecimentoDto> paraDtosDeDomains(List<Estabelecimento> estabelecimentoList) {
         return estabelecimentoList.stream().map(EstabelecimentoMapper::paraDtoDeDomain).toList();
     }
 }

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface CampoRepository extends JpaRepository<CampoEntity, Long> {
-    Optional<CampoEntity> findByNumero (Integer numero);
+    Optional<CampoEntity> findByNumero(Integer numero);
 }

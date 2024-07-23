@@ -4,11 +4,9 @@ import gerenciadorsociety.domains.Churrasqueira;
 import gerenciadorsociety.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infra.entitys.ChurrasqueiraEntity;
 
-import java.util.List;
-
 public abstract class ChurrasqueiraMapper {
 
-    public static Churrasqueira paraDomainDeEntity(ChurrasqueiraEntity churrasqueiraEntity){
+    public static Churrasqueira paraDomainDeEntity(ChurrasqueiraEntity churrasqueiraEntity) {
         return Churrasqueira.builder()
                 .id(churrasqueiraEntity.getId())
                 .numero(churrasqueiraEntity.getNumero())
@@ -16,7 +14,7 @@ public abstract class ChurrasqueiraMapper {
                 .build();
     }
 
-    public static ChurrasqueiraEntity paraEntityDeDomain(Churrasqueira churrasqueira){
+    public static ChurrasqueiraEntity paraEntityDeDomain(Churrasqueira churrasqueira) {
         return ChurrasqueiraEntity.builder()
                 .id(churrasqueira.getId())
                 .numero(churrasqueira.getNumero())
@@ -24,7 +22,7 @@ public abstract class ChurrasqueiraMapper {
                 .build();
     }
 
-    public static Churrasqueira paraDomainDeDto(ChurrasqueiraDto churrasqueiraDto){
+    public static Churrasqueira paraDomainDeDto(ChurrasqueiraDto churrasqueiraDto) {
         return Churrasqueira.builder()
                 .id(churrasqueiraDto.id())
                 .numero(churrasqueiraDto.numero())
@@ -32,7 +30,7 @@ public abstract class ChurrasqueiraMapper {
                 .build();
     }
 
-    public static ChurrasqueiraDto paraDtoDeDomain(Churrasqueira churrasqueira){
+    public static ChurrasqueiraDto paraDtoDeDomain(Churrasqueira churrasqueira) {
         return ChurrasqueiraDto.builder()
                 .id(churrasqueira.getId())
                 .numero(churrasqueira.getNumero())

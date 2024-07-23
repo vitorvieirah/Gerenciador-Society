@@ -4,11 +4,9 @@ import gerenciadorsociety.domains.Dono;
 import gerenciadorsociety.dtos.DonoDto;
 import gerenciadorsociety.infra.entitys.DonoEntity;
 
-import java.util.List;
-
 public abstract class DonoMapper {
 
-    public static Dono paraDomainDeEntity(DonoEntity donoEntity){
+    public static Dono paraDomainDeEntity(DonoEntity donoEntity) {
         return Dono.builder()
                 .id(donoEntity.getId())
                 .cpf(donoEntity.getCpf())
@@ -18,7 +16,7 @@ public abstract class DonoMapper {
                 .build();
     }
 
-    public static DonoEntity paraEntityDeDomain(Dono dono){
+    public static DonoEntity paraEntityDeDomain(Dono dono) {
         return DonoEntity.builder()
                 .id(dono.getId())
                 .cpf(dono.getCpf())
@@ -28,7 +26,7 @@ public abstract class DonoMapper {
                 .build();
     }
 
-    public static Dono paraDomainDeDto(DonoDto donoDto){
+    public static Dono paraDomainDeDto(DonoDto donoDto) {
         return Dono.builder()
                 .id(donoDto.id())
                 .cpf(donoDto.cpf())
@@ -38,7 +36,7 @@ public abstract class DonoMapper {
                 .build();
     }
 
-    public static DonoDto paraDtoDeDomain(Dono dono){
+    public static DonoDto paraDtoDeDomain(Dono dono) {
         return DonoDto.builder()
                 .id(dono.getId())
                 .cpf(dono.getCpf())

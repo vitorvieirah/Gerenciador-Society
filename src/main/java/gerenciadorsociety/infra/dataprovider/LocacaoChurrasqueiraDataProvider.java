@@ -25,9 +25,9 @@ public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChu
     @Override
     public LocacaoChurrasqueira salvar(LocacaoChurrasqueira locacaoChurrasqueira) {
         LocacaoChurrasqueiraEntity entity = LocacaoChurrasqueiraMapper.paraEntityDeDomain(locacaoChurrasqueira);
-        try{
+        try {
             entity = repository.save(entity);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -35,11 +35,11 @@ public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChu
         return LocacaoChurrasqueiraMapper.paraDomainDeEntity(entity);
     }
 
-    public Optional<LocacaoChurrasqueira> buscarLocacaoParaValidacao (LocalTime horaLocacao, LocalDate dataLocacao, Integer numeroChurrasqueira){
+    public Optional<LocacaoChurrasqueira> buscarLocacaoParaValidacao(LocalTime horaLocacao, LocalDate dataLocacao, Integer numeroChurrasqueira) {
         Optional<LocacaoChurrasqueiraEntity> locacaoChurrasqueiraEntity;
-        try{
+        try {
             locacaoChurrasqueiraEntity = repository.findByLocacaoValidacao(horaLocacao, dataLocacao, numeroChurrasqueira);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -50,7 +50,7 @@ public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChu
     public void deletar(Long id) {
         try {
             repository.deleteById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -58,9 +58,9 @@ public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChu
 
     public List<LocacaoChurrasqueira> consultarTodos() {
         List<LocacaoChurrasqueiraEntity> locacaoList;
-        try{
+        try {
             locacaoList = repository.findAll();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -70,9 +70,9 @@ public class LocacaoChurrasqueiraDataProvider implements DataProvider<LocacaoChu
 
     public Optional<LocacaoChurrasqueira> buscarPorId(Long id) {
         Optional<LocacaoChurrasqueiraEntity> locacao;
-        try{
+        try {
             locacao = repository.findById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }

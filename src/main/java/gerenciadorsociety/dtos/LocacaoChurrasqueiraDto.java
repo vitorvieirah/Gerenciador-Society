@@ -1,10 +1,8 @@
 package gerenciadorsociety.dtos;
 
-import gerenciadorsociety.domains.LocacaoChurrasqueira;
-import gerenciadorsociety.infra.entitys.AdministradorEntity;
-import gerenciadorsociety.infra.entitys.CampoEntity;
-import gerenciadorsociety.infra.entitys.EstabelecimentoEntity;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

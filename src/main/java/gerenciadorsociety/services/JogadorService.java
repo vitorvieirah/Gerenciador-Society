@@ -18,9 +18,9 @@ public class JogadorService {
     public void entrarNaLista(Long id, String dto) {
         LocacaoCampo locacao = validacaoOptional(id);
 
-        if(locacao.getListaDeJogadores() == null){
+        if (locacao.getListaDeJogadores() == null) {
             locacao = criarListaJogadores(locacao);
-        }else{
+        } else {
             locacao.getListaDeJogadores().stream()
                     .filter(jogador -> jogador.equals(dto))
                     .findFirst()
@@ -39,11 +39,11 @@ public class JogadorService {
         dataProvider.salvar(locacao);
     }
 
-    private LocacaoCampo validacaoOptional(Long id){
+    private LocacaoCampo validacaoOptional(Long id) {
 
         Optional<LocacaoCampo> locacao = dataProvider.buscarPorId(id);
 
-        if(locacao.isEmpty()){
+        if (locacao.isEmpty()) {
             throw new RuntimeException("Locacao não existe");
         }
 

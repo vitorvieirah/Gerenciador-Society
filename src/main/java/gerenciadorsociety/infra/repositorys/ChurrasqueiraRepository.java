@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ChurrasqueiraRepository extends JpaRepository<ChurrasqueiraEntity, Long> {
-    Optional<ChurrasqueiraEntity> findByNumero (Integer numero);
+    Optional<ChurrasqueiraEntity> findByNumero(Integer numero);
 }

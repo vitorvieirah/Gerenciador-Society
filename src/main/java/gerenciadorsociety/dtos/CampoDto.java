@@ -1,6 +1,5 @@
 package gerenciadorsociety.dtos;
 
-import gerenciadorsociety.domains.Estabelecimento;
 import lombok.Builder;
 
 @Builder

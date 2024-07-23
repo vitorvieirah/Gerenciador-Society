@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class LocacaoChurrasqueiraMapper {
 
-    public static LocacaoChurrasqueiraEntity paraEntityDeDomain (LocacaoChurrasqueira locacaoChurrasqueira){
+    public static LocacaoChurrasqueiraEntity paraEntityDeDomain(LocacaoChurrasqueira locacaoChurrasqueira) {
         return new LocacaoChurrasqueiraEntity(
                 locacaoChurrasqueira.getId(),
                 EstabelecimentoMapper.paraEntityDeDomain(locacaoChurrasqueira.getEstabelecimento()),
@@ -21,7 +21,7 @@ public abstract class LocacaoChurrasqueiraMapper {
         );
     }
 
-    public static LocacaoChurrasqueira paraDomainDeEntity (LocacaoChurrasqueiraEntity locacaoChurrasqueiraEntity){
+    public static LocacaoChurrasqueira paraDomainDeEntity(LocacaoChurrasqueiraEntity locacaoChurrasqueiraEntity) {
         return new LocacaoChurrasqueira(
                 locacaoChurrasqueiraEntity.getId(),
                 EstabelecimentoMapper.paraDomainDeEntity(locacaoChurrasqueiraEntity.getEstabelecimento()),
@@ -34,7 +34,7 @@ public abstract class LocacaoChurrasqueiraMapper {
         );
     }
 
-    public static LocacaoChurrasqueiraDto paraDtoDeDomain (LocacaoChurrasqueira locacaoChurrasqueira){
+    public static LocacaoChurrasqueiraDto paraDtoDeDomain(LocacaoChurrasqueira locacaoChurrasqueira) {
         return new LocacaoChurrasqueiraDto(
                 locacaoChurrasqueira.getId(),
                 EstabelecimentoMapper.paraDtoDeDomain(locacaoChurrasqueira.getEstabelecimento()),
@@ -47,7 +47,7 @@ public abstract class LocacaoChurrasqueiraMapper {
         );
     }
 
-    public static LocacaoChurrasqueira paraDomainDeDto (LocacaoChurrasqueiraDto locacaoChurrasqueiraDto){
+    public static LocacaoChurrasqueira paraDomainDeDto(LocacaoChurrasqueiraDto locacaoChurrasqueiraDto) {
         return new LocacaoChurrasqueira(
                 locacaoChurrasqueiraDto.getId(),
                 EstabelecimentoMapper.paraDomainDeDto(locacaoChurrasqueiraDto.getEstabelecimento()),
@@ -60,11 +60,11 @@ public abstract class LocacaoChurrasqueiraMapper {
         );
     }
 
-    public static List<LocacaoChurrasqueira> paraDomainsDeEntitys (List<LocacaoChurrasqueiraEntity> locacaoChurrasqueiraEntityList){
+    public static List<LocacaoChurrasqueira> paraDomainsDeEntitys(List<LocacaoChurrasqueiraEntity> locacaoChurrasqueiraEntityList) {
         return locacaoChurrasqueiraEntityList.stream().map(LocacaoChurrasqueiraMapper::paraDomainDeEntity).toList();
     }
 
-    public static List<LocacaoChurrasqueiraDto> paraDtosDeDomains (List<LocacaoChurrasqueira> locacaoChurrasqueiraList){
+    public static List<LocacaoChurrasqueiraDto> paraDtosDeDomains(List<LocacaoChurrasqueira> locacaoChurrasqueiraList) {
         return locacaoChurrasqueiraList.stream().map(LocacaoChurrasqueiraMapper::paraDtoDeDomain).toList();
     }
 

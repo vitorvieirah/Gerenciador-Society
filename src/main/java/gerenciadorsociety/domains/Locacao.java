@@ -5,7 +5,6 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
 @NoArgsConstructor
 @Data
 @ToString
@@ -13,7 +12,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public abstract class Locacao {
 
-    @EqualsAndHashCode.Include private Long id;
+    @EqualsAndHashCode.Include
+    private Long id;
     private Estabelecimento estabelecimento;
     private Administrador administrador;
     private LocalDate dataLocacao;

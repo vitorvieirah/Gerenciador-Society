@@ -44,8 +44,8 @@ public class LocacaoCampoService {
         return LocacaoCampoMapper.paraDtosDeDomains(locacaoCampoDataProvider.consultarTodos());
     }
 
-    public void deletar (Long id){
-        if(locacaoCampoDataProvider.buscarPorId(id).isPresent())
+    public void deletar(Long id) {
+        if (locacaoCampoDataProvider.buscarPorId(id).isPresent())
             locacaoCampoDataProvider.deletar(id);
         else
             throw new RuntimeException("Locação de campo não encontrada para deleção");

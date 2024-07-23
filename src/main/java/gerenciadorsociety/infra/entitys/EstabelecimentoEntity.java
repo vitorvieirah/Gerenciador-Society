@@ -2,10 +2,8 @@ package gerenciadorsociety.infra.entitys;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -20,7 +18,8 @@ public class EstabelecimentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include private Long id;
+    @EqualsAndHashCode.Include
+    private Long id;
     private String cnpj;
     private String nome;
     @ManyToOne

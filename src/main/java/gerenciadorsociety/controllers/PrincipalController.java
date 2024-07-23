@@ -18,7 +18,7 @@ public class PrincipalController {
     private final EstabelecimentoService estabService;
 
     @GetMapping
-    public ResponseEntity<List<EstabelecimentoDto>> buscarPorEstabelecimentos(){
+    public ResponseEntity<List<EstabelecimentoDto>> buscarPorEstabelecimentos() {
         return ResponseEntity.ok(estabService.getEstabelecimentos());
     }
 }

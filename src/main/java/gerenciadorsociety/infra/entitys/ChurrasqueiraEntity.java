@@ -1,6 +1,5 @@
 package gerenciadorsociety.infra.entitys;
 
-import gerenciadorsociety.domains.Estabelecimento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,9 +12,11 @@ import lombok.*;
 @Entity(name = "Churrasqueira")
 @Table(name = "churrasqueiras")
 public class ChurrasqueiraEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include private Long id;
+    @EqualsAndHashCode.Include
+    private Long id;
     @Column(name = "numero_churrasqueira")
     private Integer numero;
     @ManyToOne

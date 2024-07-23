@@ -8,7 +8,9 @@ import lombok.*;
 @EqualsAndHashCode
 @Builder
 public class Churrasqueira {
-    @EqualsAndHashCode.Include private Long id;
+
+    @EqualsAndHashCode.Include
+    private Long id;
     private Integer numero;
     private Estabelecimento estabelecimento;
 }

@@ -14,23 +14,23 @@ import java.util.List;
 public class ExceptionHandlerController {
 
     @ExceptionHandler(DataBaseExecption.class)
-    public ResponseEntity dataBaseExecption(DataBaseExecption ex){
+    public ResponseEntity dataBaseExecption(DataBaseExecption ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity entityNotFoundExecption(){
+    public ResponseEntity entityNotFoundExecption() {
         return ResponseEntity.noContent().build();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity methodArgumentNotValidException(MethodArgumentNotValidException ex){
-        List<FieldError> erros =ex.getFieldErrors();
+    public ResponseEntity methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        List<FieldError> erros = ex.getFieldErrors();
         return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
     }
 
-    private record DadosErroValidacao(String campo, String mensagem){
-        public DadosErroValidacao (FieldError fieldError){
+    private record DadosErroValidacao(String campo, String mensagem) {
+        public DadosErroValidacao(FieldError fieldError) {
             this(fieldError.getField(), fieldError.getDefaultMessage());
         }
     }

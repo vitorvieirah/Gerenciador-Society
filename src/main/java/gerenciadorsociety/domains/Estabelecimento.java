@@ -3,8 +3,6 @@ package gerenciadorsociety.domains;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -14,7 +12,8 @@ import java.util.List;
 @Setter
 public class Estabelecimento {
 
-    @EqualsAndHashCode.Include private Long id;
+    @EqualsAndHashCode.Include
+    private Long id;
     private String nome;
     private String cnpj;
     private Dono dono;

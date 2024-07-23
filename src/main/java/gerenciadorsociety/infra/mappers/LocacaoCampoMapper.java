@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class LocacaoCampoMapper {
 
-    public static LocacaoCampoEntity paraEntityDeDomain (LocacaoCampo locacaoCampo){
+    public static LocacaoCampoEntity paraEntityDeDomain(LocacaoCampo locacaoCampo) {
         return new LocacaoCampoEntity(
                 locacaoCampo.getId(),
                 EstabelecimentoMapper.paraEntityDeDomain(locacaoCampo.getEstabelecimento()),
@@ -22,7 +22,7 @@ public abstract class LocacaoCampoMapper {
         );
     }
 
-    public static LocacaoCampo paraDomainDeEntity (LocacaoCampoEntity locacaoCampoEntity){
+    public static LocacaoCampo paraDomainDeEntity(LocacaoCampoEntity locacaoCampoEntity) {
         return new LocacaoCampo(
                 locacaoCampoEntity.getId(),
                 EstabelecimentoMapper.paraDomainDeEntity(locacaoCampoEntity.getEstabelecimento()),
@@ -36,7 +36,7 @@ public abstract class LocacaoCampoMapper {
         );
     }
 
-    public static LocacaoCampoDto paraDtoDeDomain (LocacaoCampo locacaoCampo){
+    public static LocacaoCampoDto paraDtoDeDomain(LocacaoCampo locacaoCampo) {
         return new LocacaoCampoDto(
                 locacaoCampo.getId(),
                 EstabelecimentoMapper.paraDtoDeDomain(locacaoCampo.getEstabelecimento()),
@@ -50,7 +50,7 @@ public abstract class LocacaoCampoMapper {
         );
     }
 
-    public static LocacaoCampo paraDomainDeDto (LocacaoCampoDto locacaoCampoDto){
+    public static LocacaoCampo paraDomainDeDto(LocacaoCampoDto locacaoCampoDto) {
         return new LocacaoCampo(
                 locacaoCampoDto.getId(),
                 EstabelecimentoMapper.paraDomainDeDto(locacaoCampoDto.getEstabelecimento()),
@@ -64,11 +64,11 @@ public abstract class LocacaoCampoMapper {
         );
     }
 
-    public static List<LocacaoCampo> paraDomainsDeEntitys (List<LocacaoCampoEntity> locacaoCampoEntities){
+    public static List<LocacaoCampo> paraDomainsDeEntitys(List<LocacaoCampoEntity> locacaoCampoEntities) {
         return locacaoCampoEntities.stream().map(LocacaoCampoMapper::paraDomainDeEntity).toList();
     }
 
-    public static List<LocacaoCampoDto> paraDtosDeDomains (List<LocacaoCampo> locacaoCampoList){
+    public static List<LocacaoCampoDto> paraDtosDeDomains(List<LocacaoCampo> locacaoCampoList) {
         return locacaoCampoList.stream().map(LocacaoCampoMapper::paraDtoDeDomain).toList();
     }
 

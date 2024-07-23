@@ -43,7 +43,7 @@ public class LocacaoChurrasqueiraService {
     }
 
     public void deletar(Long id) {
-        if(dataProvider.buscarPorId(id).isPresent())
+        if (dataProvider.buscarPorId(id).isPresent())
             dataProvider.deletar(id);
         else
             throw new RuntimeException("Locação churrasqueira não encontrada para deleção");

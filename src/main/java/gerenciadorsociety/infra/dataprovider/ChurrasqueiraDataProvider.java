@@ -1,6 +1,5 @@
 package gerenciadorsociety.infra.dataprovider;
 
-import gerenciadorsociety.domains.Campo;
 import gerenciadorsociety.domains.Churrasqueira;
 import gerenciadorsociety.infra.entitys.ChurrasqueiraEntity;
 import gerenciadorsociety.infra.execptions.DataBaseExecption;
@@ -10,22 +9,21 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
 @AllArgsConstructor
 @Slf4j
-public class ChurrasqueiraDataProvider implements DataProvider<Churrasqueira>{
+public class ChurrasqueiraDataProvider implements DataProvider<Churrasqueira> {
 
     private final ChurrasqueiraRepository repository;
 
     @Override
-    public Churrasqueira salvar (Churrasqueira churrasqueira){
+    public Churrasqueira salvar(Churrasqueira churrasqueira) {
         ChurrasqueiraEntity churEntity = ChurrasqueiraMapper.paraEntityDeDomain(churrasqueira);
         try {
             churEntity = repository.save(churEntity);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao salvar Churrasqueira", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
@@ -33,20 +31,20 @@ public class ChurrasqueiraDataProvider implements DataProvider<Churrasqueira>{
     }
 
     @Override
-    public void deletar (Long id){
-        try{
+    public void deletar(Long id) {
+        try {
             repository.deleteById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao deletar Churrasqueira", ex);
             throw new DataBaseExecption(ex.getMessage());
         }
     }
 
-    public Optional<Churrasqueira> buscarPorNumero (Integer numero){
+    public Optional<Churrasqueira> buscarPorNumero(Integer numero) {
         Optional<ChurrasqueiraEntity> churrasqueiraEntity;
-        try{
+        try {
             churrasqueiraEntity = repository.findByNumero(numero);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataBaseExecption(ex.getMessage());
         }

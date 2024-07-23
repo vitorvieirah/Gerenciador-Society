@@ -24,8 +24,8 @@ public class DonoService {
     }
 
     public Dono buscarPorCpf(String cpf) {
-         Optional<Dono> donoOptional = dataProvider.consultarPorCpf(cpf);
-         validacoes.validacaoObjetoVazio(donoOptional, "Dono não encontrado");
-         return donoOptional.get();
+        Optional<Dono> donoOptional = dataProvider.consultarPorCpf(cpf);
+        validacoes.validacaoObjetoVazio(donoOptional, "Dono não encontrado");
+        return donoOptional.get();
     }
 }

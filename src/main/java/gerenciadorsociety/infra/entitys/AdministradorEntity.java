@@ -12,9 +12,11 @@ import lombok.*;
 @Entity(name = "Administrador")
 @Table(name = "admnistradores")
 public class AdministradorEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include private Long id;
+    @EqualsAndHashCode.Include
+    private Long id;
     private String cpf;
     private String nome;
     private String email;

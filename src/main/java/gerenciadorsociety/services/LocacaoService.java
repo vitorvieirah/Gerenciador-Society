@@ -14,13 +14,12 @@ public class LocacaoService {
     private final LocacaoCampoDataProvider locacaoCampoDataProvider;
     private final LocacaoChurrasqueiraService locacaoChurrasqueiraService;
 
-
     public void cancelar(Long id) {
-         Optional<LocacaoCampo> locacaoCampo = locacaoCampoDataProvider.buscarPorId(id);
-         if (locacaoCampo.isPresent()){
-             locacaoCampoDataProvider.deletar(id);
-         }else {
-             locacaoChurrasqueiraService.deletar(id);
-         }
+        Optional<LocacaoCampo> locacaoCampo = locacaoCampoDataProvider.buscarPorId(id);
+        if (locacaoCampo.isPresent()) {
+            locacaoCampoDataProvider.deletar(id);
+        } else {
+            locacaoChurrasqueiraService.deletar(id);
+        }
     }
 }
