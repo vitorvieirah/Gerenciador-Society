@@ -26,9 +26,10 @@ public class LocacaoCampoController {
 
     @PostMapping
     public ResponseEntity<LocacaoDto> locarCampo(@RequestBody LocacaoCampoDto dto, UriComponentsBuilder uriBuilder) {
-        LocacaoDto locacaoBody = locacaoCampoService.locar(dto);
-        var uri = uriBuilder.path("/administrador/{id}").buildAndExpand(locacaoBody.getId()).toUri();
-        return ResponseEntity.created(uri).body(locacaoBody);
+        LocacaoDto locacaoCampoReponse = locacaoCampoService.locar(dto);
+        return ResponseEntity
+                .created(UriComponentsBuilder.newInstance().path("locacaoCampo/{id}").buildAndExpand(locacaoCampoReponse.getId()).toUri())
+                .body(locacaoCampoReponse);
     }
 
     @DeleteMapping(value = "/{id}")

@@ -1,10 +1,13 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.entrypoint.dtos.CampoDto;
 import gerenciadorsociety.application.services.CampoService;
+import gerenciadorsociety.entrypoint.dtos.CampoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -16,8 +19,9 @@ public class CampoController {
 
     @PostMapping
     public ResponseEntity<CampoDto> cadastrar(@RequestBody CampoDto campoDto, UriComponentsBuilder uriBuilder) {
-        CampoDto campoBody = campoService.cadastrar(campoDto);
-        var uri = uriBuilder.path("/dono/campo/{id}").buildAndExpand(campoBody.id()).toUri();
-        return ResponseEntity.created(uri).body(campoBody);
+        CampoDto campoResponse = campoService.cadastrar(campoDto);
+        return ResponseEntity
+                .created(UriComponentsBuilder.newInstance().path("/campo/{id}").buildAndExpand(campoResponse.id()).toUri())
+                .body(campoResponse);
     }
 }

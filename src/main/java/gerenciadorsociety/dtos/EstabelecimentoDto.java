@@ -1,5 +1,6 @@
 package gerenciadorsociety.dtos;
 
+import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import lombok.Builder;
 
 import java.math.BigDecimal;

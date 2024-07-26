@@ -16,8 +16,9 @@ public class ChurrasqueiraController {
 
     @PostMapping
     public ResponseEntity<ChurrasqueiraDto> cadastrarChurrasqueira(@RequestBody ChurrasqueiraDto dto, UriComponentsBuilder uriBuilder) {
-        ChurrasqueiraDto churraBody = churrasqueiraService.cadastrar(dto);
-        var uri = uriBuilder.path("/churrasqueira/{id}").buildAndExpand(churraBody.id()).toUri();
-        return ResponseEntity.created(uri).body(churraBody);
+        ChurrasqueiraDto churrasqueiraResponse = churrasqueiraService.cadastrar(dto);
+        return ResponseEntity
+                .created(UriComponentsBuilder.newInstance().path("churrasqueira/{id}").buildAndExpand(churrasqueiraResponse.id()).toUri())
+                .body(churrasqueiraResponse);
     }
 }

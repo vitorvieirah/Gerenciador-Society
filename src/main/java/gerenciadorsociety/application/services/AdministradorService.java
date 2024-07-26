@@ -1,5 +1,4 @@
 package gerenciadorsociety.application.services;
-
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
@@ -21,14 +20,19 @@ public class AdministradorService {
 
     public AdministradorDto cadastrar(AdministradorDto administradorDto) {
         Administrador administrador = AdministradorMapper.paraDomainDeDto(administradorDto);
-        Optional<Administrador> administradorExistente = administradorGateway.consultar(administrador.getCpf());
+        Optional<Administrador> administradorExistente = administradorGateway.consultarPorCpf(administrador.getCpf());
         validacoes.validacaoObjetoPresente(administradorExistente, MENSAGEM_ADM_EXISTE);
         return AdministradorMapper.paraDtoDeDomain(administradorGateway.salvar(administrador));
     }
 
-    public Administrador consultar(String cpf) {
-        Optional<Administrador> administradorOptional = administradorGateway.consultar(cpf);
-        validacoes.validacaoObjetoVazio(administradorOptional, "Administrador não encontrado");
-        return administradorOptional.get();
+    public Administrador consultar(Long id) {
+        Optional<Administrador> resultQuery = administradorGateway.consultarPorId(id);
+        validacoes.validacaoObjetoVazio(resultQuery, "Administrador não encontrado");
+        return resultQuery.get();
+    }
+
+    public Object alterar(AdministradorDto administradorDto, Long id) {
+        Optional<Administrador> administradorExistente = administradorGateway.consultarPorId(id);
+        
     }
 }

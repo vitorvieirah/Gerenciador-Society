@@ -21,7 +21,7 @@ public class DonoController {
     public ResponseEntity<DonoDto> cadastrar(@RequestBody DonoDto donoDto) {
         DonoDto donoResponse = donoService.cadastrar(donoDto);
         return ResponseEntity
-                .created(UriComponentsBuilder.newInstance().path("/dono/{id}").buildAndExpand(donoResponse.cpf()).toUri())
+                .created(UriComponentsBuilder.newInstance().path("/dono/{id}").buildAndExpand(donoResponse.id()).toUri())
                 .body(donoResponse);
     }
 }

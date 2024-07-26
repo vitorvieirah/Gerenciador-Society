@@ -18,9 +18,10 @@ public class EstabelecimentoController {
 
     @PostMapping
     public ResponseEntity<EstabelecimentoDto> cadastrar(@RequestBody EstabelecimentoDto dto, UriComponentsBuilder uriBuilder) {
-        EstabelecimentoDto estabBody = estabelecimentoService.cadastrar(dto);
-        var uri = uriBuilder.path("/dono/estabelecimento/{id}").buildAndExpand(estabBody.cnpj()).toUri();
-        return ResponseEntity.created(uri).body(estabBody);
+        EstabelecimentoDto estabelecimentoResponse = estabelecimentoService.cadastrar(dto);
+        return ResponseEntity
+                .created(UriComponentsBuilder.newInstance().path("estabelecimento/{id}").buildAndExpand(estabelecimentoResponse.id()).toUri())
+                .body(estabelecimentoResponse);
     }
 
     @DeleteMapping(value = "{id}")
