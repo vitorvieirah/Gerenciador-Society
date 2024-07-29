@@ -1,6 +1,5 @@
 package gerenciadorsociety.application.services;
 
-import gerenciadorsociety.application.validacoes.Validacoes;
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;

@@ -5,7 +5,6 @@ import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoCampoDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
 import gerenciadorsociety.infrastructure.dataprovider.LocacaoCampoDataProvider;
 import gerenciadorsociety.infrastructure.mappers.LocacaoCampoMapper;
-import gerenciadorsociety.application.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

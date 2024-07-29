@@ -4,7 +4,6 @@ import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infrastructure.dataprovider.ChurrasqueiraDataProvider;
 import gerenciadorsociety.infrastructure.mappers.ChurrasqueiraMapper;
-import gerenciadorsociety.application.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

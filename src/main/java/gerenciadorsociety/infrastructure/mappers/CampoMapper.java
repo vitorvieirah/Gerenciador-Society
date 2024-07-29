@@ -4,6 +4,8 @@ import gerenciadorsociety.domain.Campo;
 import gerenciadorsociety.entrypoint.dtos.CampoDto;
 import gerenciadorsociety.infrastructure.repositories.entities.CampoEntity;
 
+import java.util.List;
+
 public abstract class CampoMapper {
 
     public static Campo paraDomainDeEntity(CampoEntity campoEntity) {
@@ -36,5 +38,9 @@ public abstract class CampoMapper {
                 .numero(campoDto.numero())
                 .estabelecimento(EstabelecimentoMapper.paraDomainDeDto(campoDto.estabelecimento()))
                 .build();
+    }
+
+    public static List<Campo> paraDomainsDeEntitys(List<CampoEntity> campoEntities) {
+        return campoEntities.stream().map(CampoMapper::paraDomainDeEntity).toList();
     }
 }

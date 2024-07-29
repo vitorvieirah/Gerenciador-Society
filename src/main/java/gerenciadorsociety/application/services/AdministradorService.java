@@ -1,9 +1,10 @@
 package gerenciadorsociety.application.services;
+
+import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
 import gerenciadorsociety.infrastructure.mappers.AdministradorMapper;
-import gerenciadorsociety.application.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +15,45 @@ import java.util.Optional;
 public class AdministradorService {
 
     private final AdministradorGateway administradorGateway;
-    private final Validacoes<Administrador> validacoes;
 
-    private static final String MENSAGEM_ADM_EXISTE = "Admnistrador já está cadastrado";
+    private static final String MENSAGEM_ADMINISTRADOR_EXISTE = "Admnistrador já está cadastrado";
+    private static final String MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO = "Administrador não encontrado";
 
     public AdministradorDto cadastrar(AdministradorDto administradorDto) {
         Administrador administrador = AdministradorMapper.paraDomainDeDto(administradorDto);
         Optional<Administrador> administradorExistente = administradorGateway.consultarPorCpf(administrador.getCpf());
-        validacoes.validacaoObjetoPresente(administradorExistente, MENSAGEM_ADM_EXISTE);
+        administradorExistente.ifPresent(adm -> {
+            throw new UseCaseException(MENSAGEM_ADMINISTRADOR_EXISTE);
+        });
         return AdministradorMapper.paraDtoDeDomain(administradorGateway.salvar(administrador));
     }
 
     public Administrador consultar(Long id) {
         Optional<Administrador> resultQuery = administradorGateway.consultarPorId(id);
-        validacoes.validacaoObjetoVazio(resultQuery, "Administrador não encontrado");
+        if (resultQuery.isEmpty())
+            throw new UseCaseException(MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO);
         return resultQuery.get();
     }
 
-    public Object alterar(AdministradorDto administradorDto, Long id) {
+    public AdministradorDto alterar(AdministradorDto administradorDto, Long id) {
         Optional<Administrador> administradorExistente = administradorGateway.consultarPorId(id);
-        
+
+        if (administradorExistente.isEmpty())
+            throw new UseCaseException(MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO);
+
+        var novoAdministrador = administradorExistente.get();
+
+        novoAdministrador.setInformacoes(administradorDto);
+
+        return AdministradorMapper.paraDtoDeDomain(administradorGateway.salvar(novoAdministrador));
+    }
+
+    public void deletar(Long id) {
+        Optional<Administrador> administradorExistente = administradorGateway.consultarPorId(id);
+
+        if (administradorExistente.isEmpty())
+            throw new UseCaseException(MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO);
+
+        administradorGateway.deletar(id);
     }
 }

@@ -1,5 +1,6 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
+import gerenciadorsociety.application.gateways.CampoGateway;
 import gerenciadorsociety.domain.Campo;
 import gerenciadorsociety.infrastructure.repositories.entities.CampoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
@@ -9,15 +10,17 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
 @AllArgsConstructor
 @Slf4j
-public class CampoDataProvider {
+public class CampoDataProvider implements CampoGateway {
 
     private final CampoRepository repository;
 
+    @Override
     public Campo salvar(Campo campo) {
         CampoEntity campoEntity = CampoMapper.paraEntityDeDomain(campo);
         try {
@@ -29,6 +32,7 @@ public class CampoDataProvider {
         return CampoMapper.paraDomainDeEntity(campoEntity);
     }
 
+    @Override
     public void deletar(Long id) {
         try {
             repository.deleteById(id);
@@ -38,7 +42,21 @@ public class CampoDataProvider {
         }
     }
 
-    public Optional<Campo> buscarPorNumero(Integer numero) {
+    @Override
+    public List<Campo> buscarPorEstabelecimento(Long idEstabelecimento) {
+        List<CampoEntity> campoEntities;
+
+        try{
+            campoEntities = repository.buscarPorEstabelecimento();
+        }catch (Exception ex){
+            log.error("Erro ao buscar campos por estabelecimentos", ex);
+            throw new DataProviderExecption(ex.getMessage());
+        }
+        return CampoMapper.paraDomainsDeEntitys(campoEntities);
+    }
+
+    @Override
+    public Optional<Campo> buscarPorNumero(int numero) {
         Optional<CampoEntity> campoEntity;
         try {
             campoEntity = repository.findByNumero(numero);
@@ -49,4 +67,6 @@ public class CampoDataProvider {
 
         return campoEntity.map(CampoMapper::paraDomainDeEntity);
     }
+
+
 }

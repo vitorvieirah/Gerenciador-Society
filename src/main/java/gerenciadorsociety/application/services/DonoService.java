@@ -4,7 +4,6 @@ import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import gerenciadorsociety.infrastructure.dataprovider.DonoDataProvider;
 import gerenciadorsociety.infrastructure.mappers.DonoMapper;
-import gerenciadorsociety.application.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

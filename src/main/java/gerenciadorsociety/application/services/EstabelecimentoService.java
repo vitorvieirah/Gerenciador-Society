@@ -5,7 +5,6 @@ import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
 import gerenciadorsociety.infrastructure.dataprovider.EstabelecimentoDataProvider;
 import gerenciadorsociety.infrastructure.mappers.EstabelecimentoMapper;
-import gerenciadorsociety.application.validacoes.Validacoes;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

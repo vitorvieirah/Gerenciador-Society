@@ -32,4 +32,10 @@ public class AdministradorController {
     public ResponseEntity<AdministradorDto> alterar(@RequestBody AdministradorDto administradorDto, @PathVariable Long id){
         return ResponseEntity.ok(administradorService.alterar(administradorDto, id));
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        administradorService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
