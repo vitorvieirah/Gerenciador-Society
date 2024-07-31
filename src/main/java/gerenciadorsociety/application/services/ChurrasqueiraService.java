@@ -1,5 +1,7 @@
 package gerenciadorsociety.application.services;
 
+import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.gateways.ChurrasqueiraGateway;
 import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infrastructure.dataprovider.ChurrasqueiraDataProvider;
@@ -13,24 +15,38 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ChurrasqueiraService {
 
-    private final ChurrasqueiraDataProvider dataProvider;
+    private final ChurrasqueiraGateway gateway;
     private final EstabelecimentoService estabelecimentoService;
-    private final Validacoes<Churrasqueira> validacoesChurrasqueira;
 
     public ChurrasqueiraDto cadastrar(ChurrasqueiraDto dto) {
-        Optional<Churrasqueira> churrasqueiraOptional = dataProvider.buscarPorNumero(dto.numero());
-        validacoesChurrasqueira.validacaoObjetoPresente(churrasqueiraOptional, "Churrasqueira ja cadastrada");
+        Optional<Churrasqueira> churrasqueiraOptional = gateway.buscarPorNumero(dto.numero());
+
+        churrasqueiraOptional.ifPresent(churrasqueira -> {
+            throw new UseCaseException("Churrasqueira já cadastrada");
+        });
 
         Churrasqueira churrasqueira = ChurrasqueiraMapper.paraDomainDeDto(dto);
 
         churrasqueira.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.estabelecimento().cnpj()));
 
-        return ChurrasqueiraMapper.paraDtoDeDomain(dataProvider.salvar(churrasqueira));
+        return ChurrasqueiraMapper.paraDtoDeDomain(gateway.salvar(churrasqueira));
+    }
+
+    public ChurrasqueiraDto alterar(Integer numero, ChurrasqueiraDto dto){
+        var churasqueira = buscarPorNumero(numero);
+        churasqueira.atualizarInformacoes(dto);
+        return ChurrasqueiraMapper.paraDtoDeDomain(gateway.salvar(churasqueira));
     }
 
     public Churrasqueira buscarPorNumero(Integer numero) {
-        Optional<Churrasqueira> churrasqueiraOptional = dataProvider.buscarPorNumero(numero);
-        validacoesChurrasqueira.validacaoObjetoVazio(churrasqueiraOptional, "Churrasqueira não encontrada");
+        Optional<Churrasqueira> churrasqueiraOptional = gateway.buscarPorNumero(numero);
+        if(churrasqueiraOptional.isEmpty())
+            throw new UseCaseException("Churrasqueira não econtrada");
         return churrasqueiraOptional.get();
+    }
+
+    public void deletar(int numero){
+        var churrasqueiraExistente = buscarPorNumero(numero);
+        gateway.deletar(churrasqueiraExistente.getId());
     }
 }

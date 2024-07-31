@@ -56,11 +56,11 @@ public class CampoService {
 
     public List<Campo> buscarPorEstabelecimento(Long idEstabelecimento){
         List<Campo> campos = campoGateway.buscarPorEstabelecimento(idEstabelecimento);
+        return campos;
     }
 
     public void deletar(int numero){
         var campoExistente = buscarPorNumero(numero);
-
         campoGateway.deletar(campoExistente.getId());
     }
 }

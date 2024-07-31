@@ -1,5 +1,6 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
+import gerenciadorsociety.application.gateways.ChurrasqueiraGateway;
 import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.infrastructure.repositories.entities.ChurrasqueiraEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
@@ -14,10 +15,11 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class ChurrasqueiraDataProvider {
+public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
 
     private final ChurrasqueiraRepository repository;
 
+    @Override
     public Churrasqueira salvar(Churrasqueira churrasqueira) {
         ChurrasqueiraEntity churEntity = ChurrasqueiraMapper.paraEntityDeDomain(churrasqueira);
         try {
@@ -29,6 +31,7 @@ public class ChurrasqueiraDataProvider {
         return ChurrasqueiraMapper.paraDomainDeEntity(churEntity);
     }
 
+    @Override
     public void deletar(Long id) {
         try {
             repository.deleteById(id);
@@ -38,6 +41,7 @@ public class ChurrasqueiraDataProvider {
         }
     }
 
+    @Override
     public Optional<Churrasqueira> buscarPorNumero(Integer numero) {
         Optional<ChurrasqueiraEntity> churrasqueiraEntity;
         try {

@@ -1,5 +1,6 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
+import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.infrastructure.repositories.entities.DonoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
@@ -14,10 +15,11 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class DonoDataProvider {
+public class DonoDataProvider implements DonoGateway {
 
     private final DonoRepository repository;
 
+    @Override
     public Dono salvar(Dono dono) {
         DonoEntity donoEntity = DonoMapper.paraEntityDeDomain(dono);
         try {
@@ -30,7 +32,8 @@ public class DonoDataProvider {
         return DonoMapper.paraDomainDeEntity(donoEntity);
     }
 
-    public Optional<Dono> consultarPorCpf(String cpf) {
+    @Override
+    public Optional<Dono> buscarPorCpf(String cpf) {
         Optional<DonoEntity> donoEntity;
         try {
             donoEntity = repository.findByCpf(cpf);
@@ -41,6 +44,7 @@ public class DonoDataProvider {
         return donoEntity.map(DonoMapper::paraDomainDeEntity);
     }
 
+    @Override
     public void deletar(Long id) {
         try {
             repository.deleteById(id);

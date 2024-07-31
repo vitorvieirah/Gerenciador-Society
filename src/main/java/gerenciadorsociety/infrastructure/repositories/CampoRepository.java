@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface CampoRepository extends JpaRepository<CampoEntity, Long> {
     Optional<CampoEntity> findByNumero(Integer numero);
 
-    @Query("")
-    List<CampoEntity> buscarPorEstabelecimento();
+    @Query("SELECT * FROM Campo WHERE Campo.estabelecimento_id = :idEstabelecimento")
+    List<CampoEntity> buscarPorEstabelecimento(Long idEstabelecimento);
 }

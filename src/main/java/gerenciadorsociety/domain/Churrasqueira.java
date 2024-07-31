@@ -1,5 +1,6 @@
 package gerenciadorsociety.domain;
 
+import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
 import lombok.*;
 
 @AllArgsConstructor
@@ -14,4 +15,9 @@ public class Churrasqueira {
     private Long id;
     private Integer numero;
     private Estabelecimento estabelecimento;
+
+    public void atualizarInformacoes(ChurrasqueiraDto dto) {
+        if(dto.numero() != null)
+            this.numero = dto.numero();
+    }
 }

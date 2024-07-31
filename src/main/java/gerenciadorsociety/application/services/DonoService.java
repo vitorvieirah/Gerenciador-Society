@@ -1,5 +1,7 @@
 package gerenciadorsociety.application.services;
 
+import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import gerenciadorsociety.infrastructure.dataprovider.DonoDataProvider;
@@ -13,18 +15,23 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DonoService {
     private final DonoDataProvider dataProvider;
-    private final Validacoes<Dono> validacoes;
+    private final DonoGateway gateway;
 
     public DonoDto cadastrar(DonoDto dto) {
-        Optional<Dono> dono = dataProvider.consultarPorCpf(dto.cpf());
-        validacoes.validacaoObjetoPresente(dono, "Dono ja cadastrado");
+        Optional<Dono> donoExistente = dataProvider.consultarPorCpf(dto.cpf());
+        donoExistente.ifPresent(dono -> {
+            throw new UseCaseException("Dono já cadastrado");
+        });
 
         return DonoMapper.paraDtoDeDomain(dataProvider.salvar(DonoMapper.paraDomainDeDto(dto)));
     }
 
     public Dono buscarPorCpf(String cpf) {
-        Optional<Dono> donoOptional = dataProvider.consultarPorCpf(cpf);
-        validacoes.validacaoObjetoVazio(donoOptional, "Dono não encontrado");
-        return donoOptional.get();
+        Optional<Dono> donoExistente = dataProvider.consultarPorCpf(cpf);
+
+        if(donoExistente.isEmpty())
+            throw new UseCaseException("Dono não encontrado");
+
+        return donoExistente.get();
     }
 }
