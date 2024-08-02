@@ -1,5 +1,6 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
+import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.infrastructure.repositories.entities.DonoEntity;
@@ -52,5 +53,18 @@ public class DonoDataProvider implements DonoGateway {
             log.error("Erro ao deletar Dono", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
+    }
+
+    @Override
+    public Optional<Dono> buscarPorId(Long id) {
+        Optional<DonoEntity> donoExistente;
+        try {
+            donoExistente = repository.findById(id);
+        }catch (Exception ex){
+            log.error("Erro ao buscar Dono por id", ex);
+            throw new UseCaseException(ex.getMessage());
+        }
+
+        return donoExistente.map(DonoMapper::paraDomainDeEntity);
     }
 }

@@ -17,7 +17,6 @@ public class EstabelecimentoService {
 
     private final EstabelecimentoDataProvider dataProvider;
     private final DonoService donoService;
-    private final Validacoes<Estabelecimento> validacoes;
 
     public EstabelecimentoDto cadastrar(EstabelecimentoDto dto) {
         Optional<Estabelecimento> estabelecimento = dataProvider.consultarPorCnpj(dto.cnpj());

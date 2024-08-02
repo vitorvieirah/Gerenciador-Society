@@ -14,24 +14,46 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class DonoService {
-    private final DonoDataProvider dataProvider;
+
     private final DonoGateway gateway;
+    private final String MENSAGEM_DONO_NAO_ENCONTRADO = "Dono não encontrado";
 
     public DonoDto cadastrar(DonoDto dto) {
-        Optional<Dono> donoExistente = dataProvider.consultarPorCpf(dto.cpf());
+        Optional<Dono> donoExistente = gateway.buscarPorCpf(dto.cpf());
         donoExistente.ifPresent(dono -> {
             throw new UseCaseException("Dono já cadastrado");
         });
 
-        return DonoMapper.paraDtoDeDomain(dataProvider.salvar(DonoMapper.paraDomainDeDto(dto)));
+        return DonoMapper.paraDtoDeDomain(gateway.salvar(DonoMapper.paraDomainDeDto(dto)));
     }
 
     public Dono buscarPorCpf(String cpf) {
-        Optional<Dono> donoExistente = dataProvider.consultarPorCpf(cpf);
+        Optional<Dono> donoExistente = gateway.buscarPorCpf(cpf);
 
-        if(donoExistente.isEmpty())
-            throw new UseCaseException("Dono não encontrado");
+        if (donoExistente.isEmpty())
+            throw new UseCaseException(MENSAGEM_DONO_NAO_ENCONTRADO);
 
         return donoExistente.get();
+    }
+
+    public DonoDto buscarPorId(Long id) {
+        Optional<Dono> dono = gateway.buscarPorId(id);
+
+        if (dono.isEmpty())
+            throw new UseCaseException(MENSAGEM_DONO_NAO_ENCONTRADO);
+
+        return DonoMapper.paraDtoDeDomain(dono.get());
+    }
+
+    public DonoDto alterar(Long id, DonoDto novosDados) {
+        Dono donoExistente = DonoMapper.paraDomainDeDto(buscarPorId(id));
+
+        donoExistente.alterarInformacoes(novosDados);
+
+        return DonoMapper.paraDtoDeDomain(gateway.salvar(donoExistente));
+    }
+
+    public void deletar(Long id) {
+        gateway.deletar(id);
     }
 }

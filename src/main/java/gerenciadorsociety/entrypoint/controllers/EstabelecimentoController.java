@@ -24,14 +24,16 @@ public class EstabelecimentoController {
                 .body(estabelecimentoResponse);
     }
 
+    @GetMapping
+    public ResponseEntity<List<EstabelecimentoDto>> buscarTodos() {
+        return ResponseEntity.ok(estabelecimentoService.getEstabelecimentos());
+    }
+
+    @PutMapping()
+
     @DeleteMapping(value = "{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         estabelecimentoService.deletar(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping
-    public ResponseEntity<List<EstabelecimentoDto>> buscarTodos() {
-        return ResponseEntity.ok(estabelecimentoService.getEstabelecimentos());
     }
 }
