@@ -22,17 +22,17 @@ public class DonoController {
                 .body(donoResponse);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<DonoDto> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(donoService.buscarPorId(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<DonoDto> alterar(@PathVariable Long id, DonoDto novosDados) {
         return ResponseEntity.ok(donoService.alterar(id, novosDados));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         donoService.deletar(id);
         return ResponseEntity.noContent().build();

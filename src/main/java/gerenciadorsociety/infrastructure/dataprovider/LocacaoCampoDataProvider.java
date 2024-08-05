@@ -1,7 +1,7 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
-import gerenciadorsociety.infrastructure.repositories.entities.LocacaoCampoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoCampoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.mappers.LocacaoCampoMapper;
 import gerenciadorsociety.infrastructure.repositories.LocacaoCampoRepository;

@@ -1,24 +1,25 @@
-package gerenciadorsociety.infrastructure.repositories.entities;
+package gerenciadorsociety.infrastructure.repositories.entities.usuarios;
 
+import gerenciadorsociety.domain.Endereco;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Entity(name = "Jogador")
+@Table(name = "jogadores")
+@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@ToString
 @EqualsAndHashCode
-@Builder
-@Entity(name = "Administrador")
-@Table(name = "admnistradores")
-public class AdministradorEntity {
+public class JogadorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
-    private String cpf;
     private String nome;
     private String email;
     private String numeroTelefone;
+    private String cpf;
+    private Endereco endereco;
 }

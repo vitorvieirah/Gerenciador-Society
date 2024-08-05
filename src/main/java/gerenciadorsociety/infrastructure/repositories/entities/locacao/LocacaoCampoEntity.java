@@ -1,5 +1,8 @@
-package gerenciadorsociety.infrastructure.repositories.entities;
+package gerenciadorsociety.infrastructure.repositories.entities.locacao;
 
+import gerenciadorsociety.infrastructure.repositories.entities.CampoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

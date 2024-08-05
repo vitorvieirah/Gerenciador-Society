@@ -2,7 +2,7 @@ package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
-import gerenciadorsociety.infrastructure.repositories.entities.AdministradorEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 
 public abstract class AdministradorMapper {
 

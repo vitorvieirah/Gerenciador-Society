@@ -15,7 +15,6 @@ import java.time.LocalTime;
 @Getter
 public abstract class Locacao {
 
-    @EqualsAndHashCode.Include
     private Long id;
     private Estabelecimento estabelecimento;
     private Administrador administrador;

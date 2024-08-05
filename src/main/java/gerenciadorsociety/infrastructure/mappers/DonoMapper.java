@@ -2,7 +2,7 @@ package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
-import gerenciadorsociety.infrastructure.repositories.entities.DonoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 
 public abstract class DonoMapper {
 

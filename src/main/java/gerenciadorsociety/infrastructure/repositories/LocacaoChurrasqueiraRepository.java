@@ -1,6 +1,6 @@
 package gerenciadorsociety.infrastructure.repositories;
 
-import gerenciadorsociety.infrastructure.repositories.entities.LocacaoChurrasqueiraEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoChurrasqueiraEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

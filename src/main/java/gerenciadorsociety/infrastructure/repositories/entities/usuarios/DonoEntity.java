@@ -1,4 +1,4 @@
-package gerenciadorsociety.infrastructure.repositories.entities;
+package gerenciadorsociety.infrastructure.repositories.entities.usuarios;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,7 +15,6 @@ public class DonoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
     private String cpf;
     private String nome;

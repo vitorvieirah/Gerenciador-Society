@@ -3,7 +3,7 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.infrastructure.repositories.entities.DonoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.mappers.DonoMapper;
 import gerenciadorsociety.infrastructure.repositories.DonoRepository;

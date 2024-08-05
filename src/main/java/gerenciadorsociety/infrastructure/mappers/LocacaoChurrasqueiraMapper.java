@@ -2,7 +2,7 @@ package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoChurrasqueiraDto;
-import gerenciadorsociety.infrastructure.repositories.entities.LocacaoChurrasqueiraEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoChurrasqueiraEntity;
 
 import java.util.List;
 

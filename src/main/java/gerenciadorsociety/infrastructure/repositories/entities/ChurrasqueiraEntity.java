@@ -15,7 +15,6 @@ public class ChurrasqueiraEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
     @Column(name = "numero_churrasqueira")
     private Integer numero;

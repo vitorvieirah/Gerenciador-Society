@@ -1,7 +1,7 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
-import gerenciadorsociety.infrastructure.repositories.entities.LocacaoChurrasqueiraEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoChurrasqueiraEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.mappers.LocacaoChurrasqueiraMapper;
 import gerenciadorsociety.infrastructure.repositories.LocacaoChurrasqueiraRepository;

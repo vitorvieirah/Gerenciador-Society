@@ -1,6 +1,6 @@
 package gerenciadorsociety.infrastructure.repositories;
 
-import gerenciadorsociety.infrastructure.repositories.entities.DonoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

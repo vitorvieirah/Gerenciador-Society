@@ -1,5 +1,7 @@
-package gerenciadorsociety.infrastructure.repositories.entities;
+package gerenciadorsociety.infrastructure.repositories.entities.locacao;
 
+import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +21,6 @@ public abstract class LocacaoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     protected Long id;
     @ManyToOne
     @JoinColumn(name = "cnpj_estabelecimento", nullable = false)

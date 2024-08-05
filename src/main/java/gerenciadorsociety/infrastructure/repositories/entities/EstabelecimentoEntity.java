@@ -1,5 +1,6 @@
 package gerenciadorsociety.infrastructure.repositories.entities;
 
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,6 @@ public class EstabelecimentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
     private String cnpj;
     private String nome;

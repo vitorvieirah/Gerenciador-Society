@@ -2,7 +2,7 @@ package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoCampoDto;
-import gerenciadorsociety.infrastructure.repositories.entities.LocacaoCampoEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoCampoEntity;
 
 import java.util.List;
 

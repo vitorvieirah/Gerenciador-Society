@@ -2,7 +2,7 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
-import gerenciadorsociety.infrastructure.repositories.entities.AdministradorEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.mappers.AdministradorMapper;
 import gerenciadorsociety.infrastructure.repositories.AdministradorRepository;
