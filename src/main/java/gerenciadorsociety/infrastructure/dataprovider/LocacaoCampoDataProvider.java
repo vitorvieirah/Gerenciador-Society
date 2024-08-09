@@ -1,5 +1,6 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
+import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoCampoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
@@ -17,10 +18,11 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class LocacaoCampoDataProvider {
+public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
 
     private final LocacaoCampoRepository repository;
 
+    @Override
     public LocacaoCampo salvar(LocacaoCampo locacaoCampo) {
         LocacaoCampoEntity entity = LocacaoCampoMapper.paraEntityDeDomain(locacaoCampo);
         try {
@@ -32,6 +34,7 @@ public class LocacaoCampoDataProvider {
         return LocacaoCampoMapper.paraDomainDeEntity(entity);
     }
 
+    @Override
     public Optional<LocacaoCampo> buscarPorId(Long id) {
         Optional<LocacaoCampoEntity> locacaoCampoEntity;
         try {
@@ -44,6 +47,7 @@ public class LocacaoCampoDataProvider {
         return locacaoCampoEntity.map(LocacaoCampoMapper::paraDomainDeEntity);
     }
 
+    @Override
     public Optional<LocacaoCampo> buscarPorHoraLocacao(LocalTime hora, LocalDate data, Integer numeroCampo) {
         Optional<LocacaoCampoEntity> locacaoCampoEntity;
         try {
@@ -55,6 +59,7 @@ public class LocacaoCampoDataProvider {
         return locacaoCampoEntity.map(LocacaoCampoMapper::paraDomainDeEntity);
     }
 
+    @Override
     public void deletar(Long id) {
         try {
             repository.deleteById(id);
@@ -64,6 +69,7 @@ public class LocacaoCampoDataProvider {
         }
     }
 
+    @Override
     public List<LocacaoCampo> consultarTodos() {
         List<LocacaoCampoEntity> locacaoList;
         try {

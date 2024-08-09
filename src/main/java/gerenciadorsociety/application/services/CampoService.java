@@ -3,6 +3,7 @@ package gerenciadorsociety.application.services;
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.CampoGateway;
 import gerenciadorsociety.domain.Campo;
+import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.entrypoint.dtos.CampoDto;
 import gerenciadorsociety.infrastructure.mappers.CampoMapper;
 import lombok.AllArgsConstructor;
@@ -36,9 +37,9 @@ public class CampoService {
         return CampoMapper.paraDtoDeDomain(campoGateway.salvar(campo));
     }
 
-    public CampoDto alterar(CampoDto campoDto){
+    public CampoDto alterar(CampoDto campoDto, Long id){
 
-        var campo = buscarPorNumero(campoDto.numero());
+        var campo = buscarPorId(id);
 
         campo.setInformacoes(campoDto);
 
@@ -54,13 +55,21 @@ public class CampoService {
         return campoExistente.get();
     }
 
-    public List<Campo> buscarPorEstabelecimento(Long idEstabelecimento){
+    public List<CampoDto> buscarPorEstabelecimento(Long idEstabelecimento){
         List<Campo> campos = campoGateway.buscarPorEstabelecimento(idEstabelecimento);
-        return campos;
+        return CampoMapper.paraDtosDeDomains(campos);
     }
 
-    public void deletar(int numero){
-        var campoExistente = buscarPorNumero(numero);
-        campoGateway.deletar(campoExistente.getId());
+    public void deletar(Long id){
+        campoGateway.deletar(id);
+    }
+
+    public Campo buscarPorId(Long idCampo) {
+        Optional<Campo> campo = campoGateway.buscarPorId(idCampo);
+
+        if(campo.isEmpty())
+            throw new UseCaseException(MENSAGEM_CAMPO_NAO_ENCONTRADO);
+
+        return campo.get();
     }
 }

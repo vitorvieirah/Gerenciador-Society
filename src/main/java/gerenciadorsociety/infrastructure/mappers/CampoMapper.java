@@ -43,4 +43,8 @@ public abstract class CampoMapper {
     public static List<Campo> paraDomainsDeEntitys(List<CampoEntity> campoEntities) {
         return campoEntities.stream().map(CampoMapper::paraDomainDeEntity).toList();
     }
+
+    public static List<CampoDto> paraDtosDeDomains(List<Campo> campos) {
+        return campos.stream().map(CampoMapper::paraDtoDeDomain).toList();
+    }
 }

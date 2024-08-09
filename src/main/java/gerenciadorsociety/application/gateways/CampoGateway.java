@@ -11,4 +11,6 @@ public interface CampoGateway {
     Optional<Campo> buscarPorNumero(int numero);
     void deletar(Long id);
     List<Campo> buscarPorEstabelecimento(Long idEstabelecimento);
+
+    Optional<Campo> buscarPorId(Long idCampo);
 }

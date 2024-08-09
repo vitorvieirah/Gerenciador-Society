@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -51,6 +52,26 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
             throw new DataProviderExecption(ex.getMessage());
         }
         return churrasqueiraEntity.map(ChurrasqueiraMapper::paraDomainDeEntity);
+    }
+
+    @Override
+    public List<Churrasqueira> buscarPorEstabelecimento(Long idEstabelecimento) {
+        try {
+            return repository.buscarPorEstabelecimento(idEstabelecimento).stream().map(ChurrasqueiraMapper::paraDomainDeEntity).toList();
+        }catch (Exception ex){
+            log.error("Erro ao buscar churrasqueira por estabelecimento", ex);
+            throw new DataProviderExecption(ex.getMessage());
+        }
+    }
+
+    @Override
+    public Optional<Churrasqueira> buscarPorId(Long id) {
+        try{
+            return repository.findById(id).map(ChurrasqueiraMapper::paraDomainDeEntity);
+        }catch (Exception ex){
+            log.error("Erro ao bucar churrasqueira por id", ex);
+            throw new DataProviderExecption(ex.getMessage());
+        }
     }
 
 

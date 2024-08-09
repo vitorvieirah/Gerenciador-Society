@@ -6,9 +6,11 @@ import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infrastructure.dataprovider.ChurrasqueiraDataProvider;
 import gerenciadorsociety.infrastructure.mappers.ChurrasqueiraMapper;
+import gerenciadorsociety.infrastructure.repositories.entities.ChurrasqueiraEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,8 +34,8 @@ public class ChurrasqueiraService {
         return ChurrasqueiraMapper.paraDtoDeDomain(gateway.salvar(churrasqueira));
     }
 
-    public ChurrasqueiraDto alterar(Integer numero, ChurrasqueiraDto dto){
-        var churasqueira = buscarPorNumero(numero);
+    public ChurrasqueiraDto alterar(Long id, ChurrasqueiraDto dto){
+        var churasqueira = buscarPorId(id);
         churasqueira.atualizarInformacoes(dto);
         return ChurrasqueiraMapper.paraDtoDeDomain(gateway.salvar(churasqueira));
     }
@@ -45,8 +47,20 @@ public class ChurrasqueiraService {
         return churrasqueiraOptional.get();
     }
 
-    public void deletar(int numero){
-        var churrasqueiraExistente = buscarPorNumero(numero);
-        gateway.deletar(churrasqueiraExistente.getId());
+    public void deletar(Long id){
+        gateway.deletar(id);
+    }
+
+    public List<ChurrasqueiraDto> buscarPorEstabelecimento(Long idEstabelecimento) {
+        return gateway.buscarPorEstabelecimento(idEstabelecimento).stream().map(ChurrasqueiraMapper::paraDtoDeDomain).toList();
+    }
+
+    public Churrasqueira buscarPorId(Long id) {
+        Optional<Churrasqueira> churrasqueira = gateway.buscarPorId(id);
+
+        if(churrasqueira.isEmpty())
+            throw new UseCaseException("Churrasqueira não econtrada");
+
+        return churrasqueira.get();
     }
 }

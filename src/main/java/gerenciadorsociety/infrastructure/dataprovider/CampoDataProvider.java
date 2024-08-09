@@ -56,6 +56,16 @@ public class CampoDataProvider implements CampoGateway {
     }
 
     @Override
+    public Optional<Campo> buscarPorId(Long idCampo) {
+        try {
+            return repository.findById(idCampo).map(CampoMapper::paraDomainDeEntity);
+        }catch (Exception ex){
+            log.error("Erro ao buscar campo por id", ex);
+            throw new DataProviderExecption(ex.getMessage());
+        }
+    }
+
+    @Override
     public Optional<Campo> buscarPorNumero(int numero) {
         Optional<CampoEntity> campoEntity;
         try {
