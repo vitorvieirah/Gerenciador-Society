@@ -70,10 +70,10 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
     }
 
     @Override
-    public List<LocacaoCampo> consultarTodos() {
+    public List<LocacaoCampo> consultarTodasLocacoesPorAdministrador(Long idAministrador) {
         List<LocacaoCampoEntity> locacaoList;
         try {
-            locacaoList = repository.findAll();
+            locacaoList = repository.consultarLocacoesPorAdministrador(idAministrador);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());

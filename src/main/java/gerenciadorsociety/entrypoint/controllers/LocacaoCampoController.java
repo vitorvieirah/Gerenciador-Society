@@ -17,15 +17,14 @@ import java.util.List;
 public class LocacaoCampoController {
 
     private final LocacaoCampoService locacaoCampoService;
-    private final JogadorService jogadorService;
 
-    @GetMapping
-    public ResponseEntity<List<LocacaoCampoDto>> vizualizarLocacaoesCampo() {
-        return ResponseEntity.ok(locacaoCampoService.buscarPorTodos());
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<List<LocacaoCampoDto>> vizualizarLocacaoesCampo(@PathVariable Long idAdministrador) {
+        return ResponseEntity.ok(locacaoCampoService.buscarPorTodos(idAdministrador));
     }
 
     @PostMapping
-    public ResponseEntity<LocacaoDto> locarCampo(@RequestBody LocacaoCampoDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<LocacaoDto> locarCampo(@RequestBody LocacaoCampoDto dto) {
         LocacaoDto locacaoCampoReponse = locacaoCampoService.locar(dto);
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("locacaoCampo/{id}").buildAndExpand(locacaoCampoReponse.getId()).toUri())
@@ -36,17 +35,5 @@ public class LocacaoCampoController {
     public ResponseEntity<Void> cancelarLocacaoCampo(@PathVariable("id") Long id) {
         locacaoCampoService.deletar(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping(value = "/{id}/jogadores")
-    public ResponseEntity<Void> adicionarJogador(@PathVariable("id") Long id, @RequestBody String nomeJogador) {
-        jogadorService.entrarNaLista(id, nomeJogador);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping(value = "/{id}/jogadores")
-    public ResponseEntity<Void> removerJogador(@PathVariable Long id, @RequestBody String nomeJogador) {
-        jogadorService.sairDeUmaLista(id, nomeJogador);
-        return ResponseEntity.ok().build();
     }
 }

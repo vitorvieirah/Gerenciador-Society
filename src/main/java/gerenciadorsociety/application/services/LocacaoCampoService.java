@@ -2,10 +2,14 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
+import gerenciadorsociety.domain.locacao.Locacao;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
+import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoCampoDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
+import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
 import gerenciadorsociety.infrastructure.dataprovider.LocacaoCampoDataProvider;
+import gerenciadorsociety.infrastructure.mappers.JogadorMapper;
 import gerenciadorsociety.infrastructure.mappers.LocacaoCampoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,14 +34,15 @@ public class LocacaoCampoService {
         LocacaoCampo locacao = LocacaoCampoMapper.paraDomainDeDto(dto);
         Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getCampo().getNumero());
 
-        if (locacaoExistente.isEmpty())
-            throw new UseCaseException("Locação por hora não encontrada");
+        locacaoExistente.ifPresent(locacaoCampo -> {
+            throw new UseCaseException("Locacao indiponível nesse horário, data, e campo");
+        });
 
         locacao.setCampo(campoService.buscarPorNumero(locacao.getCampo().getNumero()));
 
         locacao.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.getEstabelecimento().cnpj()));
 
-        locacao.setAdministrador(administradorService.consultar(dto.getAdministrador().cpf()));
+        locacao.setAdministrador(administradorService.consultar(dto.getAdministrador().id()));
 
         locacao.setAtivo(true);
         locacao.setData(LocalDate.now());
@@ -46,31 +51,38 @@ public class LocacaoCampoService {
         return LocacaoCampoMapper.paraDtoDeDomain(gateway.salvar(locacao));
     }
 
-    public List<LocacaoCampoDto> buscarPorTodos() {
-        return LocacaoCampoMapper.paraDtosDeDomains(gateway.consultarTodos());
+    public List<LocacaoCampoDto> buscarPorTodos(Long idAdminstrador) {
+        return LocacaoCampoMapper.paraDtosDeDomains(gateway.consultarTodasLocacoesPorAdministrador(idAdminstrador));
     }
 
     public void deletar(Long id) {
-        if (gateway.buscarPorId(id).isPresent())
-            gateway.deletar(id);
-        else
-            throw new RuntimeException("Locação de campo não encontrada para deleção");
+        buscarPorId(id).setAtivo(false);
     }
 
-    public void adicionarJogadorNaLista(Long idLocacao, Long idJogador) {
+    public JogadorDto adicionarJogadorNaLista(Long idLocacao, Long idJogador) {
         LocacaoCampo locacao = buscarPorId(idLocacao);
 
         locacao.getListaDeJogadores().forEach(jogador -> {
-            if(Objects.equals(jogador.getId(), idJogador))
+            if (Objects.equals(jogador.getId(), idJogador))
                 throw new UseCaseException("Jogador já está na lista");
         });
 
-        locacao.adicionarJogador(jogadorService.buscarPorId(idJogador));
+        Jogador jogador = jogadorService.buscarPorId(idJogador);
+        locacao.adicionarJogador(jogador);
         gateway.salvar(locacao);
+        return JogadorMapper.paraDto(jogador);
     }
 
-    public void removerJogadorDaLista(Long idCampo, Long idJogador) {
-        LocacaoCampo locacao = buscarPorId(idCampo);
+    public void removerJogadorDaLista(Long idLocacao, Long idJogador) {
+        LocacaoCampo locacao = buscarPorId(idLocacao);
+
+        Optional<Jogador> jogadorDaLista = locacao.getListaDeJogadores().stream()
+                .filter(jogador -> Objects.equals(jogador.getId(), idJogador))
+                .findFirst();
+
+        if(jogadorDaLista.isEmpty())
+            throw new UseCaseException("Jogador não encontrado na lista");
+
         locacao.removeJogador(jogadorService.buscarPorId(idJogador));
         gateway.salvar(locacao);
     }
@@ -78,7 +90,7 @@ public class LocacaoCampoService {
     public LocacaoCampo buscarPorId(Long idLocacao) {
         Optional<LocacaoCampo> locacaoCampo = gateway.buscarPorId(idLocacao);
 
-        if(locacaoCampo.isEmpty())
+        if (locacaoCampo.isEmpty())
             throw new UseCaseException("Locação de campo não encontrada");
 
         return locacaoCampo.get();

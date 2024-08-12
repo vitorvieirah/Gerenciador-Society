@@ -23,10 +23,10 @@ public abstract class LocacaoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     @ManyToOne
-    @JoinColumn(name = "cnpj_estabelecimento", nullable = false)
+    @JoinColumn(name = "id_estabelecimento", nullable = false)
     protected EstabelecimentoEntity estabelecimento;
     @ManyToOne
-    @JoinColumn(name = "cpf_adm", nullable = false)
+    @JoinColumn(name = "id_administrador", nullable = false)
     protected AdministradorEntity administrador;
     protected LocalDate dataLocacao;
     protected LocalDate dataAtual;

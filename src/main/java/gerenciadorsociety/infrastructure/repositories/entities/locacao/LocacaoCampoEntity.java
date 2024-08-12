@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @ToString
-@Entity
+@Entity(name = "LocacaoCampo")
 @Table(name = "locacaoes_campos")
 @DiscriminatorValue("CAMPO")
 public class LocacaoCampoEntity extends LocacaoEntity {
