@@ -1,5 +1,6 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
+import gerenciadorsociety.application.gateways.LocacaoChurrasqueiraGateway;
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
 import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoChurrasqueiraEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
@@ -17,31 +18,31 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class LocacaoChurrasqueiraDataProvider {
+public class LocacaoChurrasqueiraDataProvider implements LocacaoChurrasqueiraGateway {
 
     private final LocacaoChurrasqueiraRepository repository;
 
     public LocacaoChurrasqueira salvar(LocacaoChurrasqueira locacaoChurrasqueira) {
-        LocacaoChurrasqueiraEntity entity = LocacaoChurrasqueiraMapper.paraEntityDeDomain(locacaoChurrasqueira);
+        LocacaoChurrasqueiraEntity locacao = LocacaoChurrasqueiraMapper.paraEntityDeDomain(locacaoChurrasqueira);
         try {
-            entity = repository.save(entity);
+            locacao = repository.save(locacao);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
 
-        return LocacaoChurrasqueiraMapper.paraDomainDeEntity(entity);
+        return LocacaoChurrasqueiraMapper.paraDomainDeEntity(locacao);
     }
 
     public Optional<LocacaoChurrasqueira> buscarLocacaoParaValidacao(LocalTime horaLocacao, LocalDate dataLocacao, Integer numeroChurrasqueira) {
-        Optional<LocacaoChurrasqueiraEntity> locacaoChurrasqueiraEntity;
+        Optional<LocacaoChurrasqueiraEntity> locacao;
         try {
-            locacaoChurrasqueiraEntity = repository.findByLocacaoValidacao(horaLocacao, dataLocacao, numeroChurrasqueira);
+            locacao = repository.findByLocacaoValidacao(horaLocacao, dataLocacao, numeroChurrasqueira);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return locacaoChurrasqueiraEntity.map(LocacaoChurrasqueiraMapper::paraDomainDeEntity);
+        return locacao.map(LocacaoChurrasqueiraMapper::paraDomainDeEntity);
     }
 
     public void deletar(Long id) {
@@ -53,16 +54,17 @@ public class LocacaoChurrasqueiraDataProvider {
         }
     }
 
-    public List<LocacaoChurrasqueira> consultarTodos() {
-        List<LocacaoChurrasqueiraEntity> locacaoList;
+    @Override
+    public List<LocacaoChurrasqueira> consultarTodasPorAdminsitrador(Long idAdministrador) {
+        List<LocacaoChurrasqueiraEntity> locacoes;
         try {
-            locacaoList = repository.findAll();
+            locacoes = repository.consultarPorAdministrador(idAdministrador);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
 
-        return LocacaoChurrasqueiraMapper.paraDomainsDeEntitys(locacaoList);
+        return LocacaoChurrasqueiraMapper.paraDomainsDeEntitys(locacoes);
     }
 
     public Optional<LocacaoChurrasqueira> buscarPorId(Long id) {

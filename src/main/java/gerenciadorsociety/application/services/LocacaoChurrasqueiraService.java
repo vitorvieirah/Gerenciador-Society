@@ -1,9 +1,10 @@
 package gerenciadorsociety.application.services;
 
+import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.gateways.LocacaoChurrasqueiraGateway;
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
-import gerenciadorsociety.infrastructure.dataprovider.LocacaoChurrasqueiraDataProvider;
 import gerenciadorsociety.infrastructure.mappers.LocacaoChurrasqueiraMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,35 +17,44 @@ import java.util.Optional;
 @AllArgsConstructor
 public class LocacaoChurrasqueiraService {
 
-    private final LocacaoChurrasqueiraDataProvider dataProvider;
+    private final LocacaoChurrasqueiraGateway gateway;
     private final ChurrasqueiraService churrasqueiraService;
     private final AdministradorService administradorService;
-    private final Validacoes<LocacaoChurrasqueira> validacoes;
 
     public LocacaoDto locar(LocacaoChurrasqueiraDto dto) {
         LocacaoChurrasqueira locacao = LocacaoChurrasqueiraMapper.paraDomainDeDto(dto);
-        Optional<LocacaoChurrasqueira> locacaoChurrasqueira = dataProvider.buscarLocacaoParaValidacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getChurrasqueira().getNumero());
-        validacoes.validacaoObjetoPresente(locacaoChurrasqueira, "Locacao ja existe");
+        Optional<LocacaoChurrasqueira> locacaoExistente = gateway.buscarLocacaoParaValidacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getChurrasqueira().getNumero());
+
+        locacaoExistente.ifPresent(locacaoChurrasqueira ->{
+            throw new UseCaseException("Locação já cadastrada");
+        });
 
         locacao.setChurrasqueira(churrasqueiraService.buscarPorNumero(locacao.getChurrasqueira().getNumero()));
 
         locacao.setEstabelecimento(locacao.getChurrasqueira().getEstabelecimento());
 
-        locacao.setAdministrador(administradorService.consultar(locacao.getAdministrador().getCpf()));
+        locacao.setAdministrador(administradorService.consultarPorId(locacao.getAdministrador().getId()));
 
         locacao.setData(LocalDate.now());
 
-        return LocacaoChurrasqueiraMapper.paraDtoDeDomain(dataProvider.salvar(locacao));
+        return LocacaoChurrasqueiraMapper.paraDtoDeDomain(gateway.salvar(locacao));
     }
 
-    public List<LocacaoChurrasqueiraDto> buscarPorTodos() {
-        return LocacaoChurrasqueiraMapper.paraDtosDeDomains(dataProvider.consultarTodos());
+    public List<LocacaoChurrasqueiraDto> buscarPorTodos(Long idAdministrador) {
+        return LocacaoChurrasqueiraMapper.paraDtosDeDomains(gateway.consultarTodasPorAdminsitrador(idAdministrador));
     }
 
     public void deletar(Long id) {
-        if (dataProvider.buscarPorId(id).isPresent())
-            dataProvider.deletar(id);
-        else
-            throw new RuntimeException("Locação churrasqueira não encontrada para deleção");
+        LocacaoChurrasqueira locacao = buscarPorId(id);
+        gateway.deletar(locacao.getId());
+    }
+
+    public LocacaoChurrasqueira buscarPorId(Long id){
+        Optional<LocacaoChurrasqueira> locacaoChurrasqueira = gateway.buscarPorId(id);
+
+        if(locacaoChurrasqueira.isEmpty())
+            throw new UseCaseException("Locacão churrasqueira não encontrada");
+
+        return locacaoChurrasqueira.get();
     }
 }

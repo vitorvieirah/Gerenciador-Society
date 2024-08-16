@@ -2,6 +2,7 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.CampoGateway;
+import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.Campo;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.entrypoint.dtos.CampoDto;
@@ -20,6 +21,7 @@ public class CampoService {
 
     private final CampoGateway campoGateway;
     private final EstabelecimentoService estabelecimentoService;
+    private final Mapper<Campo, CampoDto> mapper;
     private final String MENSAGEM_CAMPO_NAO_ENCONTRADO = "Campo não econtrado";
 
 
@@ -30,11 +32,11 @@ public class CampoService {
             throw new UseCaseException("Campo já cadastrado");
         }
 
-        Campo campo = CampoMapper.paraDomainDeDto(campoDto);
+        Campo campo = mapper.paraDomainDeDto(campoDto);
 
         campo.setEstabelecimento(estabelecimentoService.consultarPorCnpj(campoDto.estabelecimento().cnpj()));
 
-        return CampoMapper.paraDtoDeDomain(campoGateway.salvar(campo));
+        return mapper.paraDtoDeDomain(campoGateway.salvar(campo));
     }
 
     public CampoDto alterar(CampoDto campoDto, Long id){
@@ -43,7 +45,7 @@ public class CampoService {
 
         campo.setInformacoes(campoDto);
 
-        return CampoMapper.paraDtoDeDomain(campoGateway.salvar(campo));
+        return mapper.paraDtoDeDomain(campoGateway.salvar(campo));
     }
 
     public Campo buscarPorNumero(Integer numero) {
@@ -57,7 +59,7 @@ public class CampoService {
 
     public List<CampoDto> buscarPorEstabelecimento(Long idEstabelecimento){
         List<Campo> campos = campoGateway.buscarPorEstabelecimento(idEstabelecimento);
-        return CampoMapper.paraDtosDeDomains(campos);
+        return mapper.paraDtosDeDomains(campos);
     }
 
     public void deletar(Long id){

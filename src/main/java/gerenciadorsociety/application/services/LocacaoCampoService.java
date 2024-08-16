@@ -2,13 +2,11 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
-import gerenciadorsociety.domain.locacao.Locacao;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoCampoDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
 import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
-import gerenciadorsociety.infrastructure.dataprovider.LocacaoCampoDataProvider;
 import gerenciadorsociety.infrastructure.mappers.JogadorMapper;
 import gerenciadorsociety.infrastructure.mappers.LocacaoCampoMapper;
 import lombok.AllArgsConstructor;
@@ -42,7 +40,7 @@ public class LocacaoCampoService {
 
         locacao.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.getEstabelecimento().cnpj()));
 
-        locacao.setAdministrador(administradorService.consultar(dto.getAdministrador().id()));
+        locacao.setAdministrador(administradorService.consultarPorId(dto.getAdministrador().id()));
 
         locacao.setAtivo(true);
         locacao.setData(LocalDate.now());

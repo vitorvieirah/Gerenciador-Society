@@ -6,13 +6,14 @@ import gerenciadorsociety.infrastructure.repositories.entities.usuarios.Administ
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.print.attribute.standard.MediaSize;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @NoArgsConstructor
 @Getter
 @ToString
-@Entity
+@Entity(name = "LocacaoChurrasqueira")
 @Table(name = "locacoes_churrasqueiras")
 @DiscriminatorValue("CHURRASQUEIRA")
 public class LocacaoChurrasqueiraEntity extends LocacaoEntity {

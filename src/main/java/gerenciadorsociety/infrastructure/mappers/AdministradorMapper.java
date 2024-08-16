@@ -25,24 +25,4 @@ public abstract class AdministradorMapper {
                 .numeroTelefone(adm.getNumeroTelefone())
                 .build();
     }
-
-    public static Administrador paraDomainDeDto(AdministradorDto admDto){
-        return Administrador.builder()
-                .id(admDto.id())
-                .cpf(admDto.cpf())
-                .nome(admDto.nome())
-                .email(admDto.email())
-                .numeroTelefone(admDto.numeroTelefone())
-                .build();
-    }
-
-    public static AdministradorDto paraDtoDeDomain(Administrador adm){
-        return AdministradorDto.builder()
-                .id(adm.getId())
-                .cpf(adm.getCpf())
-                .nome(adm.getNome())
-                .email(adm.getEmail())
-                .numeroTelefone(adm.getNumeroTelefone())
-                .build();
-    }
 }

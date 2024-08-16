@@ -17,9 +17,9 @@ public class LocacaoChurrasqueiraController {
 
     private final LocacaoChurrasqueiraService locacaoChurrasqueiraService;
 
-    @GetMapping
-    public ResponseEntity<List<LocacaoChurrasqueiraDto>> vizualizarLocacoesChurrasqueiras() {
-        return ResponseEntity.ok(locacaoChurrasqueiraService.buscarPorTodos());
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<List<LocacaoChurrasqueiraDto>> vizualizarLocacoesChurrasqueiras(@PathVariable Long idAdministrador) {
+        return ResponseEntity.ok(locacaoChurrasqueiraService.buscarPorTodos(idAdministrador));
     }
 
     @PostMapping

@@ -25,7 +25,7 @@ public class AdministradorController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<AdministradorDto> buscarPorId(@PathVariable Long id){
-        return ResponseEntity.ok(AdministradorMapper.paraDtoDeDomain(administradorService.consultar(id)));
+        return ResponseEntity.ok(AdministradorMapper.paraDtoDeDomain(administradorService.consultarPorId(id)));
     }
 
     @PutMapping(value = "/{id}")
