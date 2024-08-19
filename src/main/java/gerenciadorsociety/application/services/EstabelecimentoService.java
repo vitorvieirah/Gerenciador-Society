@@ -2,11 +2,10 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;
-import gerenciadorsociety.domain.usuarios.Dono;
+import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.Estabelecimento;
+import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
-import gerenciadorsociety.infrastructure.dataprovider.EstabelecimentoDataProvider;
-import gerenciadorsociety.infrastructure.mappers.EstabelecimentoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,7 @@ public class EstabelecimentoService {
 
     private final EstabelecimentoGateway gateway;
     private final DonoService donoService;
+    private final Mapper<Estabelecimento, EstabelecimentoDto> mapper;
 
     public EstabelecimentoDto cadastrar(EstabelecimentoDto dto) {
         Optional<Estabelecimento> estabelecimentotoExistente = gateway.consultarPorCnpj(dto.cnpj());
@@ -27,14 +27,14 @@ public class EstabelecimentoService {
             throw new UseCaseException("Estabelecimenot já cadastrado");
         });
 
-        Estabelecimento estabelecimento = EstabelecimentoMapper.paraDomainDeDto(dto);
+        Estabelecimento estabelecimento = mapper.paraDomainDeDto(dto);
         Dono dono = donoService.buscarPorCpf(estabelecimento.getDono().getCpf());
         estabelecimento.setDono(dono);
-        return EstabelecimentoMapper.paraDtoDeDomain(gateway.salvar(estabelecimento));
+        return mapper.paraDtoDeDomain(gateway.salvar(estabelecimento));
     }
 
     public List<EstabelecimentoDto> getEstabelecimentos() {
-        return EstabelecimentoMapper.paraDtosDeDomains(gateway.consultarTodos());
+        return mapper.paraDtosDeDomains(gateway.consultarTodos());
     }
 
     public void deletar(Long id) {
@@ -58,6 +58,6 @@ public class EstabelecimentoService {
     public EstabelecimentoDto alterar(EstabelecimentoDto novosDados, Long id) {
         Estabelecimento estabelecimentoExistente = buscarPorId(id);
         estabelecimentoExistente.alterarInformacoes(novosDados);
-        return EstabelecimentoMapper.paraDtoDeDomain(gateway.salvar(estabelecimentoExistente));
+        return mapper.paraDtoDeDomain(gateway.salvar(estabelecimentoExistente));
     }
 }

@@ -21,20 +21,4 @@ public abstract class ChurrasqueiraMapper {
                 .estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(churrasqueira.getEstabelecimento()))
                 .build();
     }
-
-    public static Churrasqueira paraDomainDeDto(ChurrasqueiraDto churrasqueiraDto) {
-        return Churrasqueira.builder()
-                .id(churrasqueiraDto.id())
-                .numero(churrasqueiraDto.numero())
-                .estabelecimento(EstabelecimentoMapper.paraDomainDeDto(churrasqueiraDto.estabelecimento()))
-                .build();
-    }
-
-    public static ChurrasqueiraDto paraDtoDeDomain(Churrasqueira churrasqueira) {
-        return ChurrasqueiraDto.builder()
-                .id(churrasqueira.getId())
-                .numero(churrasqueira.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraDtoDeDomain(churrasqueira.getEstabelecimento()))
-                .build();
-    }
 }

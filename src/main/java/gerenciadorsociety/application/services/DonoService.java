@@ -2,10 +2,9 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
+import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
-import gerenciadorsociety.infrastructure.dataprovider.DonoDataProvider;
-import gerenciadorsociety.infrastructure.mappers.DonoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,7 @@ import java.util.Optional;
 public class DonoService {
 
     private final DonoGateway gateway;
+    private final Mapper<Dono, DonoDto> mapper;
     private final String MENSAGEM_DONO_NAO_ENCONTRADO = "Dono não encontrado";
 
     public DonoDto cadastrar(DonoDto dto) {
@@ -24,7 +24,7 @@ public class DonoService {
             throw new UseCaseException("Dono já cadastrado");
         });
 
-        return DonoMapper.paraDtoDeDomain(gateway.salvar(DonoMapper.paraDomainDeDto(dto)));
+        return mapper.paraDtoDeDomain(gateway.salvar(mapper.paraDomainDeDto(dto)));
     }
 
     public Dono buscarPorCpf(String cpf) {
@@ -42,15 +42,15 @@ public class DonoService {
         if (dono.isEmpty())
             throw new UseCaseException(MENSAGEM_DONO_NAO_ENCONTRADO);
 
-        return DonoMapper.paraDtoDeDomain(dono.get());
+        return mapper.paraDtoDeDomain(dono.get());
     }
 
     public DonoDto alterar(Long id, DonoDto novosDados) {
-        Dono donoExistente = DonoMapper.paraDomainDeDto(buscarPorId(id));
+        Dono donoExistente = mapper.paraDomainDeDto(buscarPorId(id));
 
         donoExistente.alterarInformacoes(novosDados);
 
-        return DonoMapper.paraDtoDeDomain(gateway.salvar(donoExistente));
+        return mapper.paraDtoDeDomain(gateway.salvar(donoExistente));
     }
 
     public void deletar(Long id) {
