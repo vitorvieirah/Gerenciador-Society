@@ -6,7 +6,7 @@ import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEnti
 
 public abstract class DonoMapper {
 
-    public static Dono paraDomainDeEntity(DonoEntity donoEntity) {
+    public static Dono paraDomain(DonoEntity donoEntity) {
         return Dono.builder()
                 .id(donoEntity.getId())
                 .cpf(donoEntity.getCpf())
@@ -16,7 +16,7 @@ public abstract class DonoMapper {
                 .build();
     }
 
-    public static DonoEntity paraEntityDeDomain(Dono dono) {
+    public static DonoEntity paraDomainDeDomain(Dono dono) {
         return DonoEntity.builder()
                 .id(dono.getId())
                 .cpf(dono.getCpf())

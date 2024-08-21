@@ -2,54 +2,50 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.JogadorGateway;
-import gerenciadorsociety.domain.locacao.LocacaoCampo;
+import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
-import gerenciadorsociety.infrastructure.dataprovider.LocacaoCampoDataProvider;
 import gerenciadorsociety.infrastructure.mappers.JogadorMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class JogadorService {
 
-    private final LocacaoCampoService locacaoCampoService;
+    private final Mapper<Jogador, JogadorDto> mapper;
     private final JogadorGateway gateway;
 
-    public JogadorDto cadastrar(JogadorDto jogadorDto){
+    public JogadorDto cadastrar(JogadorDto jogadorDto) {
         Optional<Jogador> jogadorExistente = gateway.buscarPorId(jogadorDto.id());
 
         jogadorExistente.ifPresent(jogador -> {
             throw new UseCaseException("Jogador já cadastrado");
         });
 
-        return JogadorMapper.paraDto(gateway.salvar(JogadorMapper.paraDomainDeDto(jogadorDto)));
+        return mapper.paraDtoDeDomain(gateway.salvar(mapper.paraDomainDeDto(jogadorDto)));
     }
 
-    public Jogador buscarPorId(Long id){
+    public JogadorDto buscarPorId(Long id) {
         Optional<Jogador> jogador = gateway.buscarPorId(id);
 
-        if(jogador.isEmpty())
+        if (jogador.isEmpty())
             throw new UseCaseException("Jogador não encontrado por id");
 
-        return jogador.get();
+        return mapper.paraDtoDeDomain(jogador.get());
     }
 
-    public JogadorDto alterar(JogadorDto novosDados, Long id){
-        Jogador jogadorExistente = buscarPorId(id);
+    public JogadorDto alterar(JogadorDto novosDados, Long id) {
+        Jogador jogadorExistente = mapper.paraDomainDeDto(buscarPorId(id));
 
         jogadorExistente.alterarInformacoes(novosDados);
 
-        return JogadorMapper.paraDto(gateway.salvar(jogadorExistente));
+        return mapper.paraDtoDeDomain(gateway.salvar(jogadorExistente));
     }
 
-    public void deletar(Long id){
+    public void deletar(Long id) {
         gateway.deletar(id);
     }
 }

@@ -8,68 +8,35 @@ import java.util.List;
 
 public abstract class LocacaoCampoMapper {
 
-    public static LocacaoCampoEntity paraEntityDeDomain(LocacaoCampo locacaoCampo) {
+    public static LocacaoCampoEntity paraDomainDeDomain(LocacaoCampo locacaoCampo) {
         return new LocacaoCampoEntity(
                 locacaoCampo.getId(),
-                EstabelecimentoMapper.paraEntityDeDomain(locacaoCampo.getEstabelecimento()),
-                AdministradorMapper.paraEntityDeDomain(locacaoCampo.getAdministrador()),
+                EstabelecimentoMapper.paraDomainDeDomain(locacaoCampo.getEstabelecimento()),
+                AdministradorMapper.paraDomainDeDomain(locacaoCampo.getAdministrador()),
                 locacaoCampo.getDataLocacao(),
                 locacaoCampo.getData(),
                 locacaoCampo.getHoraLocacao(),
                 locacaoCampo.getAtivo(),
-                CampoMapper.paraEntityDeDomain(locacaoCampo.getCampo()),
+                CampoMapper.paraDomainDeDomain(locacaoCampo.getCampo()),
                 locacaoCampo.getListaDeJogadores()
         );
     }
 
-    public static LocacaoCampo paraDomainDeEntity(LocacaoCampoEntity locacaoCampoEntity) {
+    public static LocacaoCampo paraDomain(LocacaoCampoEntity locacaoCampoEntity) {
         return new LocacaoCampo(
                 locacaoCampoEntity.getId(),
-                EstabelecimentoMapper.paraDomainDeEntity(locacaoCampoEntity.getEstabelecimento()),
+                EstabelecimentoMapper.paraDomain(locacaoCampoEntity.getEstabelecimento()),
                 AdministradorMapper.paraDomainDeEntiy(locacaoCampoEntity.getAdministrador()),
                 locacaoCampoEntity.getDataLocacao(),
                 locacaoCampoEntity.getDataAtual(),
                 locacaoCampoEntity.getHoraLocacao(),
                 locacaoCampoEntity.getAtivo(),
-                CampoMapper.paraDomainDeEntity(locacaoCampoEntity.getCampo()),
+                CampoMapper.paraDomain(locacaoCampoEntity.getCampo()),
                 locacaoCampoEntity.getListaDeJogadores()
         );
     }
 
-    public static LocacaoCampoDto paraDtoDeDomain(LocacaoCampo locacaoCampo) {
-        return new LocacaoCampoDto(
-                locacaoCampo.getId(),
-                EstabelecimentoMapper.paraDtoDeDomain(locacaoCampo.getEstabelecimento()),
-                AdministradorMapper.paraDtoDeDomain(locacaoCampo.getAdministrador()),
-                locacaoCampo.getDataLocacao(),
-                locacaoCampo.getData(),
-                locacaoCampo.getHoraLocacao(),
-                locacaoCampo.getAtivo(),
-                CampoMapper.paraDtoDeDomain(locacaoCampo.getCampo()),
-                locacaoCampo.getListaDeJogadores()
-        );
-    }
-
-    public static LocacaoCampo paraDomainDeDto(LocacaoCampoDto locacaoCampoDto) {
-        return new LocacaoCampo(
-                locacaoCampoDto.getId(),
-                EstabelecimentoMapper.paraDomainDeDto(locacaoCampoDto.getEstabelecimento()),
-                AdministradorMapper.paraDomainDeDto(locacaoCampoDto.getAdministrador()),
-                locacaoCampoDto.getDataLocacao(),
-                locacaoCampoDto.getData(),
-                locacaoCampoDto.getHoraLocacao(),
-                locacaoCampoDto.getAtivo(),
-                CampoMapper.paraDomainDeDto(locacaoCampoDto.getCampo()),
-                locacaoCampoDto.getListaDeJogadores()
-        );
-    }
-
     public static List<LocacaoCampo> paraDomainsDeEntitys(List<LocacaoCampoEntity> locacaoCampoEntities) {
-        return locacaoCampoEntities.stream().map(LocacaoCampoMapper::paraDomainDeEntity).toList();
+        return locacaoCampoEntities.stream().map(LocacaoCampoMapper::paraDomain).toList();
     }
-
-    public static List<LocacaoCampoDto> paraDtosDeDomains(List<LocacaoCampo> locacaoCampoList) {
-        return locacaoCampoList.stream().map(LocacaoCampoMapper::paraDtoDeDomain).toList();
-    }
-
 }

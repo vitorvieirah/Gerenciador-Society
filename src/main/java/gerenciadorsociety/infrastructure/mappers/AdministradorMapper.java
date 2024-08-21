@@ -6,7 +6,7 @@ import gerenciadorsociety.infrastructure.repositories.entities.usuarios.Administ
 
 public abstract class AdministradorMapper {
 
-    public static Administrador paraDomainDeEntiy(AdministradorEntity admEntity){
+    public static Administrador paraDomain(AdministradorEntity admEntity){
         return Administrador.builder()
                 .id(admEntity.getId())
                 .cpf(admEntity.getCpf())
@@ -16,7 +16,7 @@ public abstract class AdministradorMapper {
                 .build();
     }
 
-    public static AdministradorEntity paraEntityDeDomain(Administrador adm){
+    public static AdministradorEntity paraEntity(Administrador adm){
         return AdministradorEntity.builder()
                 .id(adm.getId())
                 .cpf(adm.getCpf())

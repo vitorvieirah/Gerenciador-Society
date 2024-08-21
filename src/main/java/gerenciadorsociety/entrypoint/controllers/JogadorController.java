@@ -26,7 +26,7 @@ public class JogadorController {
     }
 
     @PostMapping(value = "/{id}")
-    public ResponseEntity<JogadorDto> entrarNaLista(@PathVariable Long idJogador, @RequestBody Long idLocacao){
+    public ResponseEntity<JogadorDto> entrarNaLista(@PathVariable Long idJogador, @RequestBody Long idLocacao) {
         JogadorDto response = locacaoCampoService.adicionarJogadorNaLista(idLocacao, idJogador);
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("jogador/id").buildAndExpand(response.id()).toUri())
@@ -35,7 +35,7 @@ public class JogadorController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<JogadorDto> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(JogadorMapper.paraDto(service.buscarPorId(id)));
+        return ResponseEntity.ok(service.buscarPorId(id));
     }
 
     @PutMapping(value = "/{id}")
@@ -44,7 +44,7 @@ public class JogadorController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> sairDaLista(@PathVariable Long idJogador, @RequestBody Long idLocacao){
+    public ResponseEntity<Void> sairDaLista(@PathVariable Long idJogador, @RequestBody Long idLocacao) {
         locacaoCampoService.removerJogadorDaLista(idLocacao, idJogador);
         return ResponseEntity.noContent().build();
     }

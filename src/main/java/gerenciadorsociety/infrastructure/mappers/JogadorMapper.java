@@ -6,7 +6,7 @@ import gerenciadorsociety.infrastructure.repositories.entities.usuarios.JogadorE
 
 public abstract class JogadorMapper {
 
-    public static JogadorEntity paraEntity(Jogador jogador) {
+    public static JogadorEntity paraDomain(Jogador jogador) {
         return JogadorEntity.builder()
                 .id(jogador.getId())
                 .nome(jogador.getNome())
@@ -25,28 +25,6 @@ public abstract class JogadorMapper {
                 .numeroTelefone(jogadorEntity.getNumeroTelefone())
                 .cpf(jogadorEntity.getCpf())
                 .endereco(jogadorEntity.getEndereco())
-                .build();
-    }
-
-    public static JogadorDto paraDto(Jogador jogador) {
-        return JogadorDto.builder()
-                .id(jogador.getId())
-                .nome(jogador.getNome())
-                .email(jogador.getEmail())
-                .numeroTelefone(jogador.getNumeroTelefone())
-                .cpf(jogador.getCpf())
-                .endereco(jogador.getEndereco())
-                .build();
-    }
-
-    public static Jogador paraDomainDeDto(JogadorDto jogadorDto) {
-        return Jogador.builder()
-                .id(jogadorDto.id())
-                .nome(jogadorDto.nome())
-                .email(jogadorDto.email())
-                .numeroTelefone(jogadorDto.numeroTelefone())
-                .cpf(jogadorDto.cpf())
-                .endereco(jogadorDto.endereco())
                 .build();
     }
 }

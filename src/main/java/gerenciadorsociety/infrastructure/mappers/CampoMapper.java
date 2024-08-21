@@ -8,23 +8,23 @@ import java.util.List;
 
 public abstract class CampoMapper {
 
-    public static Campo paraDomainDeEntity(CampoEntity campoEntity) {
+    public static Campo paraDomain(CampoEntity campoEntity) {
         return Campo.builder()
                 .id(campoEntity.getId())
                 .numero(campoEntity.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraDomainDeEntity(campoEntity.getEstabelecimento()))
+                .estabelecimento(EstabelecimentoMapper.paraDomain(campoEntity.getEstabelecimento()))
                 .build();
     }
 
-    public static CampoEntity paraEntityDeDomain(Campo campo) {
+    public static CampoEntity paraDomainDeDomain(Campo campo) {
         return CampoEntity.builder()
                 .id(campo.getId())
                 .numero(campo.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(campo.getEstabelecimento()))
+                .estabelecimento(EstabelecimentoMapper.paraDomainDeDomain(campo.getEstabelecimento()))
                 .build();
     }
 
     public static List<Campo> paraDomainsDeEntitys(List<CampoEntity> campoEntities) {
-        return campoEntities.stream().map(CampoMapper::paraDomainDeEntity).toList();
+        return campoEntities.stream().map(CampoMapper::paraDomain).toList();
     }
 }

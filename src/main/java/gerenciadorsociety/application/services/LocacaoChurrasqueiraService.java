@@ -2,10 +2,12 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.LocacaoChurrasqueiraGateway;
+import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
+import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
-import gerenciadorsociety.infrastructure.mappers.LocacaoChurrasqueiraMapper;
+import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,11 @@ public class LocacaoChurrasqueiraService {
     private final LocacaoChurrasqueiraGateway gateway;
     private final ChurrasqueiraService churrasqueiraService;
     private final AdministradorService administradorService;
+    private final Mapper<LocacaoChurrasqueira, LocacaoChurrasqueiraDto> mapper;
+    private final Mapper<Administrador, AdministradorDto> administradorMapper;
 
     public LocacaoDto locar(LocacaoChurrasqueiraDto dto) {
-        LocacaoChurrasqueira locacao = LocacaoChurrasqueiraMapper.paraDomainDeDto(dto);
+        LocacaoChurrasqueira locacao = mapper.paraDomainDeDto(dto);
         Optional<LocacaoChurrasqueira> locacaoExistente = gateway.buscarLocacaoParaValidacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getChurrasqueira().getNumero());
 
         locacaoExistente.ifPresent(locacaoChurrasqueira ->{
@@ -33,15 +37,15 @@ public class LocacaoChurrasqueiraService {
 
         locacao.setEstabelecimento(locacao.getChurrasqueira().getEstabelecimento());
 
-        locacao.setAdministrador(administradorService.consultarPorId(locacao.getAdministrador().getId()));
+        locacao.setAdministrador(administradorMapper.paraDomainDeDto(administradorService.consultarPorId(locacao.getAdministrador().getId())));
 
         locacao.setData(LocalDate.now());
 
-        return LocacaoChurrasqueiraMapper.paraDtoDeDomain(gateway.salvar(locacao));
+        return mapper.paraDtoDeDomain(gateway.salvar(locacao));
     }
 
     public List<LocacaoChurrasqueiraDto> buscarPorTodos(Long idAdministrador) {
-        return LocacaoChurrasqueiraMapper.paraDtosDeDomains(gateway.consultarTodasPorAdminsitrador(idAdministrador));
+        return mapper.paraDtosDeDomains(gateway.consultarTodasPorAdminsitrador(idAdministrador));
     }
 
     public void deletar(Long id) {

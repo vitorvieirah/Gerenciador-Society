@@ -30,7 +30,7 @@ public class EstabelecimentoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<EstabelecimentoDto> alterar(@RequestBody EstabelecimentoDto dto, @PathVariable Long id){
+    public ResponseEntity<EstabelecimentoDto> alterar(@RequestBody EstabelecimentoDto dto, @PathVariable Long id) {
         return ResponseEntity.ok(estabelecimentoService.alterar(dto, id));
     }
 

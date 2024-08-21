@@ -26,22 +26,22 @@ public class ChurrasqueiraController {
     }
 
     @GetMapping(value = "/buscarPorEstabelecimento/{id}")
-    public ResponseEntity<List<ChurrasqueiraDto>> buscarPorEstabelecimento(@PathVariable Long idEstabelecimento){
+    public ResponseEntity<List<ChurrasqueiraDto>> buscarPorEstabelecimento(@PathVariable Long idEstabelecimento) {
         return ResponseEntity.ok(churrasqueiraService.buscarPorEstabelecimento(idEstabelecimento));
     }
 
     @GetMapping(value = "/id")
-    public ResponseEntity<ChurrasqueiraDto> buscarPorId(@PathVariable Long id){
-        return ResponseEntity.ok(ChurrasqueiraMapper.paraDtoDeDomain(churrasqueiraService.buscarPorId(id)));
+    public ResponseEntity<ChurrasqueiraDto> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(churrasqueiraService.buscarPorId(id));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ChurrasqueiraDto> alterar(@PathVariable Long id, @RequestBody ChurrasqueiraDto novosDados){
+    public ResponseEntity<ChurrasqueiraDto> alterar(@PathVariable Long id, @RequestBody ChurrasqueiraDto novosDados) {
         return ResponseEntity.ok(churrasqueiraService.alterar(id, novosDados));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         churrasqueiraService.deletar(id);
         return ResponseEntity.noContent().build();
     }

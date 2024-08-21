@@ -26,22 +26,22 @@ public class CampoController {
     }
 
     @GetMapping(value = "/consultarEstabelecimento/{id}")
-    public ResponseEntity<List<CampoDto>> consultarTodosCamposPorEstabelecimento(@PathVariable Long idEstabelecimento){
+    public ResponseEntity<List<CampoDto>> consultarTodosCamposPorEstabelecimento(@PathVariable Long idEstabelecimento) {
         return ResponseEntity.ok(campoService.buscarPorEstabelecimento(idEstabelecimento));
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CampoDto> consultarPorId(@PathVariable Long id){
-        return ResponseEntity.ok(CampoMapper.paraDtoDeDomain(campoService.buscarPorId(id)));
+    public ResponseEntity<CampoDto> consultarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(campoService.buscarPorId(id));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CampoDto> alterar(@PathVariable Long id, @RequestBody CampoDto novosDados){
+    public ResponseEntity<CampoDto> alterar(@PathVariable Long id, @RequestBody CampoDto novosDados) {
         return ResponseEntity.ok(campoService.alterar(novosDados, id));
     }
 
     @DeleteMapping(value = "/id")
-    public ResponseEntity<Void> deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         campoService.deletar(id);
         return ResponseEntity.noContent().build();
     }

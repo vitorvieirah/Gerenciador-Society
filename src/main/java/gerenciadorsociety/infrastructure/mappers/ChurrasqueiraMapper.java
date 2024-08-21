@@ -6,19 +6,19 @@ import gerenciadorsociety.infrastructure.repositories.entities.ChurrasqueiraEnti
 
 public abstract class ChurrasqueiraMapper {
 
-    public static Churrasqueira paraDomainDeEntity(ChurrasqueiraEntity churrasqueiraEntity) {
+    public static Churrasqueira paraDomain(ChurrasqueiraEntity churrasqueiraEntity) {
         return Churrasqueira.builder()
                 .id(churrasqueiraEntity.getId())
                 .numero(churrasqueiraEntity.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraDomainDeEntity(churrasqueiraEntity.getEstabelecimento()))
+                .estabelecimento(EstabelecimentoMapper.paraDomain(churrasqueiraEntity.getEstabelecimento()))
                 .build();
     }
 
-    public static ChurrasqueiraEntity paraEntityDeDomain(Churrasqueira churrasqueira) {
+    public static ChurrasqueiraEntity paraDomainDeDomain(Churrasqueira churrasqueira) {
         return ChurrasqueiraEntity.builder()
                 .id(churrasqueira.getId())
                 .numero(churrasqueira.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraEntityDeDomain(churrasqueira.getEstabelecimento()))
+                .estabelecimento(EstabelecimentoMapper.paraDomainDeDomain(churrasqueira.getEstabelecimento()))
                 .build();
     }
 }

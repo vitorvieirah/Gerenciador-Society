@@ -30,32 +30,22 @@ public class AdministradorService {
         return mapper.paraDtoDeDomain(administradorGateway.salvar(administrador));
     }
 
-    public Administrador consultarPorId(Long id) {
+    public AdministradorDto consultarPorId(Long id) {
         Optional<Administrador> resultQuery = administradorGateway.consultarPorId(id);
         if (resultQuery.isEmpty())
             throw new UseCaseException(MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO);
-        return resultQuery.get();
+        return mapper.paraDtoDeDomain(resultQuery.get());
     }
 
     public AdministradorDto alterar(AdministradorDto administradorDto, Long id) {
-        Optional<Administrador> administradorExistente = administradorGateway.consultarPorId(id);
+        Administrador administradorExistente = mapper.paraDomainDeDto(consultarPorId(id));
+        administradorExistente.setInformacoes(administradorDto);
 
-        if (administradorExistente.isEmpty())
-            throw new UseCaseException(MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO);
-
-        var novoAdministrador = administradorExistente.get();
-
-        novoAdministrador.setInformacoes(administradorDto);
-
-        return mapper.paraDtoDeDomain(administradorGateway.salvar(novoAdministrador));
+        return mapper.paraDtoDeDomain(administradorGateway.salvar(administradorExistente));
     }
 
     public void deletar(Long id) {
-        Optional<Administrador> administradorExistente = administradorGateway.consultarPorId(id);
-
-        if (administradorExistente.isEmpty())
-            throw new UseCaseException(MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO);
-
+        consultarPorId(id);
         administradorGateway.deletar(id);
     }
 }

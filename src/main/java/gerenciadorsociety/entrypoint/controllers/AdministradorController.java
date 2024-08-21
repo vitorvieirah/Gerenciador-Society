@@ -24,17 +24,17 @@ public class AdministradorController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AdministradorDto> buscarPorId(@PathVariable Long id){
-        return ResponseEntity.ok(AdministradorMapper.paraDtoDeDomain(administradorService.consultarPorId(id)));
+    public ResponseEntity<AdministradorDto> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(administradorService.consultarPorId(id));
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AdministradorDto> alterar(@RequestBody AdministradorDto administradorDto, @PathVariable Long id){
+    public ResponseEntity<AdministradorDto> alterar(@RequestBody AdministradorDto administradorDto, @PathVariable Long id) {
         return ResponseEntity.ok(administradorService.alterar(administradorDto, id));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id){
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         administradorService.deletar(id);
         return ResponseEntity.noContent().build();
     }

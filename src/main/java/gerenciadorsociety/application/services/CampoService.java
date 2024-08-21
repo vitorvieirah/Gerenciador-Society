@@ -28,7 +28,7 @@ public class CampoService {
     public CampoDto cadastrar(CampoDto campoDto) {
         var campoExistente = buscarPorNumero(campoDto.numero());
 
-        if(campoExistente != null){
+        if (campoExistente != null) {
             throw new UseCaseException("Campo já cadastrado");
         }
 
@@ -39,9 +39,9 @@ public class CampoService {
         return mapper.paraDtoDeDomain(campoGateway.salvar(campo));
     }
 
-    public CampoDto alterar(CampoDto campoDto, Long id){
+    public CampoDto alterar(CampoDto campoDto, Long id) {
 
-        var campo = buscarPorId(id);
+        var campo = mapper.paraDomainDeDto(buscarPorId(id));
 
         campo.setInformacoes(campoDto);
 
@@ -57,21 +57,21 @@ public class CampoService {
         return campoExistente.get();
     }
 
-    public List<CampoDto> buscarPorEstabelecimento(Long idEstabelecimento){
+    public List<CampoDto> buscarPorEstabelecimento(Long idEstabelecimento) {
         List<Campo> campos = campoGateway.buscarPorEstabelecimento(idEstabelecimento);
         return mapper.paraDtosDeDomains(campos);
     }
 
-    public void deletar(Long id){
+    public void deletar(Long id) {
         campoGateway.deletar(id);
     }
 
-    public Campo buscarPorId(Long idCampo) {
+    public CampoDto buscarPorId(Long idCampo) {
         Optional<Campo> campo = campoGateway.buscarPorId(idCampo);
 
-        if(campo.isEmpty())
+        if (campo.isEmpty())
             throw new UseCaseException(MENSAGEM_CAMPO_NAO_ENCONTRADO);
 
-        return campo.get();
+        return mapper.paraDtoDeDomain(campo.get());
     }
 }

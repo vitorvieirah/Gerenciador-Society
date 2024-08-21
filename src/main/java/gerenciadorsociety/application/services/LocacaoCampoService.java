@@ -2,13 +2,14 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
+import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
+import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoCampoDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
+import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
 import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
-import gerenciadorsociety.infrastructure.mappers.JogadorMapper;
-import gerenciadorsociety.infrastructure.mappers.LocacaoCampoMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +28,12 @@ public class LocacaoCampoService {
     private final EstabelecimentoService estabelecimentoService;
     private final AdministradorService administradorService;
     private final JogadorService jogadorService;
+    private final Mapper<LocacaoCampo, LocacaoCampoDto> mapper;
+    private final Mapper<Jogador, JogadorDto> jogadorMapper;
+    private final Mapper<Administrador, AdministradorDto> administradorMapper;
 
     public LocacaoDto locar(LocacaoCampoDto dto) {
-        LocacaoCampo locacao = LocacaoCampoMapper.paraDomainDeDto(dto);
+        LocacaoCampo locacao = mapper.paraDomainDeDto(dto);
         Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getCampo().getNumero());
 
         locacaoExistente.ifPresent(locacaoCampo -> {
@@ -40,17 +44,17 @@ public class LocacaoCampoService {
 
         locacao.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.getEstabelecimento().cnpj()));
 
-        locacao.setAdministrador(administradorService.consultarPorId(dto.getAdministrador().id()));
+        locacao.setAdministrador(administradorMapper.paraDomainDeDto(administradorService.consultarPorId(dto.getAdministrador().id())));
 
         locacao.setAtivo(true);
         locacao.setData(LocalDate.now());
         locacao.setListaDeJogadores(new ArrayList<>());
 
-        return LocacaoCampoMapper.paraDtoDeDomain(gateway.salvar(locacao));
+        return mapper.paraDtoDeDomain(gateway.salvar(locacao));
     }
 
     public List<LocacaoCampoDto> buscarPorTodos(Long idAdminstrador) {
-        return LocacaoCampoMapper.paraDtosDeDomains(gateway.consultarTodasLocacoesPorAdministrador(idAdminstrador));
+        return mapper.paraDtosDeDomains(gateway.consultarTodasLocacoesPorAdministrador(idAdminstrador));
     }
 
     public void deletar(Long id) {
@@ -65,10 +69,10 @@ public class LocacaoCampoService {
                 throw new UseCaseException("Jogador já está na lista");
         });
 
-        Jogador jogador = jogadorService.buscarPorId(idJogador);
+        Jogador jogador = jogadorMapper.paraDomainDeDto(jogadorService.buscarPorId(idJogador));
         locacao.adicionarJogador(jogador);
         gateway.salvar(locacao);
-        return JogadorMapper.paraDto(jogador);
+        return jogadorMapper.paraDtoDeDomain(jogador);
     }
 
     public void removerJogadorDaLista(Long idLocacao, Long idJogador) {
@@ -78,10 +82,10 @@ public class LocacaoCampoService {
                 .filter(jogador -> Objects.equals(jogador.getId(), idJogador))
                 .findFirst();
 
-        if(jogadorDaLista.isEmpty())
+        if (jogadorDaLista.isEmpty())
             throw new UseCaseException("Jogador não encontrado na lista");
 
-        locacao.removeJogador(jogadorService.buscarPorId(idJogador));
+        locacao.removeJogador(jogadorMapper.paraDomainDeDto(jogadorService.buscarPorId(idJogador)));
         gateway.salvar(locacao);
     }
 
