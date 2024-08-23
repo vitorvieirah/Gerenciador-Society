@@ -1,8 +1,5 @@
 package gerenciadorsociety.domain;
 
-import gerenciadorsociety.entrypoint.dtos.CampoDto;
-import gerenciadorsociety.infrastructure.mappers.CampoMapper;
-import gerenciadorsociety.infrastructure.mappers.EstabelecimentoMapper;
 import lombok.*;
 
 @AllArgsConstructor
@@ -17,10 +14,10 @@ public class Campo {
     private Integer numero;
     private Estabelecimento estabelecimento;
 
-    public void setInformacoes(CampoDto campoDto) {
-        if(campoDto.numero() != null)
-            this.numero = campoDto.numero();
-        if(campoDto.estabelecimento() != null)
-            this.estabelecimento = EstabelecimentoMapper.paraDomainDeDto(campoDto.estabelecimento());
+    public void setInformacoes(Campo campoDto) {
+        if(campoDto.getNumero() != null)
+            this.numero = campoDto.getNumero();
+        if(campoDto.getEstabelecimento() != null)
+            this.estabelecimento = campoDto.getEstabelecimento();
     }
 }

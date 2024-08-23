@@ -24,35 +24,35 @@ public class LocacaoChurrasqueiraMapper implements Mapper<LocacaoChurrasqueira, 
 
 
     @Override
-    public LocacaoChurrasqueira paraDomainDeDto(LocacaoChurrasqueiraDto dto) {
+    public LocacaoChurrasqueira paraDomain(LocacaoChurrasqueiraDto dto) {
         return new LocacaoChurrasqueira(
                 dto.getId(),
-                estabelecimentoMapper.paraDomainDeDto(dto.getEstabelecimento()),
-                administradorMapper.paraDomainDeDto(dto.getAdministrador()),
+                estabelecimentoMapper.paraDomain(dto.getEstabelecimento()),
+                administradorMapper.paraDomain(dto.getAdministrador()),
                 dto.getDataLocacao(),
                 dto.getData(),
                 dto.getHoraLocacao(),
                 dto.getAtivo(),
-                churrasqueiraMapper.paraDomainDeDto(dto.getChurrasqueira())
+                churrasqueiraMapper.paraDomain(dto.getChurrasqueira())
         );
     }
 
     @Override
-    public LocacaoChurrasqueiraDto paraDtoDeDomain(LocacaoChurrasqueira domain) {
+    public LocacaoChurrasqueiraDto paraDto(LocacaoChurrasqueira domain) {
         return new LocacaoChurrasqueiraDto(
                 domain.getId(),
-                estabelecimentoMapper.paraDtoDeDomain(domain.getEstabelecimento()),
-                administradorMapper.paraDtoDeDomain(domain.getAdministrador()),
+                estabelecimentoMapper.paraDto(domain.getEstabelecimento()),
+                administradorMapper.paraDto(domain.getAdministrador()),
                 domain.getDataLocacao(),
                 domain.getData(),
                 domain.getHoraLocacao(),
                 domain.getAtivo(),
-                churrasqueiraMapper.paraDtoDeDomain(domain.getChurrasqueira())
+                churrasqueiraMapper.paraDto(domain.getChurrasqueira())
         );
     }
 
     @Override
-    public List<LocacaoChurrasqueiraDto> paraDtosDeDomains(List<LocacaoChurrasqueira> domains) {
-        return domains.stream().map(this::paraDtoDeDomain).toList();
+    public List<LocacaoChurrasqueiraDto> paraDtos(List<LocacaoChurrasqueira> domains) {
+        return domains.stream().map(this::paraDto).toList();
     }
 }

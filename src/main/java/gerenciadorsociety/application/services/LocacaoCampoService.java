@@ -33,7 +33,7 @@ public class LocacaoCampoService {
     private final Mapper<Administrador, AdministradorDto> administradorMapper;
 
     public LocacaoDto locar(LocacaoCampoDto dto) {
-        LocacaoCampo locacao = mapper.paraDomainDeDto(dto);
+        LocacaoCampo locacao = mapper.paraDomain(dto);
         Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getCampo().getNumero());
 
         locacaoExistente.ifPresent(locacaoCampo -> {
@@ -44,17 +44,17 @@ public class LocacaoCampoService {
 
         locacao.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.getEstabelecimento().cnpj()));
 
-        locacao.setAdministrador(administradorMapper.paraDomainDeDto(administradorService.consultarPorId(dto.getAdministrador().id())));
+        locacao.setAdministrador(administradorMapper.paraDomain(administradorService.consultarPorId(dto.getAdministrador().id())));
 
         locacao.setAtivo(true);
         locacao.setData(LocalDate.now());
         locacao.setListaDeJogadores(new ArrayList<>());
 
-        return mapper.paraDtoDeDomain(gateway.salvar(locacao));
+        return mapper.paraDto(gateway.salvar(locacao));
     }
 
     public List<LocacaoCampoDto> buscarPorTodos(Long idAdminstrador) {
-        return mapper.paraDtosDeDomains(gateway.consultarTodasLocacoesPorAdministrador(idAdminstrador));
+        return mapper.paraDtos(gateway.consultarTodasLocacoesPorAdministrador(idAdminstrador));
     }
 
     public void deletar(Long id) {
@@ -69,10 +69,10 @@ public class LocacaoCampoService {
                 throw new UseCaseException("Jogador já está na lista");
         });
 
-        Jogador jogador = jogadorMapper.paraDomainDeDto(jogadorService.buscarPorId(idJogador));
+        Jogador jogador = jogadorMapper.paraDomain(jogadorService.buscarPorId(idJogador));
         locacao.adicionarJogador(jogador);
         gateway.salvar(locacao);
-        return jogadorMapper.paraDtoDeDomain(jogador);
+        return jogadorMapper.paraDto(jogador);
     }
 
     public void removerJogadorDaLista(Long idLocacao, Long idJogador) {
@@ -85,7 +85,7 @@ public class LocacaoCampoService {
         if (jogadorDaLista.isEmpty())
             throw new UseCaseException("Jogador não encontrado na lista");
 
-        locacao.removeJogador(jogadorMapper.paraDomainDeDto(jogadorService.buscarPorId(idJogador)));
+        locacao.removeJogador(jogadorMapper.paraDomain(jogadorService.buscarPorId(idJogador)));
         gateway.salvar(locacao);
     }
 

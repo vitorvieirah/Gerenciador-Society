@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AdministradorMapper implements Mapper<Administrador, AdministradorDto>{
     @Override
-    public Administrador paraDomainDeDto(AdministradorDto dto) {
+    public Administrador paraDomain(AdministradorDto dto) {
         return Administrador.builder()
                 .id(dto.id())
                 .cpf(dto.cpf())
@@ -18,7 +18,7 @@ public class AdministradorMapper implements Mapper<Administrador, AdministradorD
     }
 
     @Override
-    public AdministradorDto paraDtoDeDomain(Administrador domain) {
+    public AdministradorDto paraDto(Administrador domain) {
         return AdministradorDto.builder()
                 .id(domain.getId())
                 .cpf(domain.getCpf())
@@ -29,7 +29,7 @@ public class AdministradorMapper implements Mapper<Administrador, AdministradorD
     }
 
     @Override
-    public List<AdministradorDto> paraDtosDeDomains(List<Administrador> domains) {
-        return domains.stream().map(this::paraDtoDeDomain).toList();
+    public List<AdministradorDto> paraDtos(List<Administrador> domains) {
+        return domains.stream().map(this::paraDto).toList();
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DonoMapper implements Mapper<Dono, DonoDto>{
     @Override
-    public Dono paraDomainDeDto(DonoDto dto) {
+    public Dono paraDomain(DonoDto dto) {
         return Dono.builder()
                 .id(dto.id())
                 .cpf(dto.cpf())
@@ -18,7 +18,7 @@ public class DonoMapper implements Mapper<Dono, DonoDto>{
     }
 
     @Override
-    public DonoDto paraDtoDeDomain(Dono domain) {
+    public DonoDto paraDto(Dono domain) {
         return DonoDto.builder()
                 .id(domain.getId())
                 .cpf(domain.getCpf())
@@ -29,8 +29,8 @@ public class DonoMapper implements Mapper<Dono, DonoDto>{
     }
 
     @Override
-    public List<DonoDto> paraDtosDeDomains(List<Dono> domains) {
-        return domains.stream().map(this::paraDtoDeDomain).toList();
+    public List<DonoDto> paraDtos(List<Dono> domains) {
+        return domains.stream().map(this::paraDto).toList();
 
     }
 }

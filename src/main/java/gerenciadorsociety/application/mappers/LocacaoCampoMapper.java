@@ -23,37 +23,37 @@ public class LocacaoCampoMapper implements Mapper<LocacaoCampo, LocacaoCampoDto>
     private final Mapper<Jogador, JogadorDto> jogadorMapper;
 
     @Override
-    public LocacaoCampo paraDomainDeDto(LocacaoCampoDto locacaoCampoDto) {
+    public LocacaoCampo paraDomain(LocacaoCampoDto locacaoCampoDto) {
         return new LocacaoCampo(
                 locacaoCampoDto.getId(),
-                estabelecimentoMapper.paraDomainDeDto(locacaoCampoDto.getEstabelecimento()),
-                administradorMapper.paraDomainDeDto(locacaoCampoDto.getAdministrador()),
+                estabelecimentoMapper.paraDomain(locacaoCampoDto.getEstabelecimento()),
+                administradorMapper.paraDomain(locacaoCampoDto.getAdministrador()),
                 locacaoCampoDto.getDataLocacao(),
                 locacaoCampoDto.getData(),
                 locacaoCampoDto.getHoraLocacao(),
                 locacaoCampoDto.getAtivo(),
-                campoMapper.paraDomainDeDto(locacaoCampoDto.getCampo()),
-                locacaoCampoDto.getListaDeJogadores().stream().map(jogadorMapper::paraDomainDeDto).toList()
+                campoMapper.paraDomain(locacaoCampoDto.getCampo()),
+                locacaoCampoDto.getListaDeJogadores().stream().map(jogadorMapper::paraDomain).toList()
         );
     }
 
     @Override
-    public LocacaoCampoDto paraDtoDeDomain(LocacaoCampo domain) {
+    public LocacaoCampoDto paraDto(LocacaoCampo domain) {
         return new LocacaoCampoDto(
                 domain.getId(),
-                estabelecimentoMapper.paraDtoDeDomain(domain.getEstabelecimento()),
-                administradorMapper.paraDtoDeDomain(domain.getAdministrador()),
+                estabelecimentoMapper.paraDto(domain.getEstabelecimento()),
+                administradorMapper.paraDto(domain.getAdministrador()),
                 domain.getDataLocacao(),
                 domain.getData(),
                 domain.getHoraLocacao(),
                 domain.getAtivo(),
-                campoMapper.paraDtoDeDomain(domain.getCampo()),
-                jogadorMapper.paraDtosDeDomains(domain.getListaDeJogadores())
+                campoMapper.paraDto(domain.getCampo()),
+                jogadorMapper.paraDtos(domain.getListaDeJogadores())
         );
     }
 
     @Override
-    public List<LocacaoCampoDto> paraDtosDeDomains(List<LocacaoCampo> domains) {
-        return domains.stream().map(this::paraDtoDeDomain).toList();
+    public List<LocacaoCampoDto> paraDtos(List<LocacaoCampo> domains) {
+        return domains.stream().map(this::paraDto).toList();
     }
 }

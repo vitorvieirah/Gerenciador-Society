@@ -26,17 +26,17 @@ public class ChurrasqueiraService {
             throw new UseCaseException("Churrasqueira já cadastrada");
         });
 
-        Churrasqueira churrasqueira = mapper.paraDomainDeDto(dto);
+        Churrasqueira churrasqueira = mapper.paraDomain(dto);
 
         churrasqueira.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.estabelecimento().cnpj()));
 
-        return mapper.paraDtoDeDomain(gateway.salvar(churrasqueira));
+        return mapper.paraDto(gateway.salvar(churrasqueira));
     }
 
     public ChurrasqueiraDto alterar(Long id, ChurrasqueiraDto dto) {
-        var churasqueira = mapper.paraDomainDeDto(buscarPorId(id));
+        var churasqueira = mapper.paraDomain(buscarPorId(id));
         churasqueira.atualizarInformacoes(dto);
-        return mapper.paraDtoDeDomain(gateway.salvar(churasqueira));
+        return mapper.paraDto(gateway.salvar(churasqueira));
     }
 
     public Churrasqueira buscarPorNumero(Integer numero) {
@@ -52,7 +52,7 @@ public class ChurrasqueiraService {
     }
 
     public List<ChurrasqueiraDto> buscarPorEstabelecimento(Long idEstabelecimento) {
-        return gateway.buscarPorEstabelecimento(idEstabelecimento).stream().map(mapper::paraDtoDeDomain).toList();
+        return gateway.buscarPorEstabelecimento(idEstabelecimento).stream().map(mapper::paraDto).toList();
     }
 
     public ChurrasqueiraDto buscarPorId(Long id) {
@@ -61,6 +61,6 @@ public class ChurrasqueiraService {
         if (churrasqueira.isEmpty())
             throw new UseCaseException("Churrasqueira não econtrada");
 
-        return mapper.paraDtoDeDomain(churrasqueira.get());
+        return mapper.paraDto(churrasqueira.get());
     }
 }

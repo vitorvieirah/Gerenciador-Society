@@ -27,14 +27,14 @@ public class EstabelecimentoService {
             throw new UseCaseException("Estabelecimenot já cadastrado");
         });
 
-        Estabelecimento estabelecimento = mapper.paraDomainDeDto(dto);
+        Estabelecimento estabelecimento = mapper.paraDomain(dto);
         Dono dono = donoService.buscarPorCpf(estabelecimento.getDono().getCpf());
         estabelecimento.setDono(dono);
-        return mapper.paraDtoDeDomain(gateway.salvar(estabelecimento));
+        return mapper.paraDto(gateway.salvar(estabelecimento));
     }
 
     public List<EstabelecimentoDto> getEstabelecimentos() {
-        return mapper.paraDtosDeDomains(gateway.consultarTodos());
+        return mapper.paraDtos(gateway.consultarTodos());
     }
 
     public void deletar(Long id) {
@@ -58,6 +58,6 @@ public class EstabelecimentoService {
     public EstabelecimentoDto alterar(EstabelecimentoDto novosDados, Long id) {
         Estabelecimento estabelecimentoExistente = buscarPorId(id);
         estabelecimentoExistente.alterarInformacoes(novosDados);
-        return mapper.paraDtoDeDomain(gateway.salvar(estabelecimentoExistente));
+        return mapper.paraDto(gateway.salvar(estabelecimentoExistente));
     }
 }

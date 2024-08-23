@@ -7,7 +7,7 @@ import java.util.List;
 
 public class JogadorMapper implements Mapper<Jogador, JogadorDto>{
     @Override
-    public Jogador paraDomainDeDto(JogadorDto dto) {
+    public Jogador paraDomain(JogadorDto dto) {
         return Jogador.builder()
                 .id(dto.id())
                 .nome(dto.nome())
@@ -19,7 +19,7 @@ public class JogadorMapper implements Mapper<Jogador, JogadorDto>{
     }
 
     @Override
-    public JogadorDto paraDtoDeDomain(Jogador domain) {
+    public JogadorDto paraDto(Jogador domain) {
         return JogadorDto.builder()
                 .id(domain.getId())
                 .nome(domain.getNome())
@@ -31,7 +31,7 @@ public class JogadorMapper implements Mapper<Jogador, JogadorDto>{
     }
 
     @Override
-    public List<JogadorDto> paraDtosDeDomains(List<Jogador> domains) {
-        return domains.stream().map(this::paraDtoDeDomain).toList();
+    public List<JogadorDto> paraDtos(List<Jogador> domains) {
+        return domains.stream().map(this::paraDto).toList();
     }
 }

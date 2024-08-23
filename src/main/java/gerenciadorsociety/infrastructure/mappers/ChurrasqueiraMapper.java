@@ -1,24 +1,39 @@
 package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.Churrasqueira;
+import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infrastructure.repositories.entities.ChurrasqueiraEntity;
+import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
+import lombok.RequiredArgsConstructor;
 
-public abstract class ChurrasqueiraMapper {
+import java.util.List;
 
-    public static Churrasqueira paraDomain(ChurrasqueiraEntity churrasqueiraEntity) {
+@RequiredArgsConstructor
+public class ChurrasqueiraMapper implements Mapper<Churrasqueira, ChurrasqueiraEntity>{
+
+    private final Mapper<Estabelecimento, EstabelecimentoEntity> estabelecimentoMapper;
+
+    @Override
+    public Churrasqueira paraDomain(ChurrasqueiraEntity churrasqueiraEntity) {
         return Churrasqueira.builder()
                 .id(churrasqueiraEntity.getId())
                 .numero(churrasqueiraEntity.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraDomain(churrasqueiraEntity.getEstabelecimento()))
+                .estabelecimento(estabelecimentoMapper.paraDomain(churrasqueiraEntity.getEstabelecimento()))
                 .build();
     }
 
-    public static ChurrasqueiraEntity paraDomainDeDomain(Churrasqueira churrasqueira) {
+    @Override
+    public ChurrasqueiraEntity paraEntity(Churrasqueira churrasqueira) {
         return ChurrasqueiraEntity.builder()
                 .id(churrasqueira.getId())
                 .numero(churrasqueira.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraDomainDeDomain(churrasqueira.getEstabelecimento()))
+                .estabelecimento(estabelecimentoMapper.paraEntity(churrasqueira.getEstabelecimento()))
                 .build();
+    }
+
+    @Override
+    public List<Churrasqueira> paraDomains(List<ChurrasqueiraEntity> entities) {
+        return entities.stream().map(this::paraDomain).toList();
     }
 }

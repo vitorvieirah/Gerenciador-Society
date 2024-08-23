@@ -1,32 +1,38 @@
 package gerenciadorsociety.application.mappers;
 
 import gerenciadorsociety.domain.Campo;
+import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.entrypoint.dtos.CampoDto;
-import gerenciadorsociety.infrastructure.mappers.EstabelecimentoMapper;
+import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 public class CampoMapper implements Mapper<Campo, CampoDto>{
+
+    private final Mapper<Estabelecimento, EstabelecimentoDto> mapper;
+
     @Override
-    public Campo paraDomainDeDto(CampoDto dto) {
+    public Campo paraDomain(CampoDto dto) {
         return Campo.builder()
                 .id(dto.id())
                 .numero(dto.numero())
-                .estabelecimento(EstabelecimentoMapper.paraDomainDeDto(dto.estabelecimento()))
+                .estabelecimento(mapper.paraDomain(dto.estabelecimento()))
                 .build();
     }
 
     @Override
-    public CampoDto paraDtoDeDomain(Campo domain) {
+    public CampoDto paraDto(Campo domain) {
         return CampoDto.builder()
                 .id(domain.getId())
                 .numero(domain.getNumero())
-                .estabelecimento(EstabelecimentoMapper.paraDtoDeDomain(domain.getEstabelecimento()))
+                .estabelecimento(mapper.paraDto(domain.getEstabelecimento()))
                 .build();
     }
 
     @Override
-    public List<CampoDto> paraDtosDeDomains(List<Campo> domains) {
-        return domains.stream().map(this::paraDtoDeDomain).toList();
+    public List<CampoDto> paraDtos(List<Campo> domains) {
+        return domains.stream().map(this::paraDto).toList();
     }
 }

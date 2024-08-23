@@ -2,10 +2,10 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
-import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
-import gerenciadorsociety.infrastructure.mappers.AdministradorMapper;
+import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.AdministradorRepository;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,6 +18,7 @@ import java.util.Optional;
 public class AdministradorDataProvider implements AdministradorGateway {
 
     private final AdministradorRepository repository;
+    private final Mapper<Administrador, AdministradorEntity> mapper;
 
     @Override
     public Optional<Administrador> consultarPorCpf(String cpf) {
@@ -28,7 +29,7 @@ public class AdministradorDataProvider implements AdministradorGateway {
             log.error("Erro ao consultar Administrador", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return administradorEntity.map(AdministradorMapper::paraDomainDeEntiy);
+        return administradorEntity.map(mapper::paraDomain);
     }
 
     @Override
@@ -40,19 +41,19 @@ public class AdministradorDataProvider implements AdministradorGateway {
             log.error("Erro ao consultar administrador por id", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return administradorEntity.map(AdministradorMapper::paraDomainDeEntiy);
+        return administradorEntity.map(mapper::paraDomain);
     }
 
     @Override
     public Administrador salvar(Administrador adm) {
-        AdministradorEntity admEntity = AdministradorMapper.paraEntityDeDomain(adm);
+        AdministradorEntity admEntity = mapper.paraEntity(adm);
         try {
             admEntity = repository.save(admEntity);
         } catch (Exception ex) {
             log.error("Erro ao salvar administrador", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return AdministradorMapper.paraDomainDeEntiy(admEntity);
+        return mapper.paraDomain(admEntity);
     }
 
     @Override

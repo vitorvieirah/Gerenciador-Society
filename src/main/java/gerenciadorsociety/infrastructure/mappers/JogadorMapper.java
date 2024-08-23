@@ -4,9 +4,24 @@ import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.JogadorEntity;
 
-public abstract class JogadorMapper {
+import java.util.List;
 
-    public static JogadorEntity paraDomain(Jogador jogador) {
+public class JogadorMapper implements Mapper<Jogador, JogadorEntity>{
+
+    @Override
+    public Jogador paraDomain(JogadorEntity jogadorEntity) {
+        return Jogador.builder()
+                .id(jogadorEntity.getId())
+                .nome(jogadorEntity.getNome())
+                .email(jogadorEntity.getEmail())
+                .numeroTelefone(jogadorEntity.getNumeroTelefone())
+                .cpf(jogadorEntity.getCpf())
+                .endereco(jogadorEntity.getEndereco())
+                .build();
+    }
+
+    @Override
+    public JogadorEntity paraEntity(Jogador jogador) {
         return JogadorEntity.builder()
                 .id(jogador.getId())
                 .nome(jogador.getNome())
@@ -17,14 +32,8 @@ public abstract class JogadorMapper {
                 .build();
     }
 
-    public static Jogador paraDomain(JogadorEntity jogadorEntity) {
-        return Jogador.builder()
-                .id(jogadorEntity.getId())
-                .nome(jogadorEntity.getNome())
-                .email(jogadorEntity.getEmail())
-                .numeroTelefone(jogadorEntity.getNumeroTelefone())
-                .cpf(jogadorEntity.getCpf())
-                .endereco(jogadorEntity.getEndereco())
-                .build();
+    @Override
+    public List<Jogador> paraDomains(List<JogadorEntity> entities) {
+        return entities.stream().map(this::paraDomain).toList();
     }
 }

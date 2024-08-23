@@ -2,7 +2,7 @@ package gerenciadorsociety.application.mappers;
 
 import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.dtos.EstabelecimentoDto;
+import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
 import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import lombok.RequiredArgsConstructor;
 
@@ -14,29 +14,29 @@ public class EstabelecimentoMapper implements Mapper<Estabelecimento, Estabeleci
     private final Mapper<Dono, DonoDto> mapper;
 
     @Override
-    public Estabelecimento paraDomainDeDto(EstabelecimentoDto dto) {
+    public Estabelecimento paraDomain(EstabelecimentoDto dto) {
         return Estabelecimento.builder()
                 .id(dto.id())
                 .nome(dto.nome())
                 .cnpj(dto.cnpj())
-                .dono(mapper.paraDomainDeDto(dto.dono()))
+                .dono(mapper.paraDomain(dto.dono()))
                 .valorHora(dto.valorHora())
                 .build();
     }
 
     @Override
-    public EstabelecimentoDto paraDtoDeDomain(Estabelecimento domain) {
+    public EstabelecimentoDto paraDto(Estabelecimento domain) {
         return EstabelecimentoDto.builder()
                 .id(domain.getId())
                 .cnpj(domain.getCnpj())
                 .nome(domain.getNome())
-                .dono(mapper.paraDtoDeDomain(domain.getDono()))
+                .dono(mapper.paraDto(domain.getDono()))
                 .valorHora(domain.getValorHora())
                 .build();
     }
 
     @Override
-    public List<EstabelecimentoDto> paraDtosDeDomains(List<Estabelecimento> domains) {
-        return domains.stream().map(this::paraDtoDeDomain).toList();
+    public List<EstabelecimentoDto> paraDtos(List<Estabelecimento> domains) {
+        return domains.stream().map(this::paraDto).toList();
     }
 }

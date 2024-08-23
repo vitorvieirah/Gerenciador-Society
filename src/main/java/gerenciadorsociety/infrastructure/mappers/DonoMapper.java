@@ -4,9 +4,12 @@ import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 
-public abstract class DonoMapper {
+import java.util.List;
 
-    public static Dono paraDomain(DonoEntity donoEntity) {
+public class DonoMapper implements Mapper<Dono, DonoEntity>{
+
+    @Override
+    public Dono paraDomain(DonoEntity donoEntity) {
         return Dono.builder()
                 .id(donoEntity.getId())
                 .cpf(donoEntity.getCpf())
@@ -16,7 +19,8 @@ public abstract class DonoMapper {
                 .build();
     }
 
-    public static DonoEntity paraDomainDeDomain(Dono dono) {
+    @Override
+    public DonoEntity paraEntity(Dono dono) {
         return DonoEntity.builder()
                 .id(dono.getId())
                 .cpf(dono.getCpf())
@@ -24,5 +28,10 @@ public abstract class DonoMapper {
                 .email(dono.getEmail())
                 .numeroTelefone(dono.getNumeroTelefone())
                 .build();
+    }
+
+    @Override
+    public List<Dono> paraDomains(List<DonoEntity> entities) {
+        return entities.stream().map(this::paraDomain).toList();
     }
 }

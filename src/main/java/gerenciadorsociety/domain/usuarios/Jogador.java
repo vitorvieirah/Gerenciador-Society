@@ -1,7 +1,6 @@
 package gerenciadorsociety.domain.usuarios;
 
 import gerenciadorsociety.domain.Endereco;
-import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
 import lombok.*;
 
 @AllArgsConstructor
@@ -18,16 +17,16 @@ public class Jogador {
     private String cpf;
     private Endereco endereco;
 
-    public void alterarInformacoes(JogadorDto novosDados) {
-        if(novosDados.nome() != null)
-            this.nome = novosDados.nome();
-        if(novosDados.email() != null)
-            this.email = novosDados.email();
-        if(novosDados.cpf() != null)
-            this.cpf = novosDados.cpf();
-        if(novosDados.numeroTelefone() != null)
-            this.numeroTelefone = novosDados.numeroTelefone();
-        if(novosDados.endereco() != null)
-            this.endereco = novosDados.endereco();
+    public void alterarInformacoes(Jogador novosDados) {
+        if(novosDados.getNome() != null)
+            this.nome = novosDados.getNome();
+        if(novosDados.getEmail() != null)
+            this.email = novosDados.getEmail();
+        if(novosDados.getCpf() != null)
+            this.cpf = novosDados.getCpf();
+        if(novosDados.getNumeroTelefone() != null)
+            this.numeroTelefone = novosDados.getNumeroTelefone();
+        if(novosDados.getEndereco() != null)
+            this.endereco = novosDados.getEndereco();
     }
 }

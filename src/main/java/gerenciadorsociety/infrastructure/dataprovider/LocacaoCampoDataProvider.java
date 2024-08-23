@@ -2,10 +2,10 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
-import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoCampoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
-import gerenciadorsociety.infrastructure.mappers.LocacaoCampoMapper;
+import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.LocacaoCampoRepository;
+import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoCampoEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,17 +21,18 @@ import java.util.Optional;
 public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
 
     private final LocacaoCampoRepository repository;
+    private final Mapper<LocacaoCampo, LocacaoCampoEntity> mapper;
 
     @Override
     public LocacaoCampo salvar(LocacaoCampo locacaoCampo) {
-        LocacaoCampoEntity entity = LocacaoCampoMapper.paraEntityDeDomain(locacaoCampo);
+        LocacaoCampoEntity entity = mapper.paraEntity(locacaoCampo);
         try {
             entity = repository.save(entity);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return LocacaoCampoMapper.paraDomainDeEntity(entity);
+        return mapper.paraDomain(entity);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             throw new DataProviderExecption(ex.getMessage());
         }
 
-        return locacaoCampoEntity.map(LocacaoCampoMapper::paraDomainDeEntity);
+        return locacaoCampoEntity.map(mapper::paraDomain);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return locacaoCampoEntity.map(LocacaoCampoMapper::paraDomainDeEntity);
+        return locacaoCampoEntity.map(mapper::paraDomain);
     }
 
     @Override
@@ -78,6 +79,6 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return LocacaoCampoMapper.paraDomainsDeEntitys(locacaoList);
+        return mapper.paraDomains(locacaoList);
     }
 }

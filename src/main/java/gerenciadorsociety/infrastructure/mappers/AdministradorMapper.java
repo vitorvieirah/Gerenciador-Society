@@ -4,9 +4,12 @@ import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 
-public abstract class AdministradorMapper {
+import java.util.List;
 
-    public static Administrador paraDomain(AdministradorEntity admEntity){
+public class AdministradorMapper implements Mapper<Administrador, AdministradorEntity>{
+
+    @Override
+    public Administrador paraDomain(AdministradorEntity admEntity){
         return Administrador.builder()
                 .id(admEntity.getId())
                 .cpf(admEntity.getCpf())
@@ -16,7 +19,8 @@ public abstract class AdministradorMapper {
                 .build();
     }
 
-    public static AdministradorEntity paraEntity(Administrador adm){
+    @Override
+    public AdministradorEntity paraEntity(Administrador adm){
         return AdministradorEntity.builder()
                 .id(adm.getId())
                 .cpf(adm.getCpf())
@@ -24,5 +28,10 @@ public abstract class AdministradorMapper {
                 .email(adm.getEmail())
                 .numeroTelefone(adm.getNumeroTelefone())
                 .build();
+    }
+
+    @Override
+    public List<Administrador> paraDomains(List<AdministradorEntity> entities) {
+        return entities.stream().map(this::paraDomain).toList();
     }
 }

@@ -2,10 +2,10 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.CampoGateway;
 import gerenciadorsociety.domain.Campo;
-import gerenciadorsociety.infrastructure.repositories.entities.CampoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
-import gerenciadorsociety.infrastructure.mappers.CampoMapper;
+import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.CampoRepository;
+import gerenciadorsociety.infrastructure.repositories.entities.CampoEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,17 +19,18 @@ import java.util.Optional;
 public class CampoDataProvider implements CampoGateway {
 
     private final CampoRepository repository;
+    private final Mapper<Campo, CampoEntity> mapper;
 
     @Override
     public Campo salvar(Campo campo) {
-        CampoEntity campoEntity = CampoMapper.paraEntityDeDomain(campo);
+        CampoEntity campoEntity = mapper.paraEntity(campo);
         try {
             campoEntity = repository.save(campoEntity);
         } catch (Exception ex) {
             log.error("Erro ao salvar Campo", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return CampoMapper.paraDomainDeEntity(campoEntity);
+        return mapper.paraDomain(campoEntity);
     }
 
     @Override
@@ -52,13 +53,13 @@ public class CampoDataProvider implements CampoGateway {
             log.error("Erro ao buscar campos por estabelecimentos", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return CampoMapper.paraDomainsDeEntitys(campoEntities);
+        return mapper.paraDomains(campoEntities);
     }
 
     @Override
     public Optional<Campo> buscarPorId(Long idCampo) {
         try {
-            return repository.findById(idCampo).map(CampoMapper::paraDomainDeEntity);
+            return repository.findById(idCampo).map(mapper::paraDomain);
         }catch (Exception ex){
             log.error("Erro ao buscar campo por id", ex);
             throw new DataProviderExecption(ex.getMessage());
@@ -75,6 +76,6 @@ public class CampoDataProvider implements CampoGateway {
             throw new DataProviderExecption(ex.getMessage());
         }
 
-        return campoEntity.map(CampoMapper::paraDomainDeEntity);
+        return campoEntity.map(mapper::paraDomain);
     }
 }

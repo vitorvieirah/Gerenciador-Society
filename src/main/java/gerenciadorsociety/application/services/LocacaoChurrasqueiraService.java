@@ -26,7 +26,7 @@ public class LocacaoChurrasqueiraService {
     private final Mapper<Administrador, AdministradorDto> administradorMapper;
 
     public LocacaoDto locar(LocacaoChurrasqueiraDto dto) {
-        LocacaoChurrasqueira locacao = mapper.paraDomainDeDto(dto);
+        LocacaoChurrasqueira locacao = mapper.paraDomain(dto);
         Optional<LocacaoChurrasqueira> locacaoExistente = gateway.buscarLocacaoParaValidacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getChurrasqueira().getNumero());
 
         locacaoExistente.ifPresent(locacaoChurrasqueira ->{
@@ -37,15 +37,15 @@ public class LocacaoChurrasqueiraService {
 
         locacao.setEstabelecimento(locacao.getChurrasqueira().getEstabelecimento());
 
-        locacao.setAdministrador(administradorMapper.paraDomainDeDto(administradorService.consultarPorId(locacao.getAdministrador().getId())));
+        locacao.setAdministrador(administradorMapper.paraDomain(administradorService.consultarPorId(locacao.getAdministrador().getId())));
 
         locacao.setData(LocalDate.now());
 
-        return mapper.paraDtoDeDomain(gateway.salvar(locacao));
+        return mapper.paraDto(gateway.salvar(locacao));
     }
 
     public List<LocacaoChurrasqueiraDto> buscarPorTodos(Long idAdministrador) {
-        return mapper.paraDtosDeDomains(gateway.consultarTodasPorAdminsitrador(idAdministrador));
+        return mapper.paraDtos(gateway.consultarTodasPorAdminsitrador(idAdministrador));
     }
 
     public void deletar(Long id) {

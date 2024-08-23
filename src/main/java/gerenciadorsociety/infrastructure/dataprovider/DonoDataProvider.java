@@ -3,10 +3,10 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
-import gerenciadorsociety.infrastructure.mappers.DonoMapper;
+import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.DonoRepository;
+import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,10 +19,11 @@ import java.util.Optional;
 public class DonoDataProvider implements DonoGateway {
 
     private final DonoRepository repository;
+    private final Mapper<Dono, DonoEntity> mapper;
 
     @Override
     public Dono salvar(Dono dono) {
-        DonoEntity donoEntity = DonoMapper.paraEntityDeDomain(dono);
+        DonoEntity donoEntity = mapper.paraEntity(dono);
         try {
             donoEntity = repository.save(donoEntity);
         } catch (Exception ex) {
@@ -30,7 +31,7 @@ public class DonoDataProvider implements DonoGateway {
             throw new DataProviderExecption(ex.getMessage());
 
         }
-        return DonoMapper.paraDomainDeEntity(donoEntity);
+        return mapper.paraDomain(donoEntity);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class DonoDataProvider implements DonoGateway {
             log.error("Erro ao consultar Dono por Cpf", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return donoEntity.map(DonoMapper::paraDomainDeEntity);
+        return donoEntity.map(mapper::paraDomain);
     }
 
     @Override
@@ -65,6 +66,6 @@ public class DonoDataProvider implements DonoGateway {
             throw new UseCaseException(ex.getMessage());
         }
 
-        return donoExistente.map(DonoMapper::paraDomainDeEntity);
+        return donoExistente.map(mapper::paraDomain);
     }
 }

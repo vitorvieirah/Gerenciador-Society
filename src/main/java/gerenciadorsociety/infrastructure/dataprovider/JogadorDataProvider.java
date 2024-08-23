@@ -3,7 +3,7 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.gateways.JogadorGateway;
 import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
-import gerenciadorsociety.infrastructure.mappers.JogadorMapper;
+import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.JogadorRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.JogadorEntity;
 import lombok.AllArgsConstructor;
@@ -18,10 +18,11 @@ import java.util.Optional;
 public class JogadorDataProvider implements JogadorGateway {
 
     private final JogadorRepository repository;
+    private final Mapper<Jogador, JogadorEntity> mapper;
 
     @Override
     public Jogador salvar(Jogador jogador) {
-        JogadorEntity jogadorEntity = JogadorMapper.paraEntity(jogador);
+        JogadorEntity jogadorEntity = mapper.paraEntity(jogador);
 
         try {
             jogadorEntity = repository.save(jogadorEntity);
@@ -30,13 +31,13 @@ public class JogadorDataProvider implements JogadorGateway {
             throw new DataProviderExecption(ex.getMessage());
         }
 
-        return JogadorMapper.paraDomain(jogadorEntity);
+        return mapper.paraDomain(jogadorEntity);
     }
 
     @Override
     public Optional<Jogador> buscarPorId(Long id) {
         try {
-            return repository.findById(id).map(JogadorMapper::paraDomain);
+            return repository.findById(id).map(mapper::paraDomain);
         } catch (Exception ex) {
             log.error("Erro ao buscar jogador por id", ex);
             throw new DataProviderExecption(ex.getMessage());

@@ -6,9 +6,10 @@ import gerenciadorsociety.infrastructure.repositories.entities.CampoEntity;
 
 import java.util.List;
 
-public abstract class CampoMapper {
+public class CampoMapper implements Mapper<Campo, CampoEntity>{
 
-    public static Campo paraDomain(CampoEntity campoEntity) {
+    @Override
+    public Campo paraDomain(CampoEntity campoEntity) {
         return Campo.builder()
                 .id(campoEntity.getId())
                 .numero(campoEntity.getNumero())
@@ -16,7 +17,8 @@ public abstract class CampoMapper {
                 .build();
     }
 
-    public static CampoEntity paraDomainDeDomain(Campo campo) {
+    @Override
+    public CampoEntity paraEntity(Campo campo) {
         return CampoEntity.builder()
                 .id(campo.getId())
                 .numero(campo.getNumero())
@@ -24,7 +26,8 @@ public abstract class CampoMapper {
                 .build();
     }
 
-    public static List<Campo> paraDomainsDeEntitys(List<CampoEntity> campoEntities) {
-        return campoEntities.stream().map(CampoMapper::paraDomain).toList();
+    @Override
+    public List<Campo> paraDomains(List<CampoEntity> campoEntities) {
+        return campoEntities.stream().map(this::paraDomain).toList();
     }
 }

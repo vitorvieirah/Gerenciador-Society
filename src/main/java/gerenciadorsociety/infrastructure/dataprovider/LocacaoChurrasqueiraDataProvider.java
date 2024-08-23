@@ -2,10 +2,10 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.LocacaoChurrasqueiraGateway;
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
-import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoChurrasqueiraEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
-import gerenciadorsociety.infrastructure.mappers.LocacaoChurrasqueiraMapper;
+import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.LocacaoChurrasqueiraRepository;
+import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoChurrasqueiraEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,9 +21,10 @@ import java.util.Optional;
 public class LocacaoChurrasqueiraDataProvider implements LocacaoChurrasqueiraGateway {
 
     private final LocacaoChurrasqueiraRepository repository;
+    private final Mapper<LocacaoChurrasqueira, LocacaoChurrasqueiraEntity> mapper;
 
     public LocacaoChurrasqueira salvar(LocacaoChurrasqueira locacaoChurrasqueira) {
-        LocacaoChurrasqueiraEntity locacao = LocacaoChurrasqueiraMapper.paraEntityDeDomain(locacaoChurrasqueira);
+        LocacaoChurrasqueiraEntity locacao = mapper.paraEntity(locacaoChurrasqueira);
         try {
             locacao = repository.save(locacao);
         } catch (Exception ex) {
@@ -31,7 +32,7 @@ public class LocacaoChurrasqueiraDataProvider implements LocacaoChurrasqueiraGat
             throw new DataProviderExecption(ex.getMessage());
         }
 
-        return LocacaoChurrasqueiraMapper.paraDomainDeEntity(locacao);
+        return mapper.paraDomain(locacao);
     }
 
     public Optional<LocacaoChurrasqueira> buscarLocacaoParaValidacao(LocalTime horaLocacao, LocalDate dataLocacao, Integer numeroChurrasqueira) {
@@ -42,7 +43,7 @@ public class LocacaoChurrasqueiraDataProvider implements LocacaoChurrasqueiraGat
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return locacao.map(LocacaoChurrasqueiraMapper::paraDomainDeEntity);
+        return locacao.map(mapper::paraDomain);
     }
 
     public void deletar(Long id) {
@@ -64,7 +65,7 @@ public class LocacaoChurrasqueiraDataProvider implements LocacaoChurrasqueiraGat
             throw new DataProviderExecption(ex.getMessage());
         }
 
-        return LocacaoChurrasqueiraMapper.paraDomainsDeEntitys(locacoes);
+        return mapper.paraDomains(locacoes);
     }
 
     public Optional<LocacaoChurrasqueira> buscarPorId(Long id) {
@@ -75,6 +76,6 @@ public class LocacaoChurrasqueiraDataProvider implements LocacaoChurrasqueiraGat
             log.error(ex.getMessage(), ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return locacao.map(LocacaoChurrasqueiraMapper::paraDomainDeEntity);
+        return locacao.map(mapper::paraDomain);
     }
 }

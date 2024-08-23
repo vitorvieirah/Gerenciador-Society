@@ -24,7 +24,7 @@ public class DonoService {
             throw new UseCaseException("Dono já cadastrado");
         });
 
-        return mapper.paraDtoDeDomain(gateway.salvar(mapper.paraDomainDeDto(dto)));
+        return mapper.paraDto(gateway.salvar(mapper.paraDomain(dto)));
     }
 
     public Dono buscarPorCpf(String cpf) {
@@ -42,15 +42,15 @@ public class DonoService {
         if (dono.isEmpty())
             throw new UseCaseException(MENSAGEM_DONO_NAO_ENCONTRADO);
 
-        return mapper.paraDtoDeDomain(dono.get());
+        return mapper.paraDto(dono.get());
     }
 
     public DonoDto alterar(Long id, DonoDto novosDados) {
-        Dono donoExistente = mapper.paraDomainDeDto(buscarPorId(id));
+        Dono donoExistente = mapper.paraDomain(buscarPorId(id));
 
         donoExistente.alterarInformacoes(novosDados);
 
-        return mapper.paraDtoDeDomain(gateway.salvar(donoExistente));
+        return mapper.paraDto(gateway.salvar(donoExistente));
     }
 
     public void deletar(Long id) {

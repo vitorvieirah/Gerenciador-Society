@@ -2,10 +2,10 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;
 import gerenciadorsociety.domain.Estabelecimento;
-import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
-import gerenciadorsociety.infrastructure.mappers.EstabelecimentoMapper;
+import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.EstabelecimentoRepository;
+import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,23 +19,24 @@ import java.util.Optional;
 public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
 
     private final EstabelecimentoRepository repository;
+    private final Mapper<Estabelecimento, EstabelecimentoEntity> mapper;
 
     @Override
     public Estabelecimento salvar(Estabelecimento estab) {
-        EstabelecimentoEntity estabelecimentoEntity = EstabelecimentoMapper.paraEntityDeDomain(estab);
+        EstabelecimentoEntity estabelecimentoEntity = mapper.paraEntity(estab);
         try {
             estabelecimentoEntity = repository.save(estabelecimentoEntity);
         } catch (Exception ex) {
             log.error("Erro ao salvar Estabelecimento", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return EstabelecimentoMapper.paraDomainDeEntity(estabelecimentoEntity);
+        return mapper.paraDomain(estabelecimentoEntity);
     }
 
     @Override
     public List<Estabelecimento> consultarTodos() {
         try {
-            return EstabelecimentoMapper.paraDomainsDeEntitys(repository.findAll());
+            return mapper.paraDomains(repository.findAll());
         } catch (Exception ex) {
             log.error("Erro ao consultar todos os Estabelecimentos", ex);
             throw new DataProviderExecption(ex.getMessage());
@@ -51,7 +52,7 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
             log.error("Erro ao consultar Estabelecimento", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
-        return estabelecimentoEntity.map(EstabelecimentoMapper::paraDomainDeEntity);
+        return estabelecimentoEntity.map(mapper::paraDomain);
     }
 
     @Override
@@ -74,6 +75,6 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
             log.error("Erro ao buscar estabelecimento por id");
             throw new DataProviderExecption(ex.getMessage());
         }
-        return estabelecimentoEntity.map(EstabelecimentoMapper::paraDomainDeEntity);
+        return estabelecimentoEntity.map(mapper::paraDomain);
     }
 }

@@ -1,6 +1,5 @@
 package gerenciadorsociety.domain.usuarios;
 
-import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import lombok.*;
 
 @AllArgsConstructor
@@ -16,14 +15,14 @@ public class Dono {
     private String email;
     private String numeroTelefone;
 
-    public void alterarInformacoes(DonoDto novosDados) {
-        if (novosDados.nome() != null)
-            this.nome = novosDados.nome();
-        if (novosDados.cpf() != null)
-            this.cpf = novosDados.cpf();
-        if (novosDados.email() != null)
-            this.email = novosDados.email();
-        if (novosDados.numeroTelefone() != null)
-            this.numeroTelefone = novosDados.numeroTelefone();
+    public void alterarInformacoes(Dono novosDados) {
+        if (novosDados.getNome() != null)
+            this.nome = novosDados.getNome();
+        if (novosDados.getCpf() != null)
+            this.cpf = novosDados.getCpf();
+        if (novosDados.getEmail() != null)
+            this.email = novosDados.getEmail();
+        if (novosDados.getNumeroTelefone() != null)
+            this.numeroTelefone = novosDados.getNumeroTelefone();
     }
 }
