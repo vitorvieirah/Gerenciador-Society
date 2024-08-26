@@ -2,9 +2,7 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
-import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +13,15 @@ import java.util.Optional;
 public class DonoService {
 
     private final DonoGateway gateway;
-    private final Mapper<Dono, DonoDto> mapper;
     private final String MENSAGEM_DONO_NAO_ENCONTRADO = "Dono não encontrado";
 
-    public DonoDto cadastrar(DonoDto dto) {
-        Optional<Dono> donoExistente = gateway.buscarPorCpf(dto.cpf());
+    public Dono cadastrar(Dono novoDono) {
+        Optional<Dono> donoExistente = gateway.buscarPorCpf(novoDono.getCpf());
         donoExistente.ifPresent(dono -> {
             throw new UseCaseException("Dono já cadastrado");
         });
 
-        return mapper.paraDto(gateway.salvar(mapper.paraDomain(dto)));
+        return gateway.salvar(novoDono);
     }
 
     public Dono buscarPorCpf(String cpf) {
@@ -36,24 +33,26 @@ public class DonoService {
         return donoExistente.get();
     }
 
-    public DonoDto buscarPorId(Long id) {
+    public Dono buscarPorId(Long id) {
         Optional<Dono> dono = gateway.buscarPorId(id);
 
         if (dono.isEmpty())
             throw new UseCaseException(MENSAGEM_DONO_NAO_ENCONTRADO);
 
-        return mapper.paraDto(dono.get());
+        return dono.get();
     }
 
-    public DonoDto alterar(Long id, DonoDto novosDados) {
-        Dono donoExistente = mapper.paraDomain(buscarPorId(id));
+    public Dono alterar(Long id, Dono novosDados) {
+        Dono donoExistente = buscarPorId(id);
 
         donoExistente.alterarInformacoes(novosDados);
 
-        return mapper.paraDto(gateway.salvar(donoExistente));
+        return gateway.salvar(donoExistente);
     }
 
     public void deletar(Long id) {
+        buscarPorId(id);
+
         gateway.deletar(id);
     }
 }

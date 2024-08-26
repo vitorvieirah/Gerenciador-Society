@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.mappers;
+package gerenciadorsociety.entrypoint.mappers;
 
 import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.domain.Estabelecimento;

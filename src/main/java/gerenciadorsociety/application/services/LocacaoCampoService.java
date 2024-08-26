@@ -2,14 +2,8 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
-import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
-import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.domain.usuarios.Jogador;
-import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoCampoDto;
-import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
-import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
-import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,40 +22,36 @@ public class LocacaoCampoService {
     private final EstabelecimentoService estabelecimentoService;
     private final AdministradorService administradorService;
     private final JogadorService jogadorService;
-    private final Mapper<LocacaoCampo, LocacaoCampoDto> mapper;
-    private final Mapper<Jogador, JogadorDto> jogadorMapper;
-    private final Mapper<Administrador, AdministradorDto> administradorMapper;
 
-    public LocacaoDto locar(LocacaoCampoDto dto) {
-        LocacaoCampo locacao = mapper.paraDomain(dto);
-        Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(locacao.getHoraLocacao(), locacao.getDataLocacao(), locacao.getCampo().getNumero());
+    public LocacaoCampo locar(LocacaoCampo novaLocacao) {
+        Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(novaLocacao.getHoraLocacao(), novaLocacao.getDataLocacao(), novaLocacao.getCampo().getNumero());
 
         locacaoExistente.ifPresent(locacaoCampo -> {
             throw new UseCaseException("Locacao indiponível nesse horário, data, e campo");
         });
 
-        locacao.setCampo(campoService.buscarPorNumero(locacao.getCampo().getNumero()));
+        novaLocacao.setCampo(campoService.buscarPorNumero(novaLocacao.getCampo().getNumero()));
 
-        locacao.setEstabelecimento(estabelecimentoService.consultarPorCnpj(dto.getEstabelecimento().cnpj()));
+        novaLocacao.setEstabelecimento(estabelecimentoService.consultarPorCnpj(novaLocacao.getEstabelecimento().getCnpj()));
 
-        locacao.setAdministrador(administradorMapper.paraDomain(administradorService.consultarPorId(dto.getAdministrador().id())));
+        novaLocacao.setAdministrador(administradorService.consultarPorId(novaLocacao.getAdministrador().getId()));
 
-        locacao.setAtivo(true);
-        locacao.setData(LocalDate.now());
-        locacao.setListaDeJogadores(new ArrayList<>());
+        novaLocacao.setAtivo(true);
+        novaLocacao.setData(LocalDate.now());
+        novaLocacao.setListaDeJogadores(new ArrayList<>());
 
-        return mapper.paraDto(gateway.salvar(locacao));
+        return gateway.salvar(novaLocacao);
     }
 
-    public List<LocacaoCampoDto> buscarPorTodos(Long idAdminstrador) {
-        return mapper.paraDtos(gateway.consultarTodasLocacoesPorAdministrador(idAdminstrador));
+    public List<LocacaoCampo> buscarPorTodos(Long idAdminstrador) {
+        return gateway.consultarTodasLocacoesPorAdministrador(idAdminstrador);
     }
 
     public void deletar(Long id) {
         buscarPorId(id).setAtivo(false);
     }
 
-    public JogadorDto adicionarJogadorNaLista(Long idLocacao, Long idJogador) {
+    public Jogador adicionarJogadorNaLista(Long idLocacao, Long idJogador) {
         LocacaoCampo locacao = buscarPorId(idLocacao);
 
         locacao.getListaDeJogadores().forEach(jogador -> {
@@ -69,10 +59,10 @@ public class LocacaoCampoService {
                 throw new UseCaseException("Jogador já está na lista");
         });
 
-        Jogador jogador = jogadorMapper.paraDomain(jogadorService.buscarPorId(idJogador));
+        Jogador jogador = jogadorService.buscarPorId(idJogador);
         locacao.adicionarJogador(jogador);
         gateway.salvar(locacao);
-        return jogadorMapper.paraDto(jogador);
+        return jogador;
     }
 
     public void removerJogadorDaLista(Long idLocacao, Long idJogador) {
@@ -85,7 +75,7 @@ public class LocacaoCampoService {
         if (jogadorDaLista.isEmpty())
             throw new UseCaseException("Jogador não encontrado na lista");
 
-        locacao.removeJogador(jogadorMapper.paraDomain(jogadorService.buscarPorId(idJogador)));
+        locacao.removeJogador(jogadorService.buscarPorId(idJogador));
         gateway.salvar(locacao);
     }
 

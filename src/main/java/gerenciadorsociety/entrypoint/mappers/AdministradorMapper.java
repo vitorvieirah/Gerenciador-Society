@@ -1,14 +1,14 @@
-package gerenciadorsociety.application.mappers;
+package gerenciadorsociety.entrypoint.mappers;
 
-import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
+import gerenciadorsociety.domain.usuarios.Administrador;
+import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
 
 import java.util.List;
 
-public class DonoMapper implements Mapper<Dono, DonoDto>{
+public class AdministradorMapper implements Mapper<Administrador, AdministradorDto> {
     @Override
-    public Dono paraDomain(DonoDto dto) {
-        return Dono.builder()
+    public Administrador paraDomain(AdministradorDto dto) {
+        return Administrador.builder()
                 .id(dto.id())
                 .cpf(dto.cpf())
                 .nome(dto.nome())
@@ -18,8 +18,8 @@ public class DonoMapper implements Mapper<Dono, DonoDto>{
     }
 
     @Override
-    public DonoDto paraDto(Dono domain) {
-        return DonoDto.builder()
+    public AdministradorDto paraDto(Administrador domain) {
+        return AdministradorDto.builder()
                 .id(domain.getId())
                 .cpf(domain.getCpf())
                 .nome(domain.getNome())
@@ -29,8 +29,7 @@ public class DonoMapper implements Mapper<Dono, DonoDto>{
     }
 
     @Override
-    public List<DonoDto> paraDtos(List<Dono> domains) {
+    public List<AdministradorDto> paraDtos(List<Administrador> domains) {
         return domains.stream().map(this::paraDto).toList();
-
     }
 }

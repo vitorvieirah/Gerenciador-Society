@@ -1,8 +1,10 @@
 package gerenciadorsociety.entrypoint.controllers;
 
+import gerenciadorsociety.application.services.LocacaoChurrasqueiraService;
+import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;
-import gerenciadorsociety.application.services.LocacaoChurrasqueiraService;
+import gerenciadorsociety.entrypoint.mappers.Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +18,16 @@ import java.util.List;
 public class LocacaoChurrasqueiraController {
 
     private final LocacaoChurrasqueiraService locacaoChurrasqueiraService;
+    private final Mapper<LocacaoChurrasqueira, LocacaoChurrasqueiraDto> mapper;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<List<LocacaoChurrasqueiraDto>> vizualizarLocacoesChurrasqueiras(@PathVariable Long idAdministrador) {
-        return ResponseEntity.ok(locacaoChurrasqueiraService.buscarPorTodos(idAdministrador));
+        return ResponseEntity.ok(mapper.paraDtos(locacaoChurrasqueiraService.buscarPorTodos(idAdministrador)));
     }
 
     @PostMapping
-    public ResponseEntity<LocacaoDto> locarChurrasqueira(@RequestBody LocacaoChurrasqueiraDto dto, UriComponentsBuilder uriBuilder) {
-        LocacaoDto locacaoChurrasqueiraResponse = locacaoChurrasqueiraService.locar(dto);
+    public ResponseEntity<LocacaoDto> locarChurrasqueira(@RequestBody LocacaoChurrasqueiraDto locacaoChurrasqueiraDto, UriComponentsBuilder uriBuilder) {
+        LocacaoDto locacaoChurrasqueiraResponse = mapper.paraDto(locacaoChurrasqueiraService.locar(mapper.paraDomain(locacaoChurrasqueiraDto)));
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("locacaoChurrasqueira/{id}").buildAndExpand(locacaoChurrasqueiraResponse.getId()).toUri())
                 .body(locacaoChurrasqueiraResponse);

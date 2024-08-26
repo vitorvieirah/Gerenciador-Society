@@ -8,8 +8,11 @@ import java.util.Optional;
 public interface CampoGateway {
 
     Campo salvar(Campo campo);
+
     Optional<Campo> buscarPorNumero(int numero);
+
     void deletar(Long id);
+
     List<Campo> buscarPorEstabelecimento(Long idEstabelecimento);
 
     Optional<Campo> buscarPorId(Long idCampo);

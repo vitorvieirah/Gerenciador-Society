@@ -2,10 +2,8 @@ package gerenciadorsociety.application.services;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;
-import gerenciadorsociety.application.mappers.Mapper;
 import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,26 +16,26 @@ public class EstabelecimentoService {
 
     private final EstabelecimentoGateway gateway;
     private final DonoService donoService;
-    private final Mapper<Estabelecimento, EstabelecimentoDto> mapper;
 
-    public EstabelecimentoDto cadastrar(EstabelecimentoDto dto) {
-        Optional<Estabelecimento> estabelecimentotoExistente = gateway.consultarPorCnpj(dto.cnpj());
+    public Estabelecimento cadastrar(Estabelecimento novoEstabelecimento) {
+        Optional<Estabelecimento> estabelecimentotoExistente = gateway.consultarPorCnpj(novoEstabelecimento.getCnpj());
 
         estabelecimentotoExistente.ifPresent(estabelecimento -> {
             throw new UseCaseException("Estabelecimenot já cadastrado");
         });
 
-        Estabelecimento estabelecimento = mapper.paraDomain(dto);
-        Dono dono = donoService.buscarPorCpf(estabelecimento.getDono().getCpf());
-        estabelecimento.setDono(dono);
-        return mapper.paraDto(gateway.salvar(estabelecimento));
+        Dono dono = donoService.buscarPorCpf(novoEstabelecimento.getDono().getCpf());
+        novoEstabelecimento.setDono(dono);
+        return gateway.salvar(novoEstabelecimento);
     }
 
-    public List<EstabelecimentoDto> getEstabelecimentos() {
-        return mapper.paraDtos(gateway.consultarTodos());
+    public List<Estabelecimento> getEstabelecimentos() {
+        return gateway.consultarTodos();
     }
 
     public void deletar(Long id) {
+        buscarPorId(id);
+
         gateway.deletar(id);
     }
 
@@ -55,9 +53,9 @@ public class EstabelecimentoService {
         return estabelecimento.get();
     }
 
-    public EstabelecimentoDto alterar(EstabelecimentoDto novosDados, Long id) {
+    public Estabelecimento alterar(Estabelecimento novosDados, Long id) {
         Estabelecimento estabelecimentoExistente = buscarPorId(id);
         estabelecimentoExistente.alterarInformacoes(novosDados);
-        return mapper.paraDto(gateway.salvar(estabelecimentoExistente));
+        return gateway.salvar(estabelecimentoExistente);
     }
 }

@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.mappers;
+package gerenciadorsociety.entrypoint.mappers;
 
 import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.domain.usuarios.Dono;

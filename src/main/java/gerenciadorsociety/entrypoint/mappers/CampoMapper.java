@@ -1,20 +1,21 @@
-package gerenciadorsociety.application.mappers;
+package gerenciadorsociety.entrypoint.mappers;
 
-import gerenciadorsociety.domain.Churrasqueira;
+import gerenciadorsociety.domain.Campo;
 import gerenciadorsociety.domain.Estabelecimento;
-import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
+import gerenciadorsociety.entrypoint.dtos.CampoDto;
 import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+
 @RequiredArgsConstructor
-public class ChurrasqueiraMapper implements Mapper<Churrasqueira, ChurrasqueiraDto> {
+public class CampoMapper implements Mapper<Campo, CampoDto> {
 
     private final Mapper<Estabelecimento, EstabelecimentoDto> mapper;
 
     @Override
-    public Churrasqueira paraDomain(ChurrasqueiraDto dto) {
-        return Churrasqueira.builder()
+    public Campo paraDomain(CampoDto dto) {
+        return Campo.builder()
                 .id(dto.id())
                 .numero(dto.numero())
                 .estabelecimento(mapper.paraDomain(dto.estabelecimento()))
@@ -22,8 +23,8 @@ public class ChurrasqueiraMapper implements Mapper<Churrasqueira, ChurrasqueiraD
     }
 
     @Override
-    public ChurrasqueiraDto paraDto(Churrasqueira domain) {
-        return ChurrasqueiraDto.builder()
+    public CampoDto paraDto(Campo domain) {
+        return CampoDto.builder()
                 .id(domain.getId())
                 .numero(domain.getNumero())
                 .estabelecimento(mapper.paraDto(domain.getEstabelecimento()))
@@ -31,7 +32,7 @@ public class ChurrasqueiraMapper implements Mapper<Churrasqueira, ChurrasqueiraD
     }
 
     @Override
-    public List<ChurrasqueiraDto> paraDtos(List<Churrasqueira> domains) {
+    public List<CampoDto> paraDtos(List<Campo> domains) {
         return domains.stream().map(this::paraDto).toList();
     }
 }

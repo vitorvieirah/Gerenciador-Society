@@ -14,10 +14,10 @@ public class Campo {
     private Integer numero;
     private Estabelecimento estabelecimento;
 
-    public void setInformacoes(Campo campoDto) {
-        if(campoDto.getNumero() != null)
-            this.numero = campoDto.getNumero();
-        if(campoDto.getEstabelecimento() != null)
-            this.estabelecimento = campoDto.getEstabelecimento();
+    public void setInformacoes(Campo novosDados) {
+        if(novosDados.getNumero() != null)
+            this.numero = novosDados.getNumero();
+        if(novosDados.getEstabelecimento() != null)
+            this.estabelecimento = novosDados.getEstabelecimento();
     }
 }

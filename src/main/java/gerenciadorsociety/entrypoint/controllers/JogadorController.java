@@ -2,8 +2,9 @@ package gerenciadorsociety.entrypoint.controllers;
 
 import gerenciadorsociety.application.services.JogadorService;
 import gerenciadorsociety.application.services.LocacaoCampoService;
+import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
-import gerenciadorsociety.infrastructure.mappers.JogadorMapper;
+import gerenciadorsociety.entrypoint.mappers.Mapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,11 @@ public class JogadorController {
 
     private final JogadorService service;
     private final LocacaoCampoService locacaoCampoService;
+    private final Mapper<Jogador, JogadorDto> mapper;
 
     @PostMapping
     public ResponseEntity<JogadorDto> cadastrar(@RequestBody JogadorDto jogadorDto) {
-        JogadorDto response = service.cadastrar(jogadorDto);
+        JogadorDto response = mapper.paraDto(service.cadastrar(mapper.paraDomain(jogadorDto)));
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("jogador/{id}").buildAndExpand(response.id()).toUri())
                 .body(response);
@@ -27,7 +29,7 @@ public class JogadorController {
 
     @PostMapping(value = "/{id}")
     public ResponseEntity<JogadorDto> entrarNaLista(@PathVariable Long idJogador, @RequestBody Long idLocacao) {
-        JogadorDto response = locacaoCampoService.adicionarJogadorNaLista(idLocacao, idJogador);
+        JogadorDto response = mapper.paraDto(locacaoCampoService.adicionarJogadorNaLista(idLocacao, idJogador));
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("jogador/id").buildAndExpand(response.id()).toUri())
                 .body(response);
@@ -35,12 +37,12 @@ public class JogadorController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<JogadorDto> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarPorId(id));
+        return ResponseEntity.ok(mapper.paraDto(service.buscarPorId(id)));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<JogadorDto> alterar(@PathVariable Long id, @RequestBody JogadorDto novosDados) {
-        return ResponseEntity.ok(service.alterar(novosDados, id));
+        return ResponseEntity.ok(mapper.paraDto(service.alterar(mapper.paraDomain(novosDados), id)));
     }
 
     @DeleteMapping(value = "/{id}")
