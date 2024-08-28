@@ -2,7 +2,6 @@ package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
 import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class EstabelecimentoMapper implements Mapper<Estabelecimento, EstabelecimentoEntity>{
+public class EstabelecimentoMapper implements Mapper<Estabelecimento, EstabelecimentoEntity> {
 
     private final Mapper<Dono, DonoEntity> donoMapper;
 

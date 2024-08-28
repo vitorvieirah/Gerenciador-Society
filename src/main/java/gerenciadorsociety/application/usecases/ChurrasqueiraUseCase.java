@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.ChurrasqueiraGateway;
@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ChurrasqueiraService {
+public class ChurrasqueiraUseCase {
 
     private final ChurrasqueiraGateway gateway;
-    private final EstabelecimentoService estabelecimentoService;
+    private final EstabelecimentoUseCase estabelecimentoUseCase;
 
     public Churrasqueira cadastrar(Churrasqueira novaChurrasqueira) {
         Optional<Churrasqueira> churrasqueiraOptional = gateway.buscarPorNumero(novaChurrasqueira.getNumero());
@@ -23,7 +23,7 @@ public class ChurrasqueiraService {
             throw new UseCaseException("Churrasqueira já cadastrada");
         });
 
-        novaChurrasqueira.setEstabelecimento(estabelecimentoService.consultarPorCnpj(novaChurrasqueira.getEstabelecimento().getCnpj()));
+        novaChurrasqueira.setEstabelecimento(estabelecimentoUseCase.consultarPorCnpj(novaChurrasqueira.getEstabelecimento().getCnpj()));
 
         return gateway.salvar(novaChurrasqueira);
     }

@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.JogadorGateway;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class JogadorService {
+public class JogadorUseCase {
 
     private final JogadorGateway gateway;
 

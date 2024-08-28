@@ -15,9 +15,9 @@ public class Campo {
     private Estabelecimento estabelecimento;
 
     public void setInformacoes(Campo novosDados) {
-        if(novosDados.getNumero() != null)
+        if (novosDados.getNumero() != null)
             this.numero = novosDados.getNumero();
-        if(novosDados.getEstabelecimento() != null)
+        if (novosDados.getEstabelecimento() != null)
             this.estabelecimento = novosDados.getEstabelecimento();
     }
 }

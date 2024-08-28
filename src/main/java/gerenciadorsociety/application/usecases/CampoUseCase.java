@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.CampoGateway;
@@ -13,10 +13,10 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class CampoService {
+public class CampoUseCase {
 
     private final CampoGateway campoGateway;
-    private final EstabelecimentoService estabelecimentoService;
+    private final EstabelecimentoUseCase estabelecimentoUseCase;
     private final String MENSAGEM_CAMPO_NAO_ENCONTRADO = "Campo não econtrado";
 
 
@@ -27,7 +27,7 @@ public class CampoService {
             throw new UseCaseException("Campo já cadastrado");
         }
 
-        novoCampo.setEstabelecimento(estabelecimentoService.consultarPorCnpj(novoCampo.getEstabelecimento().getCnpj()));
+        novoCampo.setEstabelecimento(estabelecimentoUseCase.consultarPorCnpj(novoCampo.getEstabelecimento().getCnpj()));
 
         return campoGateway.salvar(novoCampo);
     }

@@ -1,12 +1,11 @@
 package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
 
 import java.util.List;
 
-public class DonoMapper implements Mapper<Dono, DonoEntity>{
+public class DonoMapper implements Mapper<Dono, DonoEntity> {
 
     @Override
     public Dono paraDomain(DonoEntity donoEntity) {

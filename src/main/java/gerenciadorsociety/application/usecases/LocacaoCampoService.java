@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
@@ -18,10 +18,10 @@ import java.util.Optional;
 public class LocacaoCampoService {
 
     private final LocacaoCampoGateway gateway;
-    private final CampoService campoService;
-    private final EstabelecimentoService estabelecimentoService;
-    private final AdministradorService administradorService;
-    private final JogadorService jogadorService;
+    private final CampoUseCase campoUseCase;
+    private final EstabelecimentoUseCase estabelecimentoUseCase;
+    private final AdministradorUseCase administradorUseCase;
+    private final JogadorUseCase jogadorUseCase;
 
     public LocacaoCampo locar(LocacaoCampo novaLocacao) {
         Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(novaLocacao.getHoraLocacao(), novaLocacao.getDataLocacao(), novaLocacao.getCampo().getNumero());
@@ -30,11 +30,11 @@ public class LocacaoCampoService {
             throw new UseCaseException("Locacao indiponível nesse horário, data, e campo");
         });
 
-        novaLocacao.setCampo(campoService.buscarPorNumero(novaLocacao.getCampo().getNumero()));
+        novaLocacao.setCampo(campoUseCase.buscarPorNumero(novaLocacao.getCampo().getNumero()));
 
-        novaLocacao.setEstabelecimento(estabelecimentoService.consultarPorCnpj(novaLocacao.getEstabelecimento().getCnpj()));
+        novaLocacao.setEstabelecimento(estabelecimentoUseCase.consultarPorCnpj(novaLocacao.getEstabelecimento().getCnpj()));
 
-        novaLocacao.setAdministrador(administradorService.consultarPorId(novaLocacao.getAdministrador().getId()));
+        novaLocacao.setAdministrador(administradorUseCase.consultarPorId(novaLocacao.getAdministrador().getId()));
 
         novaLocacao.setAtivo(true);
         novaLocacao.setData(LocalDate.now());
@@ -59,7 +59,7 @@ public class LocacaoCampoService {
                 throw new UseCaseException("Jogador já está na lista");
         });
 
-        Jogador jogador = jogadorService.buscarPorId(idJogador);
+        Jogador jogador = jogadorUseCase.buscarPorId(idJogador);
         locacao.adicionarJogador(jogador);
         gateway.salvar(locacao);
         return jogador;
@@ -75,7 +75,7 @@ public class LocacaoCampoService {
         if (jogadorDaLista.isEmpty())
             throw new UseCaseException("Jogador não encontrado na lista");
 
-        locacao.removeJogador(jogadorService.buscarPorId(idJogador));
+        locacao.removeJogador(jogadorUseCase.buscarPorId(idJogador));
         gateway.salvar(locacao);
     }
 

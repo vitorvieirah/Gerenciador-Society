@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;
@@ -12,10 +12,10 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class EstabelecimentoService {
+public class EstabelecimentoUseCase {
 
     private final EstabelecimentoGateway gateway;
-    private final DonoService donoService;
+    private final DonoUseCase donoUseCase;
 
     public Estabelecimento cadastrar(Estabelecimento novoEstabelecimento) {
         Optional<Estabelecimento> estabelecimentotoExistente = gateway.consultarPorCnpj(novoEstabelecimento.getCnpj());
@@ -24,7 +24,7 @@ public class EstabelecimentoService {
             throw new UseCaseException("Estabelecimenot já cadastrado");
         });
 
-        Dono dono = donoService.buscarPorCpf(novoEstabelecimento.getDono().getCpf());
+        Dono dono = donoUseCase.buscarPorCpf(novoEstabelecimento.getDono().getCpf());
         novoEstabelecimento.setDono(dono);
         return gateway.salvar(novoEstabelecimento);
     }

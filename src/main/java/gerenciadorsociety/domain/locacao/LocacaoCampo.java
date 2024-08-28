@@ -4,7 +4,9 @@ import gerenciadorsociety.domain.Campo;
 import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.domain.usuarios.Jogador;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

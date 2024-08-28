@@ -2,7 +2,6 @@ package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.domain.Estabelecimento;
-import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.infrastructure.repositories.entities.ChurrasqueiraEntity;
 import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ChurrasqueiraMapper implements Mapper<Churrasqueira, ChurrasqueiraEntity>{
+public class ChurrasqueiraMapper implements Mapper<Churrasqueira, ChurrasqueiraEntity> {
 
     private final Mapper<Estabelecimento, EstabelecimentoEntity> estabelecimentoMapper;
 

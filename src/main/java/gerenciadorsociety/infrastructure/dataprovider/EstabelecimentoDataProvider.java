@@ -69,9 +69,9 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
     public Optional<Estabelecimento> consultarPorId(Long id) {
         Optional<EstabelecimentoEntity> estabelecimentoEntity;
 
-        try{
+        try {
             estabelecimentoEntity = repository.findById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao buscar estabelecimento por id");
             throw new DataProviderExecption(ex.getMessage());
         }

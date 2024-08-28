@@ -35,9 +35,9 @@ public class AdministradorDataProvider implements AdministradorGateway {
     @Override
     public Optional<Administrador> consultarPorId(Long id) {
         Optional<AdministradorEntity> administradorEntity;
-        try{
+        try {
             administradorEntity = repository.findById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao consultar administrador por id", ex);
             throw new DataProviderExecption(ex.getMessage());
         }

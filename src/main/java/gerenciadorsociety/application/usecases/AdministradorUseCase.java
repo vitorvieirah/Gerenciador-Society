@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.AdministradorGateway;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class AdministradorService {
+public class AdministradorUseCase {
 
     private final AdministradorGateway administradorGateway;
 

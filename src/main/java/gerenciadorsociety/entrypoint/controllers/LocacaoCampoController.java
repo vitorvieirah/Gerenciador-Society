@@ -1,6 +1,6 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.application.services.LocacaoCampoService;
+import gerenciadorsociety.application.usecases.LocacaoCampoService;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoCampoDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;

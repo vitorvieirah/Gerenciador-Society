@@ -4,9 +4,10 @@ import gerenciadorsociety.infrastructure.repositories.entities.ChurrasqueiraEnti
 import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.print.attribute.standard.MediaSize;
 import java.time.LocalDate;
 import java.time.LocalTime;
 

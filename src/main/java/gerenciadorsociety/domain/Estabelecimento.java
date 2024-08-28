@@ -20,13 +20,13 @@ public class Estabelecimento {
     private BigDecimal valorHora;
 
     public void alterarInformacoes(Estabelecimento novosDados) {
-        if(novosDados.getNome() != null)
+        if (novosDados.getNome() != null)
             this.nome = novosDados.getNome();
-        if(novosDados.getCnpj() != null)
+        if (novosDados.getCnpj() != null)
             this.cnpj = novosDados.getCnpj();
-        if(novosDados.getDono() != null)
+        if (novosDados.getDono() != null)
             this.dono = novosDados.getDono();
-        if(novosDados.getValorHora() != null)
+        if (novosDados.getValorHora() != null)
             this.valorHora = novosDados.getValorHora();
     }
 }

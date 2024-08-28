@@ -1,6 +1,6 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.application.services.AdministradorService;
+import gerenciadorsociety.application.usecases.AdministradorUseCase;
 import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
 import gerenciadorsociety.entrypoint.mappers.Mapper;
@@ -14,12 +14,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 @AllArgsConstructor
 public class AdministradorController {
 
-    private final AdministradorService administradorService;
+    private final AdministradorUseCase administradorUseCase;
     private final Mapper<Administrador, AdministradorDto> mapper;
 
     @PostMapping
     public ResponseEntity<AdministradorDto> cadastrar(@RequestBody AdministradorDto administradorDto) {
-        AdministradorDto administradorResponse = mapper.paraDto(administradorService.cadastrar(mapper.paraDomain(administradorDto)));
+        AdministradorDto administradorResponse = mapper.paraDto(administradorUseCase.cadastrar(mapper.paraDomain(administradorDto)));
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("/administrador/{id}").buildAndExpand(administradorResponse.id()).toUri())
                 .body(administradorResponse);
@@ -27,17 +27,17 @@ public class AdministradorController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<AdministradorDto> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(mapper.paraDto(administradorService.consultarPorId(id)));
+        return ResponseEntity.ok(mapper.paraDto(administradorUseCase.consultarPorId(id)));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<AdministradorDto> alterar(@RequestBody AdministradorDto novosDados, @PathVariable Long id) {
-        return ResponseEntity.ok(mapper.paraDto(administradorService.alterar(mapper.paraDomain(novosDados), id)));
+        return ResponseEntity.ok(mapper.paraDto(administradorUseCase.alterar(mapper.paraDomain(novosDados), id)));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        administradorService.deletar(id);
+        administradorUseCase.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

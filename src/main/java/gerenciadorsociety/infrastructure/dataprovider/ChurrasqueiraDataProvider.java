@@ -59,7 +59,7 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
     public List<Churrasqueira> buscarPorEstabelecimento(Long idEstabelecimento) {
         try {
             return repository.buscarPorEstabelecimento(idEstabelecimento).stream().map(mapper::paraDomain).toList();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao buscar churrasqueira por estabelecimento", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
@@ -67,9 +67,9 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
 
     @Override
     public Optional<Churrasqueira> buscarPorId(Long id) {
-        try{
+        try {
             return repository.findById(id).map(mapper::paraDomain);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao bucar churrasqueira por id", ex);
             throw new DataProviderExecption(ex.getMessage());
         }

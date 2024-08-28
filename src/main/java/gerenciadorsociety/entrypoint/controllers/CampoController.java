@@ -1,6 +1,6 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.application.services.CampoService;
+import gerenciadorsociety.application.usecases.CampoUseCase;
 import gerenciadorsociety.domain.Campo;
 import gerenciadorsociety.entrypoint.dtos.CampoDto;
 import gerenciadorsociety.entrypoint.mappers.Mapper;
@@ -16,12 +16,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CampoController {
 
-    private final CampoService campoService;
+    private final CampoUseCase campoUseCase;
     private final Mapper<Campo, CampoDto> mapper;
 
     @PostMapping
     public ResponseEntity<CampoDto> cadastrar(@RequestBody CampoDto campoDto, UriComponentsBuilder uriBuilder) {
-        CampoDto campoResponse = mapper.paraDto(campoService.cadastrar(mapper.paraDomain(campoDto)));
+        CampoDto campoResponse = mapper.paraDto(campoUseCase.cadastrar(mapper.paraDomain(campoDto)));
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("/campo/{id}").buildAndExpand(campoResponse.id()).toUri())
                 .body(campoResponse);
@@ -29,22 +29,22 @@ public class CampoController {
 
     @GetMapping(value = "/consultarEstabelecimento/{id}")
     public ResponseEntity<List<CampoDto>> consultarTodosCamposPorEstabelecimento(@PathVariable Long idEstabelecimento) {
-        return ResponseEntity.ok(mapper.paraDtos(campoService.buscarPorEstabelecimento(idEstabelecimento)));
+        return ResponseEntity.ok(mapper.paraDtos(campoUseCase.buscarPorEstabelecimento(idEstabelecimento)));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<CampoDto> consultarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(mapper.paraDto(campoService.buscarPorId(id)));
+        return ResponseEntity.ok(mapper.paraDto(campoUseCase.buscarPorId(id)));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<CampoDto> alterar(@PathVariable Long id, @RequestBody CampoDto novosDados) {
-        return ResponseEntity.ok(mapper.paraDto(campoService.alterar(mapper.paraDomain(novosDados), id)));
+        return ResponseEntity.ok(mapper.paraDto(campoUseCase.alterar(mapper.paraDomain(novosDados), id)));
     }
 
     @DeleteMapping(value = "/id")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        campoService.deletar(id);
+        campoUseCase.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

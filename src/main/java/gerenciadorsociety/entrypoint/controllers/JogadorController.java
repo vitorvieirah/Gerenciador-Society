@@ -1,7 +1,7 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.application.services.JogadorService;
-import gerenciadorsociety.application.services.LocacaoCampoService;
+import gerenciadorsociety.application.usecases.JogadorUseCase;
+import gerenciadorsociety.application.usecases.LocacaoCampoService;
 import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
 import gerenciadorsociety.entrypoint.mappers.Mapper;
@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @AllArgsConstructor
 public class JogadorController {
 
-    private final JogadorService service;
+    private final JogadorUseCase service;
     private final LocacaoCampoService locacaoCampoService;
     private final Mapper<Jogador, JogadorDto> mapper;
 

@@ -47,9 +47,9 @@ public class CampoDataProvider implements CampoGateway {
     public List<Campo> buscarPorEstabelecimento(Long idEstabelecimento) {
         List<CampoEntity> campoEntities;
 
-        try{
+        try {
             campoEntities = repository.buscarPorEstabelecimento(idEstabelecimento);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao buscar campos por estabelecimentos", ex);
             throw new DataProviderExecption(ex.getMessage());
         }
@@ -60,7 +60,7 @@ public class CampoDataProvider implements CampoGateway {
     public Optional<Campo> buscarPorId(Long idCampo) {
         try {
             return repository.findById(idCampo).map(mapper::paraDomain);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao buscar campo por id", ex);
             throw new DataProviderExecption(ex.getMessage());
         }

@@ -61,7 +61,7 @@ public class DonoDataProvider implements DonoGateway {
         Optional<DonoEntity> donoExistente;
         try {
             donoExistente = repository.findById(id);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("Erro ao buscar Dono por id", ex);
             throw new UseCaseException(ex.getMessage());
         }

@@ -1,6 +1,6 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.application.services.DonoService;
+import gerenciadorsociety.application.usecases.DonoUseCase;
 import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.entrypoint.dtos.usuarios.DonoDto;
 import gerenciadorsociety.entrypoint.mappers.Mapper;
@@ -14,12 +14,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class DonoController {
 
-    private final DonoService donoService;
+    private final DonoUseCase donoUseCase;
     private final Mapper<Dono, DonoDto> mapper;
 
     @PostMapping
     public ResponseEntity<DonoDto> cadastrar(@RequestBody DonoDto donoDto) {
-        DonoDto donoResponse = mapper.paraDto(donoService.cadastrar(mapper.paraDomain(donoDto)));
+        DonoDto donoResponse = mapper.paraDto(donoUseCase.cadastrar(mapper.paraDomain(donoDto)));
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("/dono/{id}").buildAndExpand(donoResponse.id()).toUri())
                 .body(donoResponse);
@@ -27,17 +27,17 @@ public class DonoController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<DonoDto> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(mapper.paraDto(donoService.buscarPorId(id)));
+        return ResponseEntity.ok(mapper.paraDto(donoUseCase.buscarPorId(id)));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<DonoDto> alterar(@PathVariable Long id, DonoDto novosDados) {
-        return ResponseEntity.ok(mapper.paraDto(donoService.alterar(id, mapper.paraDomain(novosDados))));
+        return ResponseEntity.ok(mapper.paraDto(donoUseCase.alterar(id, mapper.paraDomain(novosDados))));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        donoService.deletar(id);
+        donoUseCase.deletar(id);
         return ResponseEntity.noContent().build();
     }
 

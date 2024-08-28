@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.LocacaoChurrasqueiraGateway;
@@ -15,8 +15,8 @@ import java.util.Optional;
 public class LocacaoChurrasqueiraService {
 
     private final LocacaoChurrasqueiraGateway gateway;
-    private final ChurrasqueiraService churrasqueiraService;
-    private final AdministradorService administradorService;
+    private final ChurrasqueiraUseCase churrasqueiraUseCase;
+    private final AdministradorUseCase administradorUseCase;
 
     public LocacaoChurrasqueira locar(LocacaoChurrasqueira novosDados) {
         Optional<LocacaoChurrasqueira> locacaoExistente = gateway.buscarLocacaoParaValidacao(novosDados.getHoraLocacao(), novosDados.getDataLocacao(), novosDados.getChurrasqueira().getNumero());
@@ -25,11 +25,11 @@ public class LocacaoChurrasqueiraService {
             throw new UseCaseException("Locação já cadastrada");
         });
 
-        novosDados.setChurrasqueira(churrasqueiraService.buscarPorNumero(novosDados.getChurrasqueira().getNumero()));
+        novosDados.setChurrasqueira(churrasqueiraUseCase.buscarPorNumero(novosDados.getChurrasqueira().getNumero()));
 
         novosDados.setEstabelecimento(novosDados.getChurrasqueira().getEstabelecimento());
 
-        novosDados.setAdministrador(administradorService.consultarPorId(novosDados.getAdministrador().getId()));
+        novosDados.setAdministrador(administradorUseCase.consultarPorId(novosDados.getAdministrador().getId()));
 
         novosDados.setData(LocalDate.now());
 

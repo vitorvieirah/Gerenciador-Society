@@ -1,6 +1,6 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.application.services.LocacaoChurrasqueiraService;
+import gerenciadorsociety.application.usecases.LocacaoChurrasqueiraService;
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoChurrasqueiraDto;
 import gerenciadorsociety.entrypoint.dtos.locacao.LocacaoDto;

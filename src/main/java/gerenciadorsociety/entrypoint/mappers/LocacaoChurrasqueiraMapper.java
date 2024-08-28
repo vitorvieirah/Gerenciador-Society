@@ -20,7 +20,6 @@ public class LocacaoChurrasqueiraMapper implements Mapper<LocacaoChurrasqueira, 
     private final Mapper<Estabelecimento, EstabelecimentoDto> estabelecimentoMapper;
     private final Mapper<Administrador, AdministradorDto> administradorMapper;
     private final Mapper<Churrasqueira, ChurrasqueiraDto> churrasqueiraMapper;
-    private final Mapper<Jogador, JogadorDto> jogadorMapper;
 
 
     @Override

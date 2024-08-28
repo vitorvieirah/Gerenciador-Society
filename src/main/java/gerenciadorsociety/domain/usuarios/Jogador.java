@@ -18,15 +18,15 @@ public class Jogador {
     private Endereco endereco;
 
     public void alterarInformacoes(Jogador novosDados) {
-        if(novosDados.getNome() != null)
+        if (novosDados.getNome() != null)
             this.nome = novosDados.getNome();
-        if(novosDados.getEmail() != null)
+        if (novosDados.getEmail() != null)
             this.email = novosDados.getEmail();
-        if(novosDados.getCpf() != null)
+        if (novosDados.getCpf() != null)
             this.cpf = novosDados.getCpf();
-        if(novosDados.getNumeroTelefone() != null)
+        if (novosDados.getNumeroTelefone() != null)
             this.numeroTelefone = novosDados.getNumeroTelefone();
-        if(novosDados.getEndereco() != null)
+        if (novosDados.getEndereco() != null)
             this.endereco = novosDados.getEndereco();
     }
 }

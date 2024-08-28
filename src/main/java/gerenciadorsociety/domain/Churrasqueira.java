@@ -15,7 +15,7 @@ public class Churrasqueira {
     private Estabelecimento estabelecimento;
 
     public void atualizarInformacoes(Churrasqueira novosDados) {
-        if(novosDados.getNumero() != null)
+        if (novosDados.getNumero() != null)
             this.numero = novosDados.getNumero();
     }
 }

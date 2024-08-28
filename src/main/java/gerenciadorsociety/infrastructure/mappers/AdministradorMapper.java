@@ -1,15 +1,14 @@
 package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.usuarios.Administrador;
-import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
 
 import java.util.List;
 
-public class AdministradorMapper implements Mapper<Administrador, AdministradorEntity>{
+public class AdministradorMapper implements Mapper<Administrador, AdministradorEntity> {
 
     @Override
-    public Administrador paraDomain(AdministradorEntity admEntity){
+    public Administrador paraDomain(AdministradorEntity admEntity) {
         return Administrador.builder()
                 .id(admEntity.getId())
                 .cpf(admEntity.getCpf())
@@ -20,7 +19,7 @@ public class AdministradorMapper implements Mapper<Administrador, AdministradorE
     }
 
     @Override
-    public AdministradorEntity paraEntity(Administrador adm){
+    public AdministradorEntity paraEntity(Administrador adm) {
         return AdministradorEntity.builder()
                 .id(adm.getId())
                 .cpf(adm.getCpf())

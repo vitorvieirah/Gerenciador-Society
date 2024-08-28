@@ -1,6 +1,6 @@
 package gerenciadorsociety.entrypoint.controllers;
 
-import gerenciadorsociety.application.services.ChurrasqueiraService;
+import gerenciadorsociety.application.usecases.ChurrasqueiraUseCase;
 import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.entrypoint.dtos.ChurrasqueiraDto;
 import gerenciadorsociety.entrypoint.mappers.Mapper;
@@ -16,12 +16,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChurrasqueiraController {
 
-    private final ChurrasqueiraService churrasqueiraService;
+    private final ChurrasqueiraUseCase churrasqueiraUseCase;
     private final Mapper<Churrasqueira, ChurrasqueiraDto> mapper;
 
     @PostMapping
     public ResponseEntity<ChurrasqueiraDto> cadastrarChurrasqueira(@RequestBody ChurrasqueiraDto churrasqueiraDto, UriComponentsBuilder uriBuilder) {
-        ChurrasqueiraDto churrasqueiraResponse = mapper.paraDto(churrasqueiraService.cadastrar(mapper.paraDomain(churrasqueiraDto)));
+        ChurrasqueiraDto churrasqueiraResponse = mapper.paraDto(churrasqueiraUseCase.cadastrar(mapper.paraDomain(churrasqueiraDto)));
         return ResponseEntity
                 .created(UriComponentsBuilder.newInstance().path("churrasqueira/{id}").buildAndExpand(churrasqueiraResponse.id()).toUri())
                 .body(churrasqueiraResponse);
@@ -29,22 +29,22 @@ public class ChurrasqueiraController {
 
     @GetMapping(value = "/buscarPorEstabelecimento/{id}")
     public ResponseEntity<List<ChurrasqueiraDto>> buscarPorEstabelecimento(@PathVariable Long idEstabelecimento) {
-        return ResponseEntity.ok(mapper.paraDtos(churrasqueiraService.buscarPorEstabelecimento(idEstabelecimento)));
+        return ResponseEntity.ok(mapper.paraDtos(churrasqueiraUseCase.buscarPorEstabelecimento(idEstabelecimento)));
     }
 
     @GetMapping(value = "/id")
     public ResponseEntity<ChurrasqueiraDto> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(mapper.paraDto(churrasqueiraService.buscarPorId(id)));
+        return ResponseEntity.ok(mapper.paraDto(churrasqueiraUseCase.buscarPorId(id)));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ChurrasqueiraDto> alterar(@PathVariable Long id, @RequestBody ChurrasqueiraDto novosDados) {
-        return ResponseEntity.ok(mapper.paraDto(churrasqueiraService.alterar(id, mapper.paraDomain(novosDados))));
+        return ResponseEntity.ok(mapper.paraDto(churrasqueiraUseCase.alterar(id, mapper.paraDomain(novosDados))));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        churrasqueiraService.deletar(id);
+        churrasqueiraUseCase.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

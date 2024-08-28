@@ -1,4 +1,4 @@
-package gerenciadorsociety.application.services;
+package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class DonoService {
+public class DonoUseCase {
 
     private final DonoGateway gateway;
     private final String MENSAGEM_DONO_NAO_ENCONTRADO = "Dono não encontrado";

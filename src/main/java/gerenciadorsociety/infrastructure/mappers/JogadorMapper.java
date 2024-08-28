@@ -1,12 +1,11 @@
 package gerenciadorsociety.infrastructure.mappers;
 
 import gerenciadorsociety.domain.usuarios.Jogador;
-import gerenciadorsociety.entrypoint.dtos.usuarios.JogadorDto;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.JogadorEntity;
 
 import java.util.List;
 
-public class JogadorMapper implements Mapper<Jogador, JogadorEntity>{
+public class JogadorMapper implements Mapper<Jogador, JogadorEntity> {
 
     @Override
     public Jogador paraDomain(JogadorEntity jogadorEntity) {

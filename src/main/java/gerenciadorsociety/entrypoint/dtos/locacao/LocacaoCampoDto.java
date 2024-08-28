@@ -1,7 +1,6 @@
 package gerenciadorsociety.entrypoint.dtos.locacao;
 
 
-import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.entrypoint.dtos.CampoDto;
 import gerenciadorsociety.entrypoint.dtos.EstabelecimentoDto;
 import gerenciadorsociety.entrypoint.dtos.usuarios.AdministradorDto;
