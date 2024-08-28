@@ -1,5 +1,7 @@
 package gerenciadorsociety.application.usecases;
 
+import gerenciadorsociety.application.exceptions.AdministradorExistenteException;
+import gerenciadorsociety.application.exceptions.AdministradorNaoEncontradoExecption;
 import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
@@ -14,13 +16,10 @@ public class AdministradorUseCase {
 
     private final AdministradorGateway administradorGateway;
 
-    private static final String MENSAGEM_ADMINISTRADOR_EXISTE = "Admnistrador já está cadastrado";
-    private static final String MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO = "Administrador não encontrado";
-
     public Administrador cadastrar(Administrador novoAdministrador) {
         Optional<Administrador> administradorExistente = administradorGateway.consultarPorCpf(novoAdministrador.getCpf());
         administradorExistente.ifPresent(adm -> {
-            throw new UseCaseException(MENSAGEM_ADMINISTRADOR_EXISTE);
+            throw new AdministradorExistenteException();
         });
         return administradorGateway.salvar(novoAdministrador);
     }
@@ -28,7 +27,7 @@ public class AdministradorUseCase {
     public Administrador consultarPorId(Long id) {
         Optional<Administrador> resultQuery = administradorGateway.consultarPorId(id);
         if (resultQuery.isEmpty())
-            throw new UseCaseException(MENSAGEM_ADMINSITRADOR_NAO_ENCONTRADO);
+            throw new AdministradorNaoEncontradoExecption();
         return resultQuery.get();
     }
 
