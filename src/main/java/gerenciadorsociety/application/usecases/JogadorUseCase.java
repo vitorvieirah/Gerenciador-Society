@@ -1,6 +1,8 @@
 package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.jogador.JogadorJaCadastradoException;
+import gerenciadorsociety.application.exceptions.jogador.JogadorNaoEncontradoException;
 import gerenciadorsociety.application.gateways.JogadorGateway;
 import gerenciadorsociety.domain.usuarios.Jogador;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ public class JogadorUseCase {
         Optional<Jogador> jogadorExistente = gateway.buscarPorId(novoJogador.getId());
 
         jogadorExistente.ifPresent(jogador -> {
-            throw new UseCaseException("Jogador já cadastrado");
+            throw new JogadorJaCadastradoException();
         });
 
         return gateway.salvar(novoJogador);
@@ -28,7 +30,7 @@ public class JogadorUseCase {
         Optional<Jogador> jogador = gateway.buscarPorId(id);
 
         if (jogador.isEmpty())
-            throw new UseCaseException("Jogador não encontrado por id");
+            throw new JogadorNaoEncontradoException();
 
         return jogador.get();
     }

@@ -1,6 +1,8 @@
 package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.campo.CampoJaCadastradoException;
+import gerenciadorsociety.application.exceptions.campo.CampoNaoEncontradoException;
 import gerenciadorsociety.application.gateways.CampoGateway;
 import gerenciadorsociety.domain.Campo;
 import lombok.AllArgsConstructor;
@@ -17,14 +19,13 @@ public class CampoUseCase {
 
     private final CampoGateway campoGateway;
     private final EstabelecimentoUseCase estabelecimentoUseCase;
-    private final String MENSAGEM_CAMPO_NAO_ENCONTRADO = "Campo não econtrado";
 
 
     public Campo cadastrar(Campo novoCampo) {
         var campoExistente = buscarPorNumero(novoCampo.getNumero());
 
         if (campoExistente != null) {
-            throw new UseCaseException("Campo já cadastrado");
+            throw new CampoJaCadastradoException();
         }
 
         novoCampo.setEstabelecimento(estabelecimentoUseCase.consultarPorCnpj(novoCampo.getEstabelecimento().getCnpj()));
@@ -45,7 +46,7 @@ public class CampoUseCase {
         Optional<Campo> campoExistente = campoGateway.buscarPorNumero(numero);
 
         if (campoExistente.isEmpty())
-            throw new UseCaseException(MENSAGEM_CAMPO_NAO_ENCONTRADO);
+            throw new CampoNaoEncontradoException();
 
         return campoExistente.get();
     }
@@ -63,7 +64,7 @@ public class CampoUseCase {
         Optional<Campo> campo = campoGateway.buscarPorId(idCampo);
 
         if (campo.isEmpty())
-            throw new UseCaseException(MENSAGEM_CAMPO_NAO_ENCONTRADO);
+            throw new CampoNaoEncontradoException();
 
         return campo.get();
     }

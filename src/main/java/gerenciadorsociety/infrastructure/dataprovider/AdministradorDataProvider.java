@@ -3,6 +3,10 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.administrador.BuscaAdministradorPorCpfException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.administrador.BuscaAdministradorPorIdException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.administrador.DeletarAdministradorException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.administrador.SalvarAdministradorException;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.AdministradorRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.AdministradorEntity;
@@ -26,8 +30,8 @@ public class AdministradorDataProvider implements AdministradorGateway {
         try {
             administradorEntity = repository.findByCpf(cpf);
         } catch (Exception ex) {
-            log.error("Erro ao consultar Administrador", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao consultar Administrador por cpf.", ex);
+            throw new BuscaAdministradorPorCpfException(ex.getMessage());
         }
         return administradorEntity.map(mapper::paraDomain);
     }
@@ -38,8 +42,8 @@ public class AdministradorDataProvider implements AdministradorGateway {
         try {
             administradorEntity = repository.findById(id);
         } catch (Exception ex) {
-            log.error("Erro ao consultar administrador por id", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao consultar administrador por id.", ex);
+            throw new BuscaAdministradorPorIdException(ex.getMessage());
         }
         return administradorEntity.map(mapper::paraDomain);
     }
@@ -50,8 +54,8 @@ public class AdministradorDataProvider implements AdministradorGateway {
         try {
             admEntity = repository.save(admEntity);
         } catch (Exception ex) {
-            log.error("Erro ao salvar administrador", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao salvar administrador.", ex);
+            throw new SalvarAdministradorException(ex.getMessage());
         }
         return mapper.paraDomain(admEntity);
     }
@@ -61,8 +65,8 @@ public class AdministradorDataProvider implements AdministradorGateway {
         try {
             repository.deleteById(id);
         } catch (Exception ex) {
-            log.error("Erro ao deletar Administrador", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao deletar administrador.", ex);
+            throw new DeletarAdministradorException(ex.getMessage());
         }
     }
 }

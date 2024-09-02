@@ -1,6 +1,8 @@
 package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.dono.DonoJaCadastradoException;
+import gerenciadorsociety.application.exceptions.dono.DonoNaoEncontradoException;
 import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
 import lombok.AllArgsConstructor;
@@ -13,12 +15,11 @@ import java.util.Optional;
 public class DonoUseCase {
 
     private final DonoGateway gateway;
-    private final String MENSAGEM_DONO_NAO_ENCONTRADO = "Dono não encontrado";
 
     public Dono cadastrar(Dono novoDono) {
         Optional<Dono> donoExistente = gateway.buscarPorCpf(novoDono.getCpf());
         donoExistente.ifPresent(dono -> {
-            throw new UseCaseException("Dono já cadastrado");
+            throw new DonoJaCadastradoException();
         });
 
         return gateway.salvar(novoDono);
@@ -28,7 +29,7 @@ public class DonoUseCase {
         Optional<Dono> donoExistente = gateway.buscarPorCpf(cpf);
 
         if (donoExistente.isEmpty())
-            throw new UseCaseException(MENSAGEM_DONO_NAO_ENCONTRADO);
+            throw new DonoNaoEncontradoException();
 
         return donoExistente.get();
     }
@@ -37,7 +38,7 @@ public class DonoUseCase {
         Optional<Dono> dono = gateway.buscarPorId(id);
 
         if (dono.isEmpty())
-            throw new UseCaseException(MENSAGEM_DONO_NAO_ENCONTRADO);
+            throw new DonoNaoEncontradoException();
 
         return dono.get();
     }

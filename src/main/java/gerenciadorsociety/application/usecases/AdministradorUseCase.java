@@ -1,8 +1,7 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.AdministradorExistenteException;
-import gerenciadorsociety.application.exceptions.AdministradorNaoEncontradoExecption;
-import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.administrador.AdministradorExistenteException;
+import gerenciadorsociety.application.exceptions.administrador.AdministradorNaoEncontradoExecption;
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
 import lombok.AllArgsConstructor;

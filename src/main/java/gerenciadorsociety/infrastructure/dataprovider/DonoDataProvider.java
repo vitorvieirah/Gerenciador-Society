@@ -4,6 +4,10 @@ import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.dono.BuscarPorCpfDonoException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.dono.BuscarPorIdDonoException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.dono.DeletarDonoException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.dono.SalvarDonoException;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.DonoRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.DonoEntity;
@@ -27,8 +31,8 @@ public class DonoDataProvider implements DonoGateway {
         try {
             donoEntity = repository.save(donoEntity);
         } catch (Exception ex) {
-            log.error("Erro ao salvar Dono", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao salvar dono.", ex);
+            throw new SalvarDonoException(ex.getMessage());
 
         }
         return mapper.paraDomain(donoEntity);
@@ -40,8 +44,8 @@ public class DonoDataProvider implements DonoGateway {
         try {
             donoEntity = repository.findByCpf(cpf);
         } catch (Exception ex) {
-            log.error("Erro ao consultar Dono por Cpf", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao consultar dono por cpf.", ex);
+            throw new BuscarPorCpfDonoException(ex.getMessage());
         }
         return donoEntity.map(mapper::paraDomain);
     }
@@ -51,8 +55,8 @@ public class DonoDataProvider implements DonoGateway {
         try {
             repository.deleteById(id);
         } catch (Exception ex) {
-            log.error("Erro ao deletar Dono", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao deletar dono.", ex);
+            throw new DeletarDonoException(ex.getMessage());
         }
     }
 
@@ -62,8 +66,8 @@ public class DonoDataProvider implements DonoGateway {
         try {
             donoExistente = repository.findById(id);
         } catch (Exception ex) {
-            log.error("Erro ao buscar Dono por id", ex);
-            throw new UseCaseException(ex.getMessage());
+            log.error("Erro ao buscar dono por id.", ex);
+            throw new BuscarPorIdDonoException(ex.getMessage());
         }
 
         return donoExistente.map(mapper::paraDomain);

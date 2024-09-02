@@ -1,6 +1,7 @@
 package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.locaoCampo.LocacaoCampoJaCadastradaException;
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.domain.usuarios.Jogador;
@@ -27,7 +28,7 @@ public class LocacaoCampoService {
         Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(novaLocacao.getHoraLocacao(), novaLocacao.getDataLocacao(), novaLocacao.getCampo().getNumero());
 
         locacaoExistente.ifPresent(locacaoCampo -> {
-            throw new UseCaseException("Locacao indiponível nesse horário, data, e campo");
+            throw new LocacaoCampoJaCadastradaException();
         });
 
         novaLocacao.setCampo(campoUseCase.buscarPorNumero(novaLocacao.getCampo().getNumero()));

@@ -3,6 +3,7 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.gateways.CampoGateway;
 import gerenciadorsociety.domain.Campo;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.campo.*;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.CampoRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.CampoEntity;
@@ -28,7 +29,7 @@ public class CampoDataProvider implements CampoGateway {
             campoEntity = repository.save(campoEntity);
         } catch (Exception ex) {
             log.error("Erro ao salvar Campo", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new SalvarCampoException(ex.getMessage());
         }
         return mapper.paraDomain(campoEntity);
     }
@@ -38,8 +39,8 @@ public class CampoDataProvider implements CampoGateway {
         try {
             repository.deleteById(id);
         } catch (Exception ex) {
-            log.error("Erro ao deletar campo", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao deletar campo.", ex);
+            throw new DeletarCampoException(ex.getMessage());
         }
     }
 
@@ -50,8 +51,8 @@ public class CampoDataProvider implements CampoGateway {
         try {
             campoEntities = repository.buscarPorEstabelecimento(idEstabelecimento);
         } catch (Exception ex) {
-            log.error("Erro ao buscar campos por estabelecimentos", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao buscar campos por estabelecimentos.", ex);
+            throw new BuscarPorEstabelecimentoCampoException(ex.getMessage());
         }
         return mapper.paraDomains(campoEntities);
     }
@@ -61,8 +62,8 @@ public class CampoDataProvider implements CampoGateway {
         try {
             return repository.findById(idCampo).map(mapper::paraDomain);
         } catch (Exception ex) {
-            log.error("Erro ao buscar campo por id", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao buscar campo por id.", ex);
+            throw new BuscarPorIdCampoException(ex.getMessage());
         }
     }
 
@@ -72,8 +73,8 @@ public class CampoDataProvider implements CampoGateway {
         try {
             campoEntity = repository.findByNumero(numero);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao buscar campo por numero", ex);
+            throw new BuscarPorNumeroException(ex.getMessage());
         }
 
         return campoEntity.map(mapper::paraDomain);

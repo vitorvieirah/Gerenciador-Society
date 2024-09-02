@@ -3,6 +3,9 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.gateways.JogadorGateway;
 import gerenciadorsociety.domain.usuarios.Jogador;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.jogador.BuscarPorIdJogadorException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.jogador.DeletarJogadorException;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.jogador.SalvarJogadorException;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.JogadorRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.usuarios.JogadorEntity;
@@ -28,7 +31,7 @@ public class JogadorDataProvider implements JogadorGateway {
             jogadorEntity = repository.save(jogadorEntity);
         } catch (Exception ex) {
             log.error("Erro ao cadastrar jogador", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new SalvarJogadorException(ex.getMessage());
         }
 
         return mapper.paraDomain(jogadorEntity);
@@ -40,7 +43,7 @@ public class JogadorDataProvider implements JogadorGateway {
             return repository.findById(id).map(mapper::paraDomain);
         } catch (Exception ex) {
             log.error("Erro ao buscar jogador por id", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new BuscarPorIdJogadorException(ex.getMessage());
         }
     }
 
@@ -50,7 +53,7 @@ public class JogadorDataProvider implements JogadorGateway {
             repository.deleteById(id);
         } catch (Exception ex) {
             log.error("Erro ao deletar jogador", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new DeletarJogadorException(ex.getMessage());
         }
     }
 }

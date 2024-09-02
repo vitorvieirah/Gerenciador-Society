@@ -3,6 +3,7 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.gateways.ChurrasqueiraGateway;
 import gerenciadorsociety.domain.Churrasqueira;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.churrasqueira.*;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.ChurrasqueiraRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.ChurrasqueiraEntity;
@@ -28,7 +29,7 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
             churEntity = repository.save(churEntity);
         } catch (Exception ex) {
             log.error("Erro ao salvar Churrasqueira", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new SalvarChurrasqueiraException(ex.getMessage());
         }
         return mapper.paraDomain(churEntity);
     }
@@ -38,8 +39,8 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
         try {
             repository.deleteById(id);
         } catch (Exception ex) {
-            log.error("Erro ao deletar Churrasqueira", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao deletar churrasqueira.", ex);
+            throw new DeletarChurrasqueiraException(ex.getMessage());
         }
     }
 
@@ -49,8 +50,8 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
         try {
             churrasqueiraEntity = repository.findByNumero(numero);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao buscar por churrasqueira por número.", ex);
+            throw new BuscarPorNumeroException(ex.getMessage());
         }
         return churrasqueiraEntity.map(mapper::paraDomain);
     }
@@ -60,8 +61,8 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
         try {
             return repository.buscarPorEstabelecimento(idEstabelecimento).stream().map(mapper::paraDomain).toList();
         } catch (Exception ex) {
-            log.error("Erro ao buscar churrasqueira por estabelecimento", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao buscar churrasqueira por estabelecimento.", ex);
+            throw new BuscarPorEstabelecimentoChurrasqueiraException(ex.getMessage());
         }
     }
 
@@ -70,8 +71,8 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
         try {
             return repository.findById(id).map(mapper::paraDomain);
         } catch (Exception ex) {
-            log.error("Erro ao bucar churrasqueira por id", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao bucar churrasqueira por id.", ex);
+            throw new BuscarPorIdChurrasqueiraException(ex.getMessage());
         }
     }
 

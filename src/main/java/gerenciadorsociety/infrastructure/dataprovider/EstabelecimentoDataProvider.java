@@ -3,6 +3,7 @@ package gerenciadorsociety.infrastructure.dataprovider;
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;
 import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.estabelecimento.*;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.EstabelecimentoRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.EstabelecimentoEntity;
@@ -27,8 +28,8 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
         try {
             estabelecimentoEntity = repository.save(estabelecimentoEntity);
         } catch (Exception ex) {
-            log.error("Erro ao salvar Estabelecimento", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao salvar estabelecimento.", ex);
+            throw new SalvarEstabelecimentoException(ex.getMessage());
         }
         return mapper.paraDomain(estabelecimentoEntity);
     }
@@ -38,8 +39,8 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
         try {
             return mapper.paraDomains(repository.findAll());
         } catch (Exception ex) {
-            log.error("Erro ao consultar todos os Estabelecimentos", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao consultar todos os estabelecimentos.", ex);
+            throw new ConsultarTodosEstabelecimentosException(ex.getMessage());
         }
     }
 
@@ -49,8 +50,8 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
         try {
             estabelecimentoEntity = repository.findByCnpj(cnpj);
         } catch (Exception ex) {
-            log.error("Erro ao consultar Estabelecimento", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao consultar estabelecimento.", ex);
+            throw new ConsultarPorCnpjEstabelecimentoException(ex.getMessage());
         }
         return estabelecimentoEntity.map(mapper::paraDomain);
     }
@@ -60,8 +61,8 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
         try {
             repository.deleteById(id);
         } catch (Exception ex) {
-            log.error("Erro ao deletar Estabelecimento", ex);
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao deletar estabelecimento.", ex);
+            throw new DeletarEstabelecimentoException(ex.getMessage());
         }
     }
 
@@ -72,8 +73,8 @@ public class EstabelecimentoDataProvider implements EstabelecimentoGateway {
         try {
             estabelecimentoEntity = repository.findById(id);
         } catch (Exception ex) {
-            log.error("Erro ao buscar estabelecimento por id");
-            throw new DataProviderExecption(ex.getMessage());
+            log.error("Erro ao buscar estabelecimento por id.");
+            throw new ConsultarPorIdEstabelecimentoException(ex.getMessage());
         }
         return estabelecimentoEntity.map(mapper::paraDomain);
     }

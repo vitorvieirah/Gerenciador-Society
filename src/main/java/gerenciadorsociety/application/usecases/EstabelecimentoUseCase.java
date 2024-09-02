@@ -1,6 +1,8 @@
 package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.estabelecimento.EstabelecimentoJaCadastradoException;
+import gerenciadorsociety.application.exceptions.estabelecimento.EstabelecimentoNaoEncontradoException;
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;
 import gerenciadorsociety.domain.Estabelecimento;
 import gerenciadorsociety.domain.usuarios.Dono;
@@ -21,7 +23,7 @@ public class EstabelecimentoUseCase {
         Optional<Estabelecimento> estabelecimentotoExistente = gateway.consultarPorCnpj(novoEstabelecimento.getCnpj());
 
         estabelecimentotoExistente.ifPresent(estabelecimento -> {
-            throw new UseCaseException("Estabelecimenot já cadastrado");
+            throw new EstabelecimentoJaCadastradoException();
         });
 
         Dono dono = donoUseCase.buscarPorCpf(novoEstabelecimento.getDono().getCpf());
@@ -42,14 +44,14 @@ public class EstabelecimentoUseCase {
     public Estabelecimento consultarPorCnpj(String cnpj) {
         Optional<Estabelecimento> estabelecimentoExistente = gateway.consultarPorCnpj(cnpj);
         if (estabelecimentoExistente.isEmpty())
-            throw new UseCaseException("Estabelecimento não encontrado");
+            throw new EstabelecimentoNaoEncontradoException();
         return estabelecimentoExistente.get();
     }
 
     public Estabelecimento buscarPorId(Long id) {
         Optional<Estabelecimento> estabelecimento = gateway.consultarPorId(id);
         if (estabelecimento.isEmpty())
-            throw new UseCaseException("Estabelecimento não econtrado");
+            throw new EstabelecimentoNaoEncontradoException();
         return estabelecimento.get();
     }
 

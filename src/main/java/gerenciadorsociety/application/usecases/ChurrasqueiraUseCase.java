@@ -1,6 +1,8 @@
 package gerenciadorsociety.application.usecases;
 
 import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.churrasqueira.ChurrasqueiraJaCadastradaException;
+import gerenciadorsociety.application.exceptions.churrasqueira.ChurrasqueiraNaoEcontradaException;
 import gerenciadorsociety.application.gateways.ChurrasqueiraGateway;
 import gerenciadorsociety.domain.Churrasqueira;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ public class ChurrasqueiraUseCase {
         Optional<Churrasqueira> churrasqueiraOptional = gateway.buscarPorNumero(novaChurrasqueira.getNumero());
 
         churrasqueiraOptional.ifPresent(churrasqueira -> {
-            throw new UseCaseException("Churrasqueira já cadastrada");
+            throw new ChurrasqueiraJaCadastradaException();
         });
 
         novaChurrasqueira.setEstabelecimento(estabelecimentoUseCase.consultarPorCnpj(novaChurrasqueira.getEstabelecimento().getCnpj()));
@@ -37,7 +39,7 @@ public class ChurrasqueiraUseCase {
     public Churrasqueira buscarPorNumero(Integer numero) {
         Optional<Churrasqueira> churrasqueiraOptional = gateway.buscarPorNumero(numero);
         if (churrasqueiraOptional.isEmpty())
-            throw new UseCaseException("Churrasqueira não econtrada");
+            throw new ChurrasqueiraNaoEcontradaException();
         return churrasqueiraOptional.get();
     }
 
@@ -54,7 +56,7 @@ public class ChurrasqueiraUseCase {
         Optional<Churrasqueira> churrasqueira = gateway.buscarPorId(id);
 
         if (churrasqueira.isEmpty())
-            throw new UseCaseException("Churrasqueira não econtrada");
+            throw new ChurrasqueiraNaoEcontradaException();
 
         return churrasqueira.get();
     }
