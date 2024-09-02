@@ -2,7 +2,6 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;
 import gerenciadorsociety.domain.Estabelecimento;
-import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.estabelecimento.*;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.EstabelecimentoRepository;

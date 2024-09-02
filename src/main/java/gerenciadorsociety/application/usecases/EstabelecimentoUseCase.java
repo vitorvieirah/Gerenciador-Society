@@ -1,6 +1,5 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.exceptions.estabelecimento.EstabelecimentoJaCadastradoException;
 import gerenciadorsociety.application.exceptions.estabelecimento.EstabelecimentoNaoEncontradoException;
 import gerenciadorsociety.application.gateways.EstabelecimentoGateway;

@@ -1,6 +1,5 @@
 package gerenciadorsociety.entrypoint.controllers.middleware;
 
-import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,11 +11,6 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ExceptionHandlerController {
-
-    @ExceptionHandler(DataProviderExecption.class)
-    public ResponseEntity dataBaseExecption(DataProviderExecption ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity entityNotFoundExecption() {

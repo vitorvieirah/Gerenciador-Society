@@ -1,6 +1,5 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.exceptions.churrasqueira.ChurrasqueiraJaCadastradaException;
 import gerenciadorsociety.application.exceptions.churrasqueira.ChurrasqueiraNaoEcontradaException;
 import gerenciadorsociety.application.gateways.ChurrasqueiraGateway;

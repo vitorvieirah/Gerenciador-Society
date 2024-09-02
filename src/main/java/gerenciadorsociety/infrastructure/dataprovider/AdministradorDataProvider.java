@@ -2,7 +2,6 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
-import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.administrador.BuscaAdministradorPorCpfException;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.administrador.BuscaAdministradorPorIdException;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.administrador.DeletarAdministradorException;

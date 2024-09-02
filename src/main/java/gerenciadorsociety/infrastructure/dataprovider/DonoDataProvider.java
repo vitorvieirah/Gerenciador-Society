@@ -1,9 +1,7 @@
 package gerenciadorsociety.infrastructure.dataprovider;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.gateways.DonoGateway;
 import gerenciadorsociety.domain.usuarios.Dono;
-import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.dono.BuscarPorCpfDonoException;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.dono.BuscarPorIdDonoException;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.dono.DeletarDonoException;

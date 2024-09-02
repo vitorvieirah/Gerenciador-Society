@@ -2,7 +2,6 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.ChurrasqueiraGateway;
 import gerenciadorsociety.domain.Churrasqueira;
-import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.churrasqueira.*;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.ChurrasqueiraRepository;

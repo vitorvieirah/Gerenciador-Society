@@ -2,7 +2,7 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
-import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
+import gerenciadorsociety.infrastructure.dataprovider.exceptions.locacao.locacaoCampo.*;
 import gerenciadorsociety.infrastructure.mappers.Mapper;
 import gerenciadorsociety.infrastructure.repositories.LocacaoCampoRepository;
 import gerenciadorsociety.infrastructure.repositories.entities.locacao.LocacaoCampoEntity;
@@ -30,7 +30,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             entity = repository.save(entity);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new SalvarLocacaoCampoException(ex.getMessage());
         }
         return mapper.paraDomain(entity);
     }
@@ -42,7 +42,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             locacaoCampoEntity = repository.findById(id);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new BuscarPorIdLocacaoCampoException(ex.getMessage());
         }
 
         return locacaoCampoEntity.map(mapper::paraDomain);
@@ -55,7 +55,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             locacaoCampoEntity = repository.findLocacaoValidacao(hora, data, numeroCampo);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new BuscarPorHoraLocacaoException(ex.getMessage());
         }
         return locacaoCampoEntity.map(mapper::paraDomain);
     }
@@ -66,7 +66,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             repository.deleteById(id);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new DeletarLocacaoCampoException(ex.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             locacaoList = repository.consultarLocacoesPorAdministrador(idAministrador);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            throw new DataProviderExecption(ex.getMessage());
+            throw new ConsultarTodoasLocacaoesCampoPorAdministradorException(ex.getMessage());
         }
         return mapper.paraDomains(locacaoList);
     }

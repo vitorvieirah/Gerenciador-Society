@@ -1,6 +1,7 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
+import gerenciadorsociety.application.exceptions.locacao.LocacaoIndisponivelException;
+import gerenciadorsociety.application.exceptions.locacao.LocacaoNaoEncontradaException;
 import gerenciadorsociety.application.gateways.LocacaoChurrasqueiraGateway;
 import gerenciadorsociety.domain.locacao.LocacaoChurrasqueira;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class LocacaoChurrasqueiraService {
         Optional<LocacaoChurrasqueira> locacaoExistente = gateway.buscarLocacaoParaValidacao(novosDados.getHoraLocacao(), novosDados.getDataLocacao(), novosDados.getChurrasqueira().getNumero());
 
         locacaoExistente.ifPresent(locacaoChurrasqueira -> {
-            throw new UseCaseException("Locação já cadastrada");
+            throw new LocacaoIndisponivelException("churrasqueira");
         });
 
         novosDados.setChurrasqueira(churrasqueiraUseCase.buscarPorNumero(novosDados.getChurrasqueira().getNumero()));
@@ -49,7 +50,7 @@ public class LocacaoChurrasqueiraService {
         Optional<LocacaoChurrasqueira> locacaoChurrasqueira = gateway.buscarPorId(id);
 
         if (locacaoChurrasqueira.isEmpty())
-            throw new UseCaseException("Locacão churrasqueira não encontrada");
+            throw new LocacaoNaoEncontradaException("churrasqueira");
 
         return locacaoChurrasqueira.get();
     }

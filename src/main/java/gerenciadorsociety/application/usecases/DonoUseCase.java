@@ -1,6 +1,5 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.exceptions.dono.DonoJaCadastradoException;
 import gerenciadorsociety.application.exceptions.dono.DonoNaoEncontradoException;
 import gerenciadorsociety.application.gateways.DonoGateway;

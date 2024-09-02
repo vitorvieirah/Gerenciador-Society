@@ -2,7 +2,6 @@ package gerenciadorsociety.infrastructure.dataprovider;
 
 import gerenciadorsociety.application.gateways.JogadorGateway;
 import gerenciadorsociety.domain.usuarios.Jogador;
-import gerenciadorsociety.infrastructure.dataprovider.exceptions.DataProviderExecption;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.jogador.BuscarPorIdJogadorException;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.jogador.DeletarJogadorException;
 import gerenciadorsociety.infrastructure.dataprovider.exceptions.jogador.SalvarJogadorException;

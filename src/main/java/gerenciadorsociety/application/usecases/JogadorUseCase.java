@@ -1,6 +1,5 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.exceptions.jogador.JogadorJaCadastradoException;
 import gerenciadorsociety.application.exceptions.jogador.JogadorNaoEncontradoException;
 import gerenciadorsociety.application.gateways.JogadorGateway;

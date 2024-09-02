@@ -1,6 +1,5 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
 import gerenciadorsociety.application.exceptions.campo.CampoJaCadastradoException;
 import gerenciadorsociety.application.exceptions.campo.CampoNaoEncontradoException;
 import gerenciadorsociety.application.gateways.CampoGateway;

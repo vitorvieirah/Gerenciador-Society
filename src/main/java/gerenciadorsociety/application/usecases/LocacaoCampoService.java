@@ -1,7 +1,9 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.UseCaseException;
-import gerenciadorsociety.application.exceptions.locaoCampo.LocacaoCampoJaCadastradaException;
+import gerenciadorsociety.application.exceptions.locacao.LocacaoIndisponivelException;
+import gerenciadorsociety.application.exceptions.locacao.LocacaoNaoEncontradaException;
+import gerenciadorsociety.application.exceptions.locacao.locacaoCampo.JogadorExistenteNaListaException;
+import gerenciadorsociety.application.exceptions.locacao.locacaoCampo.JogadorNaoEncontradoNaListaException;
 import gerenciadorsociety.application.gateways.LocacaoCampoGateway;
 import gerenciadorsociety.domain.locacao.LocacaoCampo;
 import gerenciadorsociety.domain.usuarios.Jogador;
@@ -28,7 +30,7 @@ public class LocacaoCampoService {
         Optional<LocacaoCampo> locacaoExistente = gateway.buscarPorHoraLocacao(novaLocacao.getHoraLocacao(), novaLocacao.getDataLocacao(), novaLocacao.getCampo().getNumero());
 
         locacaoExistente.ifPresent(locacaoCampo -> {
-            throw new LocacaoCampoJaCadastradaException();
+            throw new LocacaoIndisponivelException("campo");
         });
 
         novaLocacao.setCampo(campoUseCase.buscarPorNumero(novaLocacao.getCampo().getNumero()));
@@ -57,7 +59,7 @@ public class LocacaoCampoService {
 
         locacao.getListaDeJogadores().forEach(jogador -> {
             if (Objects.equals(jogador.getId(), idJogador))
-                throw new UseCaseException("Jogador já está na lista");
+                throw new JogadorExistenteNaListaException();
         });
 
         Jogador jogador = jogadorUseCase.buscarPorId(idJogador);
@@ -74,7 +76,7 @@ public class LocacaoCampoService {
                 .findFirst();
 
         if (jogadorDaLista.isEmpty())
-            throw new UseCaseException("Jogador não encontrado na lista");
+            throw new JogadorNaoEncontradoNaListaException();
 
         locacao.removeJogador(jogadorUseCase.buscarPorId(idJogador));
         gateway.salvar(locacao);
@@ -84,7 +86,7 @@ public class LocacaoCampoService {
         Optional<LocacaoCampo> locacaoCampo = gateway.buscarPorId(idLocacao);
 
         if (locacaoCampo.isEmpty())
-            throw new UseCaseException("Locação de campo não encontrada");
+            throw new LocacaoNaoEncontradaException("campo");
 
         return locacaoCampo.get();
     }
