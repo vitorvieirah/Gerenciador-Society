@@ -1,6 +1,6 @@
 package gerenciadorsociety.application.usecases;
 
-import gerenciadorsociety.application.exceptions.administrador.AdministradorExistenteException;
+import gerenciadorsociety.application.exceptions.administrador.AdministradorCadastradoException;
 import gerenciadorsociety.application.exceptions.administrador.AdministradorNaoEncontradoExecption;
 import gerenciadorsociety.application.gateways.AdministradorGateway;
 import gerenciadorsociety.domain.usuarios.Administrador;
@@ -18,7 +18,7 @@ public class AdministradorUseCase {
     public Administrador cadastrar(Administrador novoAdministrador) {
         Optional<Administrador> administradorExistente = administradorGateway.consultarPorCpf(novoAdministrador.getCpf());
         administradorExistente.ifPresent(adm -> {
-            throw new AdministradorExistenteException();
+            throw new AdministradorCadastradoException();
         });
         return administradorGateway.salvar(novoAdministrador);
     }

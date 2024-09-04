@@ -73,7 +73,7 @@ public class CampoDataProvider implements CampoGateway {
             campoEntity = repository.findByNumero(numero);
         } catch (Exception ex) {
             log.error("Erro ao buscar campo por numero", ex);
-            throw new BuscarPorNumeroException(ex.getMessage());
+            throw new BuscarPorNumeroCampoException(ex.getMessage());
         }
 
         return campoEntity.map(mapper::paraDomain);

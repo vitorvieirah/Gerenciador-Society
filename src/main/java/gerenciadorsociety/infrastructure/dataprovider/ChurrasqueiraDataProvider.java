@@ -50,7 +50,7 @@ public class ChurrasqueiraDataProvider implements ChurrasqueiraGateway {
             churrasqueiraEntity = repository.findByNumero(numero);
         } catch (Exception ex) {
             log.error("Erro ao buscar por churrasqueira por número.", ex);
-            throw new BuscarPorNumeroException(ex.getMessage());
+            throw new BuscarPorNumeroChurrasqueiraException(ex.getMessage());
         }
         return churrasqueiraEntity.map(mapper::paraDomain);
     }
