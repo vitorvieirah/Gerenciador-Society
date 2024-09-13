@@ -16,39 +16,37 @@ public class DonoHandlerController {
 
     @ExceptionHandler(DonoJaCadastradoException.class)
     private ResponseEntity<MensagemErroExceptions> jaCadastradoHandler(DonoJaCadastradoException exception) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(DonoNaoEncontradoException.class)
     private ResponseEntity<MensagemErroExceptions> donoNaoEncotradoHandler(DonoNaoEncontradoException exception) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorCpfDonoException.class)
     private ResponseEntity<MensagemErroExceptions> buscarPorCpfDonoHandler(BuscarPorCpfDonoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorIdDonoException.class)
     private ResponseEntity<MensagemErroExceptions> buscarPorIdHandler(BuscarPorIdDonoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(DeletarDonoException.class)
     private ResponseEntity<MensagemErroExceptions> deletarHandler(DeletarDonoException exception) {
-        MensagemErroExceptions mensagen = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagen);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(SalvarDonoException.class)
     private ResponseEntity<MensagemErroExceptions> salvarHandler(SalvarDonoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 }

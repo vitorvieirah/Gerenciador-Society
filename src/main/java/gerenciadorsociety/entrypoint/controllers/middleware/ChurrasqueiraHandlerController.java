@@ -15,46 +15,44 @@ public class ChurrasqueiraHandlerController {
 
     @ExceptionHandler(ChurrasqueiraJaCadastradaException.class)
     private ResponseEntity<MensagemErroExceptions> jaCadastradoHandler(ChurrasqueiraJaCadastradaException exception) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(ChurrasqueiraNaoEcontradaException.class)
     private ResponseEntity<MensagemErroExceptions> naoEncontradoHandler(ChurrasqueiraNaoEcontradaException exception) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorEstabelecimentoChurrasqueiraException.class)
-    private ResponseEntity<MensagemErroExceptions> buscarPorEstabelecimentoHandler(BuscarPorEstabelecimentoChurrasqueiraException exception){
+    private ResponseEntity<MensagemErroExceptions> buscarPorEstabelecimentoHandler(BuscarPorEstabelecimentoChurrasqueiraException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorIdChurrasqueiraException.class)
     private ResponseEntity<MensagemErroExceptions> buscarPorIdHandler(BuscarPorIdChurrasqueiraException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorNumeroChurrasqueiraException.class)
     private ResponseEntity<MensagemErroExceptions> buscarPorNumeroHandler(BuscarPorNumeroChurrasqueiraException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(DeletarChurrasqueiraException.class)
     private ResponseEntity<MensagemErroExceptions> deletarHandler(DeletarChurrasqueiraException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(SalvarChurrasqueiraException.class)
     private ResponseEntity<MensagemErroExceptions> salvarHandler(SalvarChurrasqueiraException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
 }

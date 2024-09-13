@@ -18,39 +18,37 @@ public class AdministradorHandlerController {
 
     @ExceptionHandler(AdministradorCadastradoException.class)
     private ResponseEntity<MensagemErroExceptions> jaCadastradoHandler(AdministradorCadastradoException exception) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(AdministradorNaoEncontradoExecption.class)
     private ResponseEntity<MensagemErroExceptions> naoEncontradoHandler(AdministradorNaoEncontradoExecption execption) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, execption.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.NOT_FOUND, execption.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscaAdministradorPorCpfException.class)
     private ResponseEntity<MensagemErroExceptions> erroBuscaPorCpfHandler(BuscaAdministradorPorCpfException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscaAdministradorPorIdException.class)
     private ResponseEntity<MensagemErroExceptions> erroBuscaPorIdHandler(BuscaAdministradorPorIdException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(DeletarAdministradorException.class)
     private ResponseEntity<MensagemErroExceptions> erroDeletarHandler(DeletarAdministradorException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(SalvarAdministradorException.class)
     private ResponseEntity<MensagemErroExceptions> erroSalvarHandler(SalvarAdministradorException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 }

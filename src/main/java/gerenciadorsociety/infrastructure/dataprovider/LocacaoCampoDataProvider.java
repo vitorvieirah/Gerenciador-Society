@@ -77,7 +77,7 @@ public class LocacaoCampoDataProvider implements LocacaoCampoGateway {
             locacaoList = repository.consultarLocacoesPorAdministrador(idAministrador);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            throw new ConsultarTodoasLocacaoesCampoPorAdministradorException(ex.getMessage());
+            throw new ConsultarTodasLocacaoesCampoPorAdministradorException(ex.getMessage());
         }
         return mapper.paraDomains(locacaoList);
     }

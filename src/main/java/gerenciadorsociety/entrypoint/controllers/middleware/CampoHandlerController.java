@@ -17,34 +17,32 @@ public class CampoHandlerController {
 
     @ExceptionHandler(CampoJaCadastradoException.class)
     private ResponseEntity<MensagemErroExceptions> jaCadastradoHandler(CampoJaCadastradoException exception) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(CampoNaoEncontradoException.class)
     private ResponseEntity<MensagemErroExceptions> naoEncontradoHandler(CampoNaoEncontradoException exception) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorEstabelecimentoCampoException.class)
     private ResponseEntity<MensagemErroExceptions> buscaPorEstabelecimentoHandler(BuscarPorEstabelecimentoCampoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorIdCampoException.class)
     private ResponseEntity<MensagemErroExceptions> buscaPorIdHandler(BuscarPorIdCampoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler
     private ResponseEntity<MensagemErroExceptions> buscaPorNumeroHandler(BuscarPorNumeroCampoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
 }

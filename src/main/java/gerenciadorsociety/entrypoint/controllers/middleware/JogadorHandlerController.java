@@ -17,33 +17,31 @@ public class JogadorHandlerController {
 
     @ExceptionHandler(JogadorJaCadastradoException.class)
     private ResponseEntity<MensagemErroExceptions> jaCadastradoHandler(JogadorJaCadastradoException exception) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(JogadorNaoEncontradoException.class)
     private ResponseEntity<MensagemErroExceptions> naoEncontrado(JogadorNaoEncontradoException exception) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(BuscarPorIdJogadorException.class)
     private ResponseEntity<MensagemErroExceptions> buscarPorId(BuscarPorIdJogadorException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(DeletarJogadorException.class)
     private ResponseEntity<MensagemErroExceptions> deletarHandler(DeletarJogadorException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(SalvarJogadorException.class)
     private ResponseEntity<MensagemErroExceptions> salvarJogadorHandler(SalvarJogadorException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 }

@@ -15,45 +15,43 @@ public class EstabelecimentoHandlerController {
 
     @ExceptionHandler(EstabelecimentoJaCadastradoException.class)
     private ResponseEntity<MensagemErroExceptions> jaCadastradoHandler(EstabelecimentoJaCadastradoException exception) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(EstabelecimentoNaoEncontradoException.class)
     private ResponseEntity<MensagemErroExceptions> naoEncontradoHandler(EstabelecimentoNaoEncontradoException exception) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        MensagemErroExceptions mensagem = new MensagemErroExceptions(status, exception.getMessage());
-        return ResponseEntity.status(status).body(mensagem);
+        MensagemErroExceptions mensagem = new MensagemErroExceptions(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(ConsultarPorCnpjEstabelecimentoException.class)
     private ResponseEntity<MensagemErroExceptions> consultarPorCnjHandler(ConsultarPorCnpjEstabelecimentoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(ConsultarPorIdEstabelecimentoException.class)
     private ResponseEntity<MensagemErroExceptions> consultarPorIdHandler(ConsultarPorIdEstabelecimentoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(ConsultarTodosEstabelecimentosException.class)
     private ResponseEntity<MensagemErroExceptions> consultarTodosHandler(ConsultarTodosEstabelecimentosException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(DeletarEstabelecimentoException.class)
     private ResponseEntity<MensagemErroExceptions> deletarHandler(DeletarEstabelecimentoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 
     @ExceptionHandler(SalvarEstabelecimentoException.class)
     private ResponseEntity<MensagemErroExceptions> salvarHandler(SalvarEstabelecimentoException exception) {
         MensagemErroExceptions mensagem = new MensagemErroExceptions(STATUS_500, exception.getMessage());
-        return ResponseEntity.status(STATUS_500).body(mensagem);
+        return ResponseEntity.status(mensagem.status()).body(mensagem);
     }
 }
